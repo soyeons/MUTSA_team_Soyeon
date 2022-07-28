@@ -1,0 +1,40 @@
+/* .form-group input[type="file"]{
+  position:absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border:0;
+}
+
+.form-group label{
+  display: inline-block;
+  color:#fff;
+  vertical-align: middle;
+  background-color: #999999;
+  cursor: pointer;
+  height: 30px;
+
+} */
+
+.fileUpload {
+    width: 150px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid rgb(77,77,77);
+    border-radius: 10px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+@font-face {
+    font-family: 'GothicA1-Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/GothicA1-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+  }
+  
