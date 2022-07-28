@@ -1,0 +1,176 @@
+.detailBody {
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 1rem;
+  margin-top: 1rem;
+  margin-right: 10rem; /* 임의값*/
+  margin-bottom: 5rem;
+}
+
+.detailBackContainer {
+  background-color: #ffc600;
+  width: 45rem;
+  height: 41rem;
+  box-shadow: 0.1rem 0.1rem 0.7rem rgb(161, 161, 161);
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+.detailContainer {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 45rem;
+  box-shadow: 0.1rem 0.1rem 0.7rem rgb(161, 161, 161);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  background-color: white;
+  gap: 1rem;
+}
+
+.detailHeader,
+.detailMain,
+.detailReview {
+  display: flex;
+  padding: 0.5rem;
+  padding-bottom: 0;
+  justify-content: center;
+  text-align: center;
+}
+
+/* header */
+.detailHeader {
+  height: 2rem;
+  align-self: flex-end;
+  justify-content: center;
+  padding-top: 0;
+}
+
+.detailHeader .detailZzimBtn {
+  display: flex;
+  padding: 0.5rem;
+  font-size: 1rem;
+  gap: 0.5rem;
+  border: 0.1rem solid #5d0ec0;
+  color: #5d0ec0;
+  border-radius: 1rem;
+  font-weight: bold;
+  justify-content: center;
+  align-content: center;
+  background-color: white;
+  cursor: pointer;
+}
+
+.detailHeader .detailZzimBtn svg,
+.detailHeader .detailZzimBtn p {
+  align-self: center;
+}
+
+.detailHeader .detailZzimBtn p {
+  margin: 0;
+  line-height: 100%;
+}
+
+.detailHeader .detailZzimBtn:hover {
+  background-color: #5d0ec0;
+  color: white;
+}
+
+/* main */
+.detailMain {
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2.5rem;
+}
+
+.detailMain #detailPoster {
+  object-fit: contain;
+  max-width: 40%;
+}
+
+.detailMain .detailContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.detailMain .detailContent .detailDesc {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+}
+
+.detailMain .detailContent .detailDesc span {
+  font-weight: bold;
+}
+
+.detailMain .detailContent .detailDesc .detailTitle {
+  font-weight: bold;
+}
+
+.detailMain .detailContent .detailMoreInfo {
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.detailMain .detailContent .detailMoreInfo p {
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+
+.detailMain .detailContent a,
+.detailMain .detailContent a:visited,
+.detailMain .detailContent a:link {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.detailMain .detailTagContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-content: center;
+  justify-content: center;
+}
+
+.detailMain .detailTagContainer p {
+  background-color: #d9d9d9;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  border-radius: 0.5rem;
+}
+
+/* review */
+.detailReview a {
+  background-color: #5d0ec0;
+  width: 60%;
+  text-decoration: none;
+  color: white;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  box-shadow: 0 1rem 1rem -1rem #505050;
+}
+
+.detailReview a p:first-child {
+  margin-bottom: 0.3rem;
+  font-size: 1rem;
+  line-height: 1.6rem;
+}
+
+.detailReview a p:nth-child(2) {
+  margin-top: 0;
+  font-size: 0.8rem;
+}
