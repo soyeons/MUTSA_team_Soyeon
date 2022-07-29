@@ -22,9 +22,6 @@ import { RightWrite } from './pages/right';
 function App() {
   return (
     <>
-      {/* <Detail></Detail>
-      <Calendar></Calendar>
-      <FestList></FestList> */}
       <Routes>
         <Route path='/' element={<Login></Login>}></Route>
         <Route path='/redirect' element={<Redirect></Redirect>}></Route>
@@ -38,6 +35,9 @@ function App() {
         <Route path='/ticket/post/:postID' element={<TKShowPost />} />
         <Route path='/inf/post/:postID' element={<InfShowPost />} />
         <Route path='/writepost' component={RightWrite} />
+        <Route path='/calendar' element={<Calendar />} />
+        <Route path='/festlist' element={<FestList />} />
+        <Route path='/detail' element={<Detail />} />
       </Routes>
     </>
   );

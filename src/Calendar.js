@@ -82,7 +82,6 @@ const Calendar = () => {
       let end = new Date(Number(initialPostList[j].endDate.substring(0, 4)), Number(initialPostList[j].endDate.substring(4, 6)) - 1, Number(initialPostList[j].endDate.substring(6, 8)));
       if (start.getFullYear() === selectedYear && start.getMonth() === selectedMonth && start.getDate() === i + 1) {
         let sub = end.getDate() - start.getDate();
-        console.log(sub);
         const styles = { width: `${(sub + 1) * 6.8}rem` };
         const forP = { color: 'white', margin: 0 };
         festArr.push(
@@ -119,47 +118,50 @@ const Calendar = () => {
     fontSize: '1.5rem'
   };
   return (
-    <div className='calendarBody'>
-      <div className='calendarWeatherInfo'>
-        <p>
-          <FontAwesomeIcon style={iconStyle} icon={faSun} />
-          <p>&nbsp;맑음</p>
-        </p>
-        <p>
-          <FontAwesomeIcon style={iconStyle} icon={faCloud} />
-          <p>&nbsp;흐림</p>
-        </p>
-        <p>
-          <FontAwesomeIcon style={iconStyle} icon={faUmbrella} />
-          <p>&nbsp;비옴</p>
-        </p>
-      </div>
-      <div className='calendarBackContainer'>
-        <div className='calendarCalendar'>
-          <div className='calendarHeader'>
-            <div class='calendarYearMonth'>
-              {monthName[selectedMonth]} {selectedYear}
+    <div className='calendar'>
+      <nav>nav바 구간</nav>
+      <div className='calendarBody'>
+        <div className='calendarWeatherInfo'>
+          <p>
+            <FontAwesomeIcon style={iconStyle} icon={faSun} />
+            <p>&nbsp;맑음</p>
+          </p>
+          <p>
+            <FontAwesomeIcon style={iconStyle} icon={faCloud} />
+            <p>&nbsp;흐림</p>
+          </p>
+          <p>
+            <FontAwesomeIcon style={iconStyle} icon={faUmbrella} />
+            <p>&nbsp;비옴</p>
+          </p>
+        </div>
+        <div className='calendarBackContainer'>
+          <div className='calendarCalendar'>
+            <div className='calendarHeader'>
+              <div class='calendarYearMonth'>
+                {monthName[selectedMonth]} {selectedYear}
+              </div>
+              <div class='calendarNav'>
+                <button class='calendarPrevBtn' onClick={() => goPrev()}>
+                  <span>&lt;</span>
+                </button>
+                <button class='calendarNextBtn' onClick={() => goNext()}>
+                  <span>&gt;</span>
+                </button>
+              </div>
             </div>
-            <div class='calendarNav'>
-              <button class='calendarPrevBtn' onClick={() => goPrev()}>
-                &lt;
-              </button>
-              <button class='calendarNextBtn' onClick={() => goNext()}>
-                &gt;
-              </button>
+            <div className='calendarMain'>
+              <div class='calendarWeek'>
+                <div class='calendarWeekday'>MON</div>
+                <div class='calendarWeekday'>TUE</div>
+                <div class='calendarWeekday'>WED</div>
+                <div class='calendarWeekday'>THU</div>
+                <div class='calendarWeekday'>FRI</div>
+                <div class='calendarWeekday'>SAT</div>
+                <div class='calendarWeekday'>SUN</div>
+              </div>
+              <div className='calendarDates'>{getDate()}</div>
             </div>
-          </div>
-          <div className='calendarMain'>
-            <div class='calendarWeek'>
-              <div class='calendarWeekday'>MON</div>
-              <div class='calendarWeekday'>TUE</div>
-              <div class='calendarWeekday'>WED</div>
-              <div class='calendarWeekday'>THU</div>
-              <div class='calendarWeekday'>FRI</div>
-              <div class='calendarWeekday'>SAT</div>
-              <div class='calendarWeekday'>SUN</div>
-            </div>
-            <div className='calendarDates'>{getDate()}</div>
           </div>
         </div>
       </div>

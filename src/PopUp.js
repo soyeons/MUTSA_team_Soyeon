@@ -111,7 +111,6 @@ const initialPostList = [
 const PopUp = (props) => {
   const idx = props.idx;
   const y = props.y;
-  console.log(y);
   const [postList] = useState(initialPostList);
   const dayArr = ['일', '월', '화', '수', '목', '금', '토'];
 
@@ -141,7 +140,7 @@ const PopUp = (props) => {
 
   return (
     <div>
-      <div className={cx({ popup: true }, { popupHigh: y < 540 }, { popupLow: y >= 540 })}>
+      <div className={cx({ popup: true }, { popupHigh: y < 600 }, { popupLow: y >= 600 })}>
         <img id='popupPoster' src={postList[idx].imgUrl} alt='' />
         <div className='popupDesc'>
           <div className='popupTitleContainer'>
