@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as rHeart } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as sHeart, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import Modal from './Modal';
 import './Detail.css';
 
 const perform = {
@@ -40,30 +41,30 @@ const Detail = () => {
     return tagArr;
   };
 
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <div className='detail'>
-      <nav>
-        {/* <p>logo</p>
-        <form>
-          <p>
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-            <input type='text'></input>
-          </p>
-        </form>
-        <p>홈</p>
-        <p>페스티벌 캘린더</p>
-        <p>페스티벌 정보</p>
-        <p>추천 페스티벌 테마</p>
-        <p>커뮤니티</p> */}
-      </nav>
+      <nav></nav>
       <div className='detailBody'>
         <div className='detailBackContainer'>
           <div className='detailContainer'>
             <div className='detailHeader'>
-              <button type='button' className='detailZzimBtn' onMouseOver={() => setIsHovering(1)} onMouseOut={() => setIsHovering(0)}>
+              <button onClick={openModal} type='button' className='detailZzimBtn' onMouseOver={() => setIsHovering(1)} onMouseOut={() => setIsHovering(0)}>
                 <FontAwesomeIcon icon={isHovering ? sHeart : rHeart} />
                 <p>좋아요</p>
               </button>
+              <Modal open={modalOpen} close={closeModal} header='찜한 페스티벌에 추가되었습니다.'>
+                찜한 페스티벌의 경우 카카오톡으로 티켓팅 알림을 받게 됩니다. <br />
+                ‘마이페이지 > 찜한 페스티벌 목록’ 에서 관리할 수 있습니다.
+              </Modal>
             </div>
             <div className='detailMain'>
               <img id='detailPoster' src={perform.imgUrl} alt={perform.title} />
