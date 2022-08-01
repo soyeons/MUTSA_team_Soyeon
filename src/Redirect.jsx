@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { KAKAO_CLIENT_ID, REDIRECT_URL } from './KakaoLoginData';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import CSRFToken from './csrftoken';
 
 const Redirect = () => {
     const PARAMS = new URL(document.location).searchParams;
@@ -10,12 +11,29 @@ const Redirect = () => {
 
     console.log(PARAMS.get('code'));
 
+    /*
+    const sendAccessCode = () => {
+        axios({
+            url : 'http://172.20.10.4:8000/accounts/kakao/callback/',
+            method : "POST",
+            data : {'code' : KAKAO_CODE},
+            headers : {"X-CSRFToken" : CSRFToken},
+            xsrfHeaderName: "X-CSRFToken",
+            }
+        ).then(response => {console.log(response.data);})}
+    */
+
+    
     const sendAccessCode = () => { /*인가코드*/
-        axios.post(`http://127.0.0.1:8000/api/kakaocode`, {
+        axios.post(`http://172.20.10.4:8000/accounts/kakao/callback/`, 
+        {
             code : KAKAO_CODE,}).then(response => {
               console.log(response.data);
-        })
+              console.log("보내기 성공 :)")
+        },  
+        {xsrfCookieName: 'csrftoken', xrfHeaderName: 'X-CSRFToken'})
     }
+    
     
 
     const getKaKaoToken = () => {
@@ -36,6 +54,7 @@ const Redirect = () => {
 
     useEffect(() => {
         if(!PARAMS) return;
+        console.log("왜 날...")
         sendAccessCode();
         //getKaKaoToken();
     },[]);
