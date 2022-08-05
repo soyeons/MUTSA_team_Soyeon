@@ -20,27 +20,27 @@ import InfShowPost from './pages/InfShowPost';
 import { RightWrite } from './pages/right';
 
 function App() {
-  return (
-    <>
-      <Routes>
-        <Route path='/' element={<Login></Login>}></Route>
-        <Route path='/redirect' element={<Redirect></Redirect>}></Route>
-        <Route path='/review' element={<CMreview />} />
-        <Route path='/friends' element={<CMfriends />} />
-        <Route path='/ticket' element={<CMticket />} />
-        <Route path='/inf' element={<CMinf />} />
-        <Route path='/writepost' element={<WritePost />} />
-        <Route path='/review/post/:postID' element={<RVShowPost />} />
-        <Route path='/friends/post/:postID' element={<FRShowPost />} />
-        <Route path='/ticket/post/:postID' element={<TKShowPost />} />
-        <Route path='/inf/post/:postID' element={<InfShowPost />} />
-        <Route path='/writepost' component={RightWrite} />
-        <Route path='/calendar' element={<Calendar />} />
-        <Route path='/festlist' element={<FestList />} />
-        <Route path='/detail' element={<Detail />} />
-      </Routes>
-    </>
-  );
+	return (
+		<>
+			<Routes>
+				<Route path='/' element={<Login></Login>}></Route>
+				<Route path='/redirect' element={<Redirect></Redirect>}></Route>
+				<Route path='/review' element={<CMreview />} />
+				<Route path='/friends' element={<CMfriends />} />
+				<Route path='/ticket' element={<CMticket />} />
+				<Route path='/inf' element={<CMinf />} />
+				<Route path='/writepost' element={<WritePost />} />
+				<Route path='/review/post/:postID' element={<RVShowPost />} />
+				<Route path='/friends/post/:postID' element={<FRShowPost />} />
+				<Route path='/ticket/post/:postID' element={<TKShowPost />} />
+				<Route path='/inf/post/:postID' element={<InfShowPost />} />
+				<Route path='/writepost' component={RightWrite} />
+				<Route path='/calendar' element={<Calendar />} />
+				<Route path='/festlist' element={<FestList />} />
+				<Route path='/calendar/detail/:id' element={<Detail />} />
+			</Routes>
+		</>
+	);
 }
 
 export default App;
