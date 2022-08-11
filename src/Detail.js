@@ -6,8 +6,12 @@ import Modal from './Modal';
 import './Detail.css';
 import festivallist from './list.json';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const initialPostList = festivallist['festivallist'];
+initialPostList.sort((a, b) => {
+	return b.hits - a.hits;
+});
 
 const tags = ['사운드가 빵빵해요', '스트레스를 싹 날려버려요', '인생샷을 건질 수 있어요', '록'];
 
@@ -51,6 +55,27 @@ const Detail = () => {
 		setModalOpen(false);
 	};
 
+	const addLike = () => {
+		axios({
+			method: 'post',
+			url: '/user/:user_id/like',
+			data: {
+				user_id: 12,
+				festival_id: 145
+			}
+		});
+	};
+
+	const addDelete = () => {
+		axios({
+			method: 'delete',
+			url: '/user/:user_id/like/:like_id',
+			data: {
+				like_id: 132
+			}
+		});
+	};
+
 	return (
 		<div className='detail'>
 			<nav></nav>
@@ -58,7 +83,7 @@ const Detail = () => {
 				<div className='detailBackContainer'>
 					<div className='detailContainer'>
 						<div className='detailHeader'>
-							<button onClick={openModal} type='button' className='detailZzimBtn' onMouseOver={() => setIsHovering(1)} onMouseOut={() => setIsHovering(0)}>
+							<button onClick={(openModal, addLike)} type='button' className='detailZzimBtn' onMouseOver={() => setIsHovering(1)} onMouseOut={() => setIsHovering(0)}>
 								<FontAwesomeIcon icon={isHovering ? sHeart : rHeart} />
 								<p>좋아요</p>
 							</button>
@@ -68,7 +93,7 @@ const Detail = () => {
 							</Modal>
 						</div>
 						<div className='detailMain'>
-							<img id='detailPoster' src={perform.Poster} alt={perform.title} />
+							<img id='detailPoster' src={'/' + perform.Poster} alt={perform.title} />
 							<div className='detailContent'>
 								<div className='detailDesc'>
 									<div className='detailTitle'>{perform.title}</div>

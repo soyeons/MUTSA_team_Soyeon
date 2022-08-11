@@ -21,14 +21,14 @@ const Calendar = () => {
 
 	const [y, setY] = useState();
 
+	const update = (e) => {
+		setY(e.screenY);
+	};
+
 	const navigate = useNavigate();
 	const goDetail = (idx) => {
 		console.log('this is', idx);
-		navigate(`${window.location.pathname + '/detail/' + idx}`);
-	};
-
-	const update = (e) => {
-		setY(e.screenY);
+		navigate(`${'/detail/' + idx}`);
 	};
 
 	useEffect(() => {
@@ -118,7 +118,7 @@ const Calendar = () => {
 					<div className='calendarCalendar'>
 						<div className='calendarHeader'>
 							<div class='calendarYearMonth'>
-								{monthName[selectedMonth]} {selectedYear}
+								{monthName[selectedMonth]} &nbsp;&nbsp;{selectedYear}
 							</div>
 							<div class='calendarNav'>
 								<button class='calendarPrevBtn' onClick={() => goPrev()}>

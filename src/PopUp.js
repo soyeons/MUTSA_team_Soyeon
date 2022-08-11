@@ -6,6 +6,9 @@ import festivallist from './list.json';
 const cx = classNames.bind(style);
 
 const initialPostList = festivallist['festivallist'];
+initialPostList.sort((a, b) => {
+	return b.hits - a.hits;
+});
 
 const PopUp = (props) => {
 	const idx = props.idx;
@@ -36,7 +39,7 @@ const PopUp = (props) => {
 
 	return (
 		<div>
-			<div className={cx({ popup: true }, { popupHigh: y < 600 }, { popupLow: y >= 600 })}>
+			<div className={cx({ popup: true }, { popupHigh: y < 710 }, { popupLow: y >= 710 })}>
 				<img id='popupPoster' src={initialPostList[idx].Poster} alt='' />
 				<div className='popupDesc'>
 					<div className='popupTitleContainer'>

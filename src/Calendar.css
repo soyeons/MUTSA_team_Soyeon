@@ -49,8 +49,8 @@
 
 .calendarBackContainer {
 	background-color: #ffc600;
-	width: 50rem;
-	height: 41rem;
+	width: 54rem;
+	height: 43.5rem;
 	box-shadow: 0.1rem 0.1rem 0.7rem rgb(161, 161, 161);
 	border-radius: 0.5rem;
 	position: relative;
@@ -131,12 +131,14 @@
 	width: 100%;
 	flex-flow: row wrap;
 	height: 30rem;
+	overflow-y: scroll;
 }
 
 .calendarMain .calendarDates .calendarDate {
 	width: calc(100% / 7);
 	text-align: left;
 	font-size: 1.1rem;
+	min-height: 6rem;
 }
 
 .calendarMain .calendarDates .calendarDate span {
@@ -164,4 +166,6 @@
 	margin-left: 0.25rem;
 	margin-right: 0.25rem;
 	text-align: center;
+	font-size: 0.8rem;
+	text-decoration: none;
 }

@@ -1,11 +1,24 @@
 import React, { useState } from 'react';
 import './FestList.css';
 import festivallist from './list.json';
+import { useNavigate } from 'react-router-dom';
 
 const initialPostList = festivallist['festivallist'];
 
+initialPostList.sort((a, b) => {
+	return b.hits - a.hits;
+});
+
 const FestList = () => {
 	const [Content, setContent] = useState();
+
+	const navigate = useNavigate();
+	const goDetail = (idx) => {
+		console.log('this is', idx);
+		navigate(`${'/detail/' + idx}`);
+	};
+
+	const [isClick, setIsClick] = useState(-1);
 
 	const onChangeHanlder = (e) => {
 		setContent(e.currentTarget.value);
@@ -14,21 +27,20 @@ const FestList = () => {
 			initialPostList.sort((a, b) => {
 				return a.id - b.id;
 			});
-			// } else if (state === 'popular') {
-			// 	initialPostList.sort((a, b) => {
-			// 		return b. - a.popular;
-			// 	});
 		} else if (state === 'fast') {
 			initialPostList.sort((a, b) => {
 				let aStartdate = new Date(Number(a.time_start.substring(0, 4)), Number(a.time_start.substring(5, 7)) - 1, Number(a.time_start.substring(8, 10)));
 				let bStartdate = new Date(Number(b.time_start.substring(0, 4)), Number(b.time_start.substring(5, 7)) - 1, Number(b.time_start.substring(8, 10)));
 				return aStartdate - bStartdate;
 			});
+		} else if (state === 'popular') {
+			initialPostList.sort((a, b) => {
+				return b.hits - a.hits;
+			});
 		}
 	};
 	const Options = [
 		{ key: 'register', value: '등록순' },
-		{ key: 'popular', value: '인기순' },
 		{ key: 'fast', value: '빠른 일정순' }
 	];
 
@@ -56,11 +68,12 @@ const FestList = () => {
 		for (let i = 0; i < perform.length; i++) {
 			festArr.push(
 				<div className='listBack'>
-					<div className='listContent'>
+					<div className='listContent' onClick={() => setIsClick(i)}>
 						<img src={perform[i].Poster} alt='poster' />
 						<div className='listDesc'>
 							<div className='listTitle'>{perform[i].title}</div>
 							<div className='listCal'>{dateList[i]}</div>
+							{isClick === i ? goDetail(i) : ''}
 						</div>
 					</div>
 				</div>
@@ -75,7 +88,9 @@ const FestList = () => {
 			<div className='listBody'>
 				<div className='listHeader'>
 					<select id='listSelect' onChange={onChangeHanlder} value={Content}>
-						<option>리스트 필터</option>
+						<option key='popular' value='popular'>
+							인기순
+						</option>
 						{Options.map((item, index) => (
 							<option key={item.key} value={item.key}>
 								{item.value}

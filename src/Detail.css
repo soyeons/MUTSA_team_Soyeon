@@ -26,13 +26,13 @@
 	flex-direction: column;
 	align-items: end;
 	gap: 1rem;
-	margin-top: 2rem;
+	margin-top: 1.5rem;
 }
 
 .detailBackContainer {
 	background-color: #ffc600;
-	width: 50rem;
-	height: 41rem;
+	width: 54rem;
+	height: 43.5rem;
 	box-shadow: 0.1rem 0.1rem 0.7rem rgb(161, 161, 161);
 	border-radius: 0.5rem;
 	position: relative;

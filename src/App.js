@@ -37,7 +37,7 @@ function App() {
 				<Route path='/writepost' component={RightWrite} />
 				<Route path='/calendar' element={<Calendar />} />
 				<Route path='/festlist' element={<FestList />} />
-				<Route path='/calendar/detail/:id' element={<Detail />} />
+				<Route path='/detail/:id' element={<Detail />} />
 			</Routes>
 		</>
 	);
