@@ -4,41 +4,70 @@ import classNames from 'classnames/bind';
 import PopUp from './PopUp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faCloud, faUmbrella } from '@fortawesome/free-solid-svg-icons';
+import getNotice from './GetFestivals';
+import axios from 'axios'
+
+
 
 const cx = classNames.bind(style);
 
-const initialPostList = [
-  {
-    festival_id: 1,
-    startDate: '20220702',
-    endDate: '20220703',
-    title: '페스티벌1'
-  },
-  {
-    festival_id: 2,
-    startDate: '20220709',
-    endDate: '20220709',
-    title: '페스티벌2'
-  },
-  {
-    festival_id: 3,
-    startDate: '20220715',
-    endDate: '20220717',
-    title: '페스티벌3'
-  },
-  {
-    festival_id: 4,
-    startDate: '20220723',
-    endDate: '20220723',
-    title: '페스티벌4'
-  },
-  {
-    festival_id: 5,
-    startDate: '20220730',
-    endDate: '20220731',
-    title: '페스티벌5'
-  }
-];
+let initialPostList = []; //const >> let 으로 바꾸기 const는 내용
+
+axios.get('http://localhost:8000/festivalapp/festivals/')
+  .then(function (response) {
+    // handle success
+    console.log(response);
+    for (let i = 0; i < response.data.length; i++){
+      initialPostList.push({
+        id:   response.data[i]['id'],
+        startDate: response.data[i]['time_start'],
+        endDate: response.data[i]['time_end'],
+        link: response.data[i]['ticket_link'],
+        imgUrl: response.data[i]['Poster'],
+        title: response.data[i]['title'],
+        popular: response.data[i]['hits']
+      });
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+  .then(function () {
+  });
+// const initialPostList = [
+//   {
+//     festival_id: 1,
+//     startDate: '20220702',
+//     endDate: '20220703',
+//     title: '페스티벌1'
+//   },
+//   {
+//     festival_id: 2,
+//     startDate: '20220709',
+//     endDate: '20220709',
+//     title: '페스티벌2'
+//   },
+//   {
+//     festival_id: 3,
+//     startDate: '20220715',
+//     endDate: '20220717',
+//     title: '페스티벌3'
+//   },
+//   {
+//     festival_id: 4,
+//     startDate: '20220723',
+//     endDate: '20220723',
+//     title: '페스티벌4'
+//   },
+//   {
+//     festival_id: 5,
+//     startDate: '20220730',
+//     endDate: '20220731',
+//     title: '페스티벌5'
+//   }
+// ];
+
+
 
 const Calendar = () => {
   const [date, setDate] = useState(new Date());
@@ -48,7 +77,7 @@ const Calendar = () => {
   const [isHover, setIsHover] = useState(-1);
 
   const [y, setY] = useState();
-
+  
   const update = (e) => {
     setY(e.screenY);
   };
@@ -78,11 +107,10 @@ const Calendar = () => {
   const isFest = (i) => {
     let festArr = [];
     for (let j = 0; j < initialPostList.length; j++) {
-      let start = new Date(Number(initialPostList[j].startDate.substring(0, 4)), Number(initialPostList[j].startDate.substring(4, 6)) - 1, Number(initialPostList[j].startDate.substring(6, 8)));
-      let end = new Date(Number(initialPostList[j].endDate.substring(0, 4)), Number(initialPostList[j].endDate.substring(4, 6)) - 1, Number(initialPostList[j].endDate.substring(6, 8)));
+      let start = new Date(Number(initialPostList[j].startDate.substring(0, 4)), Number(initialPostList[j].startDate.substring(5, 7)) - 1, Number(initialPostList[j].startDate.substring(8, 10)));
+      let end = new Date(Number(initialPostList[j].endDate.substring(0, 4)), Number(initialPostList[j].endDate.substring(5, 7)) - 1, Number(initialPostList[j].endDate.substring(8, 10)));
       if (start.getFullYear() === selectedYear && start.getMonth() === selectedMonth && start.getDate() === i + 1) {
         let sub = end.getDate() - start.getDate();
-        console.log(sub);
         const styles = { width: `${(sub + 1) * 6.8}rem` };
         const forP = { color: 'white', margin: 0 };
         festArr.push(
@@ -119,47 +147,50 @@ const Calendar = () => {
     fontSize: '1.5rem'
   };
   return (
-    <div className='calendarBody'>
-      <div className='calendarWeatherInfo'>
-        <p>
-          <FontAwesomeIcon style={iconStyle} icon={faSun} />
-          <p>&nbsp;맑음</p>
-        </p>
-        <p>
-          <FontAwesomeIcon style={iconStyle} icon={faCloud} />
-          <p>&nbsp;흐림</p>
-        </p>
-        <p>
-          <FontAwesomeIcon style={iconStyle} icon={faUmbrella} />
-          <p>&nbsp;비옴</p>
-        </p>
-      </div>
-      <div className='calendarBackContainer'>
-        <div className='calendarCalendar'>
-          <div className='calendarHeader'>
-            <div class='calendarYearMonth'>
-              {monthName[selectedMonth]} {selectedYear}
+    <div className='calendar'>
+      <nav>nav바 구간</nav>
+      <div className='calendarBody'>
+        <div className='calendarWeatherInfo'>
+          <p>
+            <FontAwesomeIcon style={iconStyle} icon={faSun} />
+            <p>&nbsp;맑음</p>
+          </p>
+          <p>
+            <FontAwesomeIcon style={iconStyle} icon={faCloud} />
+            <p>&nbsp;흐림</p>
+          </p>
+          <p>
+            <FontAwesomeIcon style={iconStyle} icon={faUmbrella} />
+            <p>&nbsp;비옴</p>
+          </p>
+        </div>
+        <div className='calendarBackContainer'>
+          <div className='calendarCalendar'>
+            <div className='calendarHeader'>
+              <div class='calendarYearMonth'>
+                {monthName[selectedMonth]} {selectedYear}
+              </div>
+              <div class='calendarNav'>
+                <button class='calendarPrevBtn' onClick={() => goPrev()}>
+                  <span>&lt;</span>
+                </button>
+                <button class='calendarNextBtn' onClick={() => goNext()}>
+                  <span>&gt;</span>
+                </button>
+              </div>
             </div>
-            <div class='calendarNav'>
-              <button class='calendarPrevBtn' onClick={() => goPrev()}>
-                &lt;
-              </button>
-              <button class='calendarNextBtn' onClick={() => goNext()}>
-                &gt;
-              </button>
+            <div className='calendarMain'>
+              <div class='calendarWeek'>
+                <div class='calendarWeekday'>MON</div>
+                <div class='calendarWeekday'>TUE</div>
+                <div class='calendarWeekday'>WED</div>
+                <div class='calendarWeekday'>THU</div>
+                <div class='calendarWeekday'>FRI</div>
+                <div class='calendarWeekday'>SAT</div>
+                <div class='calendarWeekday'>SUN</div>
+              </div>
+              <div className='calendarDates'>{getDate()}</div>
             </div>
-          </div>
-          <div className='calendarMain'>
-            <div class='calendarWeek'>
-              <div class='calendarWeekday'>MON</div>
-              <div class='calendarWeekday'>TUE</div>
-              <div class='calendarWeekday'>WED</div>
-              <div class='calendarWeekday'>THU</div>
-              <div class='calendarWeekday'>FRI</div>
-              <div class='calendarWeekday'>SAT</div>
-              <div class='calendarWeekday'>SUN</div>
-            </div>
-            <div className='calendarDates'>{getDate()}</div>
           </div>
         </div>
       </div>
@@ -168,3 +199,6 @@ const Calendar = () => {
 };
 
 export default Calendar;
+
+
+

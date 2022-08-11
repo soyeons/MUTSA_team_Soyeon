@@ -36,26 +36,26 @@ function ShowPost(){
                     <input type="buttonClick" value="정보 공유 게시판"/>                    
                 </Link>
             </div>
-            <div class="YellowSquare">
-                <div class="PostList">
-                    <div class="Blank">
+            <div className="YellowSquare">
+                <div className="PostList">
+                    <div className="Blank">
                         <Link to = "/writepost">
-                            <button class="writeBtn">
+                            <button className="writeBtn">
                                 <FontAwesomeIcon icon={faPenToSquare}/>
                                 &nbsp;작성하기 
                             </button>                          
                         </Link>
                     </div>
-                    <div class="tc">
-                        <div class="detailtitle">{title}</div>
-                        <div class='detailw'>
+                    <div className="tc">
+                        <div className="detailtitle">{title}</div>
+                        <div className='detailw'>
                             {writer}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{writeday}
-                            <button class="sp">삭제</button><button class="sp">수정</button>
+                            <button className="sp">삭제</button><button className="sp">수정</button>
                         </div>
-                        <div class="detailcontents">
+                        <div className="detailcontents">
                             {contents}
                         </div>
-                        <div class="repl">
+                        <div className="repl">
                             댓글
                         </div>
                     </div>

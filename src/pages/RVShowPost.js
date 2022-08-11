@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useState, useEffect, useRef, useMemo} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 import './ShowPost.css';
 
 const initialPostList = [
@@ -12,16 +14,82 @@ const initialPostList = [
 ];
 
 
-function ShowPost(){
+let today = new Date();
+let time = {
+    year: today.getFullYear(),
+    month: today.getMonth()+1,
+    date: today.getDate(),
+    hours: today.getHours(),
+    minutes: today.getMinutes(),
+};
+
+let timestring = `${time.year}.${time.month}.${time.date}. ${time.hours}:${time.minutes}`;
+
+
+function ShowPost({apiUrl}){
 
     const params = useParams();
-    const postNum = initialPostList.length-params.postID;
+    // const postNum = initialPostList.length-params.postID;
 
-    const title = initialPostList[postNum].title;
-    const writer = initialPostList[postNum].writer;
-    const writeday = initialPostList[postNum].writeday;
-    const contents = initialPostList[postNum].contents;
+    // const title = initialPostList[postNum].title;
+    // const writer = initialPostList[postNum].writer;
+    // const writeday = initialPostList[postNum].writeday;
+    // const contents = initialPostList[postNum].contents;
 
+    let [userName] = useState('user_id');
+    // let [feedComments, setFeedComments] = useState([]);
+    let [isValid, setIsValid] = useState(false);
+
+    // let posting = e => {
+    //     const copyFeedComments = [...feedComments];
+    //     copyFeedComments.push(comment);
+    //     setFeedComments(copyFeedComments);
+    //     setComment('');
+    // };
+
+    const CommentList = props => {
+
+
+
+
+        return(
+
+            <div className="userCommentBox"> 
+                <div className='userName'>{props.userName}</div>
+                <div className="userComment">{props.userComment}</div>
+                <div className='replTime'>{timestring}</div>
+                &nbsp;&nbsp;
+                <button className='plusBtn'>
+                    <FontAwesomeIcon icon={faEllipsisVertical}/>
+                </button>
+            </div>
+        )
+    }
+
+    const [post, setPost] = useState(null);
+    const [repls, setRepls] = useState([]);
+    const replInput = useRef();
+
+    useEffect(()=>{
+        axios.get(`${apiUrl}posts/${params.postID}`)
+        .then(response => {
+            setPost(response.data);
+            replInput.current.focus();
+            setRepls(response.data.repls);
+            console.log(response);
+        })
+    },[]);
+
+    const [repl, setRepl] = useState("");
+
+    const onSubmitRepl = () =>{
+        axios.post(`${apiUrl}repl/`,{
+            contents: repl,
+            post: params.postID,
+        }).then(()=>{
+            window.location.reload();
+        })
+    }
 
     return (
         <div id="center">
@@ -39,36 +107,73 @@ function ShowPost(){
                     <input type="button" value="정보 공유 게시판"/>                    
                 </Link>
             </div>
-            <div class="YellowSquare">
-                <div class="PostList">
-                    <div class="Blank">
+            <div className="YellowSquare">
+                <div className="PostList">
+                    <div className="Blank">
                         <Link to = "/writepost">
-                            <button class="writeBtn">
+                            <button className="writeBtn">
                                 <FontAwesomeIcon icon={faPenToSquare}/>
-                                &nbsp;작성하기 
+                                &nbsp;작성하기
                             </button>                          
                         </Link>
                     </div>
-                    <div class="tc">
-                        <div class="detailtitle">{title}</div>
-                        <div class='detailw'>
-                            {writer}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{writeday}
-                            <button class="sp">삭제</button><button class="sp">수정</button>
+                    <div className="tc">
+                        <div className="detailtitle">{post && post.title}</div>
+                        <div className='detailw'>
+                            {post && post.writer}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{post && post.writeday}
+                            <button className="sp">삭제</button><button className="sp">수정</button>
                         </div>
-                        <div class="detailcontents">
-                            {contents}
+                        <div className="detailcontents">
+                            {post && post.contents}
                         </div>
-                        <div class="repl">
-                            <button class="registBtn">댓글 작성</button>
-                            {/* <input type="text" className='replSpace'></input> */}
-                            <textarea spellcheck="false" class="replSpace" placeholder="댓글을 입력하세요..." cols="180" rows="3"></textarea>
+                        <div className="repl">
+                            {post && post.repls.map((commentArr, i)=>{
+                                return(
+                                    <CommentList
+                                        userName={userName}
+                                        userComment={commentArr}
+                                        // date = {commentDate}
+                                        key={i}
+                                    /> 
+                                );
+                            })}   
+                            <div className='replPlus'>  
+                                <button 
+                                    type="button"
+                                    className="registBtn"
+                                    onClick={onSubmitRepl}
+                                >댓글 작성</button>
+                                <div className='txtSpace'>
+                                    <div className='userid'>
+                                        user_id
+                                    </div>
+                                    <textarea
+                                        onChange={e => {
+                                            setRepl(e.target.value);
+                                        }}
+                                        onKeyUp={e => {
+                                            e.target.value.length >= 1
+                                                ? setIsValid(true)
+                                                : setIsValid(false);
+                                        }}
+                                        onKeyDown={e => {
+                                            e.target.value.length <= 0
+                                                ? setIsValid(false)
+                                                : setIsValid(true);
+                                        }}
+                                        value={repl} 
+                                        spellcheck="false" className="replSpace" placeholder="댓글을 입력하세요..." cols="180" rows="3">
+                                    </textarea>
+                                </div>
+                            </div>
+                            {/* <Comment/> */}
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     );
 }
+
 
 export default ShowPost;

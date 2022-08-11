@@ -87,7 +87,7 @@
     display: none;
 } */
 
-select{
+.writeSelect{
     position: absolute;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -105,11 +105,11 @@ select{
     background-size: 30px;
 }
 
-select.background{
+.writeSelect.background{
     opacity: 0.5;
 }
 
 
-select:focus{
+.writeSelect:focus{
     outline:none;
 }

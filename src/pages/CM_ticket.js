@@ -5,11 +5,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 const initialPostList = [
-    {num:3, title: '청춘페스티벌 연석 양도', writer:"ticketsss", writeday:"2022.7.12", counts:1,
+    {id:3, title: '청춘페스티벌 연석 양도', writer:"ticketsss", writeday:"2022.7.12", counts:1,
     contents: "청춘페스티벌 연석 양도해요~ 자리는 S석 337,338번입니당 "},
-    {num:2, title: '흠뻑쇼 R석 양도해요', writer:"lllls", writeday:"2022.7.11", counts:5, 
+    {id:2, title: '흠뻑쇼 R석 양도해요', writer:"lllls", writeday:"2022.7.11", counts:5, 
     contents: "흠뻑쇼 R석 한자리 양도합니다. 관심있으신분 댓글남겨주세욥. "},
-    {num:1, title: '빌리아일리시 내한공연 티켓 양도합니다.', writer: "티켓쟁이", writeday: "2022.7.10", counts: 7,
+    {id:1, title: '빌리아일리시 내한공연 티켓 양도합니다.', writer: "티켓쟁이", writeday: "2022.7.10", counts: 7,
     contents: "빌리아일리시 내한공연 티켓 양도해요. 사정이 생겨서 못가게되었습니다ㅜ"},
 ];
 
@@ -35,11 +35,11 @@ function Cmticket(props) {
                 </Link>
             </div>
             <div>
-                <div class="YellowSquare">
-                    <div class="PostList">
-                        <div class="Blank">
+                <div className="YellowSquare">
+                    <div className="PostList">
+                        <div className="Blank">
                             <Link to = "/writepost">
-                                <button class="writeBtn">
+                                <button className="writeBtn">
                                     <FontAwesomeIcon icon={faPenToSquare}/>
                                     &nbsp;작성하기
                                 </button>                                
@@ -56,7 +56,7 @@ function Cmticket(props) {
                                 </tr>
                             </thead>
                                 {postList.map((element)=>(
-                                    <EachPost postID={element.num} title={element.title} writer={element.writer} writeday={element.writeday} counts={element.counts}/>
+                                    <EachPost postID={element.id} title={element.title} writer={element.writer} writeday={element.writeday} counts={element.counts}/>
                                 ))}                                        
                         </table>
                     </div>

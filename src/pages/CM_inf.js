@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 const initialPostList = [
-    {num:1, title: '새로 뜬 내한공연 정보 zip', writer: "정보관리자", writeday: "2022.7.13", counts: 54,
+    {id:1, title: '새로 뜬 내한공연 정보 zip', writer: "정보관리자", writeday: "2022.7.13", counts: 54,
     contents:"3개의 내한공연 정보가 이번주 업로드되었습니다."},
 ];
 
@@ -29,12 +29,12 @@ function Cminf(props) {
                     <input type="buttonClick" value="정보 공유 게시판"/>                    
                 </Link>
             </div>
-            <div class="select">
-                <div class="YellowSquare">
-                    <div class="PostList">
-                        <div class="Blank">
+            <div className="select">
+                <div className="YellowSquare">
+                    <div className="PostList">
+                        <div className="Blank">
                             <Link to = "/writepost">
-                                <button class="writeBtn">
+                                <button className="writeBtn">
                                     <FontAwesomeIcon icon={faPenToSquare}/>
                                     &nbsp;작성하기 
                                 </button>                              
@@ -51,7 +51,7 @@ function Cminf(props) {
                                 </tr>
                             </thead>
                                 {postList.map((element)=>(
-                                    <EachPost postID={element.num} title={element.title} writer={element.writer} writeday={element.writeday} counts={element.counts}/>
+                                    <EachPost postID={element.id} title={element.title} writer={element.writer} writeday={element.writeday} counts={element.counts}/>
                                 ))}                                        
                         </table>
                     </div>

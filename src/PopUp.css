@@ -11,11 +11,12 @@
   padding: 2rem;
   z-index: 2;
   gap: 1rem;
-  right: 0rem;
+  right: 10rem;
+  color: black;
 }
 
 .popupHigh {
-  top: 1.5rem;
+  top: -10rem;
 }
 
 .popupLow {

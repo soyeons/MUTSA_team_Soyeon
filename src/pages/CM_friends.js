@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 const initialPostList = [
-    {num:2, title: '워터밤 동행 구합니다아~', writer:"ㅎㅎ", writeday:"2022.7.13", counts:14,
+    {id:2, title: '워터밤 동행 구합니다아~', writer:"ㅎㅎ", writeday:"2022.7.13", counts:14,
     contents: "7/16 워터밤 동행 한 분 구해용 댓글 남겨주세요" },
-    {num:1, title: '랩비트 페스티벌 함께 갈 사람!!', writer: "레츠고", writeday: "2022.6.24", counts: 17,
+    {id:1, title: '랩비트 페스티벌 함께 갈 사람!!', writer: "레츠고", writeday: "2022.6.24", counts: 17,
     contents: "랩비트 페스티벌 같이가실분?"},
 ];
 
@@ -33,11 +33,11 @@ function Cmfriends() {
                 </Link>
             </div>
             <div>
-                <div class="YellowSquare">
-                    <div class="PostList">
-                        <div class="Blank">
+                <div className="YellowSquare">
+                    <div className="PostList">
+                        <div className="Blank">
                             <Link to = "/writepost">
-                                <button class="writeBtn">
+                                <button className="writeBtn">
                                     <FontAwesomeIcon icon={faPenToSquare}/>
                                     &nbsp;작성하기 
                                 </button>                                 
@@ -54,7 +54,7 @@ function Cmfriends() {
                                 </tr>
                             </thead>
                                 {postList.map((element)=>(
-                                    <EachPost postID={element.num} title={element.title} writer={element.writer} writeday={element.writeday} counts={element.counts}/>
+                                    <EachPost postID={element.id} title={element.title} writer={element.writer} writeday={element.writeday} counts={element.counts}/>
                                 ))}                                        
                         </table>
                     </div>
