@@ -110,7 +110,7 @@ class LikeAPI(APIView):
             return Response(status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_401_UNAUTHORIZED)
     
-class OptionAPI(APIview):
+class OptionAPI(APIView):
     def get(self,request,fid):     # 페스티벌에 내가 입력한 후기 가져오기 fid 만 보내기
         festival= get_object_or_404(Festival,id=fid)
         serializer = Option.objects.filter(festival=festival,user=request.user)
@@ -156,7 +156,7 @@ class OptionAPI(APIview):
 
 
     
-class CountOptionAPI(APIview):
+class CountOptionAPI(APIView):
     def get(self,request,fid):     
         festival=get_object_or_404(Festival,id=fid)
         option_count= get_object_or_404(OptionCount,festival=festival)
@@ -164,21 +164,21 @@ class CountOptionAPI(APIview):
         return Response(serializer.data,status=status.HTTP_200_OK)
     
 
-class MyPostAPI(APIview):
+class MyPostAPI(APIView):
     def get(self,request):     
         myposts=Post.objects.filter(user=request.user)
         serializer = PostSerializer(myposts,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
     
     
-class MyCommentAPI(APIview):
+class MyCommentAPI(APIView):
     def get(self,request):     
         mycomments=Comment.objects.filter(user=request.user)
         serializer = CommentSerializer(mycomments,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
     
     
-class MyLikeAPI(APIview):
+class MyLikeAPI(APIView):
     def get(self,request):     
         user=request.user
         mylikes=user.like.all()
@@ -186,23 +186,23 @@ class MyLikeAPI(APIview):
         return Response(serializer.data,status=status.HTTP_200_OK)
     
 
-class SearchPostTitleAPI(APIview):
+class SearchPostTitleAPI(APIView):
     def get(self,request,search):       # search라는 매개변수로 검색할 내용을 받음
         posts=Post.objects.filter(title__contains = search) # __contains ==>__앞에 있는 속성안에 뒤에오는 내용이 포함된것을 필터링 
         serializer = PostSerializer(posts,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
     
-# class SearchPostNameAPI(APIview):
+# class SearchPostNameAPI(APIView):
 #     def get(self,request,search):       # search라는 매개변수로 검색할 내용을 받음
 #         posts=Post.objects.filter(nickname__contains = search) #?? nickname 대신에 뭐가와야할까?
 #         serializer = PostSerializer(posts,many=True)
 #         return Response(serializer.data,status=status.HTTP_200_OK)
     
 
-class SearchFestivalTitleAPI(APIview):
+class SearchFestivalTitleAPI(APIView):
     def get(self,resquest,search):       # search라는 매개변수로 검색할 내용을 받음
         festivals=Festival.objects.filter(title__contains = search) 
         serializer = FestivalSerializer(festivals,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
     
-#class SearchOptionAPI(APIview):
+#class SearchOptionAPI(APIView):

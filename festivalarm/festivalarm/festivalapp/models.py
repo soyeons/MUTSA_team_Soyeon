@@ -6,19 +6,25 @@ from django.forms import CharField, DateField, ImageField, IntegerField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-"""
+
 class User(AbstractUser):
-    name = models.CharField(max_length=20)
-    email = models.CharField(blank=True, max_length=20)
-    phone_number = models.CharField(blank=True, max_length=20)
-    # like = 찜하기 
+    kakao_id = models.CharField(blank=True, max_length=100)
+    email = models.EmailField(blank=True)    
+    username = models.CharField(unique='True', null=True, max_length=100)
+    access_token = models.CharField(null=True, max_length=255)
+    refresh_token = models.CharField(null=True, max_length=255)
+    password = models.CharField(null=True, max_length=100)
+    
+    def __str__(self):
+        return self.username
+        
 """
 class User(models.Model):
     name = models.CharField(max_length=20)
 
     def __str__(self):
         return self.name
-
+"""
 class Profile(models.Model):
     user= models.OneToOneField(User, on_delete=models.CASCADE,primary_key=True)
     nickname = models.CharField(max_length=20)

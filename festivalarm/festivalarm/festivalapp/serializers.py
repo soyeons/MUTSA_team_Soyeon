@@ -32,10 +32,10 @@ class PostSerializer(serializers.ModelSerializer):
         model= Post
         fields=['id','author','profile','festival','title','body','image','date','hits','category']
 
-# class PostCreateSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model= Post
-#         fields=['title','body','image','category']
+class PostCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Post
+        fields=['title','body','image','category']
         
 class CommentSerializer(serializers.ModelSerializer):
     profile=ProfileSerializer(read_only=True)
