@@ -62,6 +62,7 @@ const Calendar = () => {
 				let sub = end.getDate() - start.getDate();
 				const styles = { width: `${(sub + 1) * 6.8}rem`, cursor: 'pointer' };
 				const forP = { color: 'white', margin: 0 };
+
 				festArr.push(
 					<div className='calendarOnFest' style={styles} onClick={() => setIsClick(j)} onMouseOver={() => setIsHover(j)} onMouseOut={() => setIsHover(-1)}>
 						<p style={forP}>{initialPostList[j].title}</p>

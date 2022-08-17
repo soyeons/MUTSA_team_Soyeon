@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import Main from './Main';
 import Detail from './Detail';
 import PopUp from './PopUp';
 import Calendar from './Calendar';
@@ -23,7 +24,8 @@ function App() {
 	return (
 		<>
 			<Routes>
-				<Route path='/' element={<Login></Login>}></Route>
+				<Route path='/' element={<Main></Main>}></Route>
+				<Route path='/login' element={<Login></Login>}></Route>
 				<Route path='/redirect' element={<Redirect></Redirect>}></Route>
 				<Route path='/review' element={<CMreview />} />
 				<Route path='/friends' element={<CMfriends />} />

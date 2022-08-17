@@ -83,7 +83,7 @@ const Detail = () => {
 				<div className='detailBackContainer'>
 					<div className='detailContainer'>
 						<div className='detailHeader'>
-							<button onClick={(openModal, addLike)} type='button' className='detailZzimBtn' onMouseOver={() => setIsHovering(1)} onMouseOut={() => setIsHovering(0)}>
+							<button onClick={openModal} type='button' className='detailZzimBtn' onMouseOver={() => setIsHovering(1)} onMouseOut={() => setIsHovering(0)}>
 								<FontAwesomeIcon icon={isHovering ? sHeart : rHeart} />
 								<p>좋아요</p>
 							</button>
