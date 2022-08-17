@@ -118,11 +118,13 @@ class Post(models.Model):
         on_delete=models.CASCADE, 
         related_name='post_user'
     )
+    """
     profile = models.ForeignKey(
         Profile, 
         on_delete=models.CASCADE, 
         related_name='post_profile'
     )
+    """
      # 공연과 관련없는 게시글일수도 있잖아 --> 모델을 따로 만들어줘야하나?
     # fesstival의 id를 fk로
     festival = models.ForeignKey(
@@ -148,11 +150,13 @@ class Comment(models.Model):
         on_delete=models.CASCADE, 
         related_name='comment_user',
     )
+    """
     profile = models.ForeignKey(
         Profile, 
         on_delete=models.CASCADE, 
         related_name='comment_profile'
     )
+    """
     post = models.ForeignKey(
         Post, 
         null=True, 
