@@ -184,6 +184,11 @@ function FestCheck() {
 								</button>
 							</div>
 						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 
 						<div className='placeQ'>
 							<Chomoji>🚘</Chomoji>
