@@ -27,6 +27,22 @@ export const Emoji = styled.div`
     padding : 50px;
 `
 
+export const Chomoji = styled.div`
+    font-size: 40px;
+    padding: 20px;
+    padding-top: 30px;
+    padding-left: 40px;
+    position: absolute;
+`
+
+export const Qlist = styled.div`
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 600;
+    position: absolute;
+    margin-top: 50px;
+    padding-left: 100px;
+`
+
 export const Header = styled.span`
     font-size: 40px;
     padding : 20px;
@@ -50,3 +66,28 @@ export const KakaoBtn = styled.div`
     border : 2px solid black;
 `;
 
+export const ReplWriter = styled.div`
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+`;
+
+export const PostReplDiv = styled.div`
+`;
+
+export const Repl = styled.div`
+    width: 1050px;
+    height: 50px;
+    margin-left: 90px;
+    padding-left: 25px;
+    padding-right: 150px;
+    overflow: auto;
+    resize: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    
+`;

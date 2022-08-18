@@ -6,9 +6,10 @@ import Calendar from './Calendar';
 import FestList from './FestList';
 import Login from './Login';
 import Redirect from './Redirect';
-import React, { Component } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import CMreview from './pages/CM_review';
+import CMmain from './pages/CM_main';
 import CMfriends from './pages/CM_friends';
 import CMinf from './pages/CM_inf';
 import CMticket from './pages/CM_ticket';
@@ -17,7 +18,11 @@ import RVShowPost from './pages/RVShowPost';
 import FRShowPost from './pages/FRShowPost';
 import TKShowPost from './pages/TKShowPost';
 import InfShowPost from './pages/InfShowPost';
-import { RightWrite } from './pages/right';
+import EditPost from './pages/EditPost';
+import FestCheck from './FestCheck';
+
+const API_URL = 'https://jsonplaceholder.typicode.com/posts/'//'https://reactapitest.pythonanywhere.com/api/posts/'
+
 
 function App() {
   return (
@@ -26,18 +31,25 @@ function App() {
       <Calendar></Calendar>
       <FestList></FestList> */}
       <Routes>
-        <Route path='/' element={<Login></Login>}></Route>
-        <Route path='/redirect' element={<Redirect></Redirect>}></Route>
-        <Route path='/review' element={<CMreview />} />
-        <Route path='/friends' element={<CMfriends />} />
-        <Route path='/ticket' element={<CMticket />} />
-        <Route path='/inf' element={<CMinf />} />
-        <Route path='/writepost' element={<WritePost />} />
-        <Route path='/review/post/:postID' element={<RVShowPost />} />
-        <Route path='/friends/post/:postID' element={<FRShowPost />} />
-        <Route path='/ticket/post/:postID' element={<TKShowPost />} />
-        <Route path='/inf/post/:postID' element={<InfShowPost />} />
-        <Route path='/writepost' component={RightWrite} />
+        {/* <Route path='/' element={<Login></Login>}></Route>
+        <Route path='/redirect' element={<Redirect></Redirect>}></Route> */}
+        <Route path='/calendar' element={<Calendar/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/festlist" element={<FestList/>}/>
+        <Route path="/festlist/checking" element={<FestCheck/>}/>
+        <Route path='/detail' element={<Detail/>}/>
+        <Route path='/' element={<CMmain/>}/>
+        <Route path='/review' element={<CMreview apiUrl={API_URL}/>} />
+        <Route path='/friends' element={<CMfriends apiUrl={API_URL}/>} />
+        <Route path='/ticket' element={<CMticket apiUrl={API_URL}/>} />
+        <Route path='/inf' element={<CMinf apiUrl={API_URL}/>} />
+        <Route path='/writepost' element={<WritePost apiUrl={API_URL}/>} exact/>
+        <Route path='/writepost/modify/:postID' element={<WritePost apiUrl={API_URL}/>} exact/>          
+        <Route path='/review/post/:postID' element={<RVShowPost apiUrl={API_URL}/>} />
+        <Route path='/friends/post/:postID' element={<FRShowPost apiUrl={API_URL}/>} />
+        <Route path='/ticket/post/:postID' element={<TKShowPost apiUrl={API_URL}/>} />
+        <Route path='/inf/post/:postID' element={<InfShowPost apiUrl={API_URL}/>} />
+        <Route path='/writepost' element={<WritePost apiUrl={API_URL}/>} />
       </Routes>
     </>
   );

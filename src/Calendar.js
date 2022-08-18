@@ -150,14 +150,14 @@ const Calendar = () => {
             </div>
           </div>
           <div className='calendarMain'>
-            <div class='calendarWeek'>
-              <div class='calendarWeekday'>MON</div>
-              <div class='calendarWeekday'>TUE</div>
-              <div class='calendarWeekday'>WED</div>
-              <div class='calendarWeekday'>THU</div>
-              <div class='calendarWeekday'>FRI</div>
-              <div class='calendarWeekday'>SAT</div>
-              <div class='calendarWeekday'>SUN</div>
+            <div className='calendarWeek'>
+              <div className='calendarWeekday'>MON</div>
+              <div className='calendarWeekday'>TUE</div>
+              <div className='calendarWeekday'>WED</div>
+              <div className='calendarWeekday'>THU</div>
+              <div className='calendarWeekday'>FRI</div>
+              <div className='calendarWeekday'>SAT</div>
+              <div className='calendarWeekday'>SUN</div>
             </div>
             <div className='calendarDates'>{getDate()}</div>
           </div>
