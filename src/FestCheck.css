@@ -1,0 +1,98 @@
+.pd{
+}
+
+.PostListCheck{
+    height: 43rem;
+    position: relative;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    flex-direction: column;
+    width: 72rem;
+    background-color: white;
+    box-shadow: 0px 0.25rem 1.25rem rgba(0, 0, 0, 0.25);
+	border-radius: 1.25rem;
+}
+
+.YellowSquareCheck{
+    height: 43rem; 
+    background-color: #ffc600;
+    left:21rem;
+    position: absolute;
+    display:flex;
+    box-shadow: 0px 0.25rem 1.25rem rgba(0, 0, 0, 0.25);
+	border-radius: 1.25rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;;
+}
+
+.placeQ{
+    height: 98px;
+}
+
+.checkBtn{
+    padding-top:5.5rem;
+    padding-left: 5rem;
+}
+
+.checkBtns{
+    margin-left: 3.5rem;
+    padding-right:15px;
+    padding-left:15px;
+    width: auto;
+    height: 2.3rem;
+    border-radius: 5rem;
+    cursor: pointer;
+    background-color: white;
+    border-color:#5b5a5a;
+    color:#5b5a5a;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: medium;
+    font-size: 16px;
+    border-width: 1px;
+ 
+}
+
+.checkBtns.active{
+    border-color:#5d0ec0;
+    color:#5d0ec0;
+    font-weight: bold;
+    border-width: 2px;
+    font-size: 16px;
+}
+
+.checkTxt{
+    margin-left: 2rem;
+    width: 90%;
+    border-color: rgba(137, 137, 137, 0.519);
+    border-radius: 8px;
+    height: 20px;
+    font-family: 'Noto Sans KR', sans-serif;
+    word-break: break-all;
+    font-weight:300;
+    overflow: auto;
+    padding: 10px;
+}
+
+.registBtnCheck{
+    text-align: center;
+}
+
+.BtnCheck{
+    margin-top: 2.7rem;
+    width: 200px;
+    height: 2.5rem;
+    background-color: white;
+    border-radius: 10rem;
+    border-width: 2px;
+    border-color: #5D0EC0;
+    color:#5D0EC0;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.BtnCheck:hover{
+    background-color: #5D0EC0;
+    color:white;
+}

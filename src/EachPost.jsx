@@ -7,7 +7,7 @@ function EachPost({title, postID, writer, writeday, counts}){
     const navigate = useNavigate();
 
     const goPost = () => {
-        navigate(`${window.location.pathname + '/post/' + postID }`);
+        navigate(`${window.location.pathname + '/post/'+ postID}`);
     };
 
     return(
