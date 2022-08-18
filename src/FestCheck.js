@@ -66,24 +66,24 @@ function FestCheck(){
                             <Chomoji>🎸</Chomoji>
                             <Qlist>해당 페스티벌의 뮤직 스타일은 어떤가요?</Qlist>                           
                             <div className="checkBtn">
-                                <button className={`checkBtns ${tab2 === 0 ? 'active' : ''}`}
-                                    onClick={()=>setTab2(0)}>힙합 / 알앤비 / 락</button>
-                                <button className={`checkBtns ${tab2 === 1 ? 'active' : ''}`}
-                                    onClick={()=>setTab2(1)}>인디 어쿠스틱 / 인디 밴드</button>
-                                <button className={`checkBtns ${tab2 === 2 ? 'active' : ''}`}
-                                    onClick={()=>setTab2(2)}>워터밤 ....?</button>
+                                <button type="hidden" value="1" className={`checkBtns ${tab2 === 1 ? 'active' : ''}`}
+                                    onClick={(event)=>{setTab2(1); consoleZZik(event.target.value,2);}}>힙합 / 알앤비 / 락</button>
+                                <button type="hidden" value="2" className={`checkBtns ${tab2 === 2 ? 'active' : ''}`}
+                                    onClick={(event)=>{setTab2(2); consoleZZik(event.target.value,2);}}>인디 어쿠스틱 / 인디 밴드</button>
+                                <button type="hidden" value="3" className={`checkBtns ${tab2 === 3 ? 'active' : ''}`}
+                                    onClick={(event)=>{setTab2(3); consoleZZik(event.target.value,3);}}>워터밤 ....?</button>
                             </div> 
                         </div>
                         <div className="placeQ">
                             <Chomoji>🎫</Chomoji>
                             <Qlist>티켓팅은 어때요?</Qlist>  
                             <div className="checkBtn">
-                                <button className={`checkBtns ${tab3 === 0 ? 'active' : ''}`}
-                                    onClick={()=>setTab3(0)}>티켓팅 치열해요</button>
                                 <button className={`checkBtns ${tab3 === 1 ? 'active' : ''}`}
-                                    onClick={()=>setTab3(1)}>그냥 그래요</button>
+                                    onClick={(event)=>{setTab3(1); consoleZZik(event.target.value,2);}}>티켓팅 치열해요</button>
                                 <button className={`checkBtns ${tab3 === 2 ? 'active' : ''}`}
-                                    onClick={()=>setTab3(2)}>티켓팅 식은 죽 먹기</button>
+                                    onClick={(event)=>{setTab3(2); consoleZZik(event.target.value,2);}}>그냥 그래요</button>
+                                <button className={`checkBtns ${tab3 === 3 ? 'active' : ''}`}
+                                    onClick={(event)=>{setTab3(3); consoleZZik(event.target.value,2);}}>티켓팅 식은 죽 먹기</button>
                             </div>                          
                         </div>
                         <div className="placeQ">
