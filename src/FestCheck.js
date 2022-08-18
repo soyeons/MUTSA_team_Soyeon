@@ -238,6 +238,9 @@ function FestCheck() {
 								</button>
 							</div>
 						</div>
+						<div className='registBtnCheck'>
+							<button className='BtnCheck'>작성 완료</button>
+						</div>
 					</div>
 				</div>
 			</div>
