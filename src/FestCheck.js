@@ -12,16 +12,18 @@ function FestCheck() {
 	const [tab5, setTab5] = useState('');
 
 	return (
-		<div id='center'>
+		<div class='festCheck'>
 			<nav>
 				<Navbar />
 			</nav>
-			<div className='pd'>
+			<div className='festCheckBody'>
 				<div className='YellowSquareCheck'>
 					<div className='PostListCheck'>
 						<div className='placeQ'>
-							<Chomoji>🎪</Chomoji>
-							<Qlist>해당 페스티벌의 분위기는 어떤가요?</Qlist>
+							<div>
+								<Chomoji>🎪</Chomoji>
+								<Qlist>해당 페스티벌의 분위기는 어떤가요?</Qlist>
+							</div>
 							<div className='checkBtn'>
 								<button className={`checkBtns ${tab1 === 'first' ? 'active' : ''}`} onClick={() => setTab1('first')}>
 									스트레스를 날려버리는 / 신나는
@@ -30,11 +32,11 @@ function FestCheck() {
 									감성적인 / 힐링이 되는
 								</button>
 								<button className={`checkBtns ${tab1 === 'third' ? 'active' : ''}`} onClick={() => setTab1('third')}>
-									스트레스를 날려버리는 / 신나는 / 감성적인 / 힐링이 되는
+									스트레스를 날려버리는 / 신나는 <br />/ 감성적인 / 힐링이 되는
 								</button>
 							</div>
 						</div>
-						<div className='placeQ'>
+						<div className='placeQ none'>
 							<Chomoji>🎸</Chomoji>
 							<Qlist>해당 페스티벌의 뮤직 스타일은 어떤가요?</Qlist>
 							<div className='checkBtn'>
@@ -45,22 +47,22 @@ function FestCheck() {
 									인디 어쿠스틱 / 인디 밴드
 								</button>
 								<button className={`checkBtns ${tab2 === 'third' ? 'active' : ''}`} onClick={() => setTab2('third')}>
-									워터밤 ....?
+									앞에 장르들 짬뽕
 								</button>
 							</div>
 						</div>
 						<div className='placeQ'>
-							<Chomoji>🎫</Chomoji>
-							<Qlist>티켓팅은 어때요?</Qlist>
+							<Chomoji>🥽</Chomoji>
+							<Qlist>물을 맞는 페스티벌인가요?</Qlist>
 							<div className='checkBtn'>
 								<button className={`checkBtns ${tab3 === 'first' ? 'active' : ''}`} onClick={() => setTab3('first')}>
-									티켓팅 치열해요
+									안 맞아요
 								</button>
 								<button className={`checkBtns ${tab3 === 'second' ? 'active' : ''}`} onClick={() => setTab3('second')}>
-									그냥 그래요
+									잘 모르겠어요
 								</button>
 								<button className={`checkBtns ${tab3 === 'third' ? 'active' : ''}`} onClick={() => setTab3('third')}>
-									티켓팅 식은 죽 먹기
+									워터밤
 								</button>
 							</div>
 						</div>
@@ -92,14 +94,6 @@ function FestCheck() {
 								<button className={`checkBtns ${tab5 === 'third' ? 'active' : ''}`} onClick={() => setTab5('third')}>
 									인생샷 건짐
 								</button>
-							</div>
-						</div>
-
-						<div className='placeQ'>
-							<Chomoji>🚘</Chomoji>
-							<Qlist>주차공간이나 교통 정보 관련 팁이 있다면?</Qlist>
-							<div className='checkBtn'>
-								<textarea className='checkTxt'></textarea>
 							</div>
 						</div>
 						<div className='registBtnCheck'>
