@@ -7,6 +7,7 @@ import './Detail.css';
 import festivallist from './list.json';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Navbar from './Nav';
 
 const initialPostList = festivallist['festivallist'];
 initialPostList.sort((a, b) => {
@@ -78,7 +79,7 @@ const Detail = () => {
 
 	return (
 		<div className='detail'>
-			<nav></nav>
+			<nav><Navbar/></nav>
 			<div className='detailBody'>
 				<div className='detailBackContainer'>
 					<div className='detailContainer'>

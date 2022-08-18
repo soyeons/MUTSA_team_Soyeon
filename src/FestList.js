@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './FestList.css';
 import festivallist from './list.json';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './Nav';
 
 const initialPostList = festivallist['festivallist'];
 
@@ -84,7 +85,7 @@ const FestList = () => {
 
 	return (
 		<div className='list'>
-			<nav>nav바 구간</nav>
+			<nav><Navbar/></nav>
 			<div className='listBody'>
 				<div className='listHeader'>
 					<select id='listSelect' onChange={onChangeHanlder} value={Content}>

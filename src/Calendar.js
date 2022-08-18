@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faCloud, faUmbrella } from '@fortawesome/free-solid-svg-icons';
 import festivallist from './list.json';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './Nav';
 
 const cx = classNames.bind(style);
 
@@ -99,7 +100,7 @@ const Calendar = () => {
 	};
 	return (
 		<div className='calendar'>
-			<nav>nav바 구간</nav>
+			<nav><Navbar/></nav>
 			<div className='calendarBody'>
 				<div className='calendarWeatherInfo'>
 					<p>

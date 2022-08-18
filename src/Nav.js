@@ -12,7 +12,7 @@ function Navbar(){
     return(
         <div className="navbar">
             <div>
-                <Link to="/review" style={{ textDecoration: 'none' }}>
+                <Link to="/" style={{ textDecoration: 'none' }}>
                     <div className="title">
                         <img src={logo} alt="logo" className="logoimg"/>
                     </div>               

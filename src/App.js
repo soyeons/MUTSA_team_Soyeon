@@ -10,7 +10,6 @@ import Redirect from './Redirect';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import CMreview from './pages/CM_review';
-import CMmain from './pages/CM_main';
 import CMfriends from './pages/CM_friends';
 import CMinf from './pages/CM_inf';
 import CMticket from './pages/CM_ticket';
@@ -28,18 +27,13 @@ const API_URL = 'https://jsonplaceholder.typicode.com/posts/'//'https://reactapi
 function App() {
   return (
     <>
-      {/* <Detail></Detail>
-      <Calendar></Calendar>
-      <FestList></FestList> */}
       <Routes>
-        {/* <Route path='/' element={<Login></Login>}></Route>
-        <Route path='/redirect' element={<Redirect></Redirect>}></Route> */}
+        <Route path='/' element={<Main/>}/>
         <Route path='/calendar' element={<Calendar/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/festlist" element={<FestList/>}/>
         <Route path="/festlist/checking" element={<FestCheck/>}/>
-        <Route path='/detail' element={<Detail/>}/>
-        <Route path='/' element={<CMmain/>}/>
+        <Route path='/detail/:id' element={<Detail/>}/>
         <Route path='/review' element={<CMreview apiUrl={API_URL}/>} />
         <Route path='/friends' element={<CMfriends apiUrl={API_URL}/>} />
         <Route path='/ticket' element={<CMticket apiUrl={API_URL}/>} />

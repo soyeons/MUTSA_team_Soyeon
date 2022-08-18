@@ -10,6 +10,7 @@ import image4 from './img/fireCraker/image4.png';
 import image5 from './img/fireCraker/image5.png';
 import image6 from './img/fireCraker/image6.png';
 import image7 from './img/fireCraker/image7.png';
+import Navbar from './Nav';
 
 const Main = () => {
 	let [isClick, setIsClick] = useState(0);
@@ -24,7 +25,7 @@ const Main = () => {
 
 	return (
 		<div className='main'>
-			<nav>nav바 구간</nav>
+			<nav><Navbar/></nav>
 			<div className='mainContent'>
 				<div className='mainHome'>
 					<div className='mainHomeBody'>
