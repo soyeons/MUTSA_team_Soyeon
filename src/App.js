@@ -21,7 +21,8 @@ import InfShowPost from './pages/InfShowPost';
 import EditPost from './pages/EditPost';
 import FestCheck from './FestCheck';
 
-const API_URL = 'https://jsonplaceholder.typicode.com/posts/'//'https://reactapitest.pythonanywhere.com/api/posts/'
+const API_URL = 'http://172.20.10.4:8000/festivalapp/post/'
+
 
 
 function App() {

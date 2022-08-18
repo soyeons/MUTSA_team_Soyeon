@@ -25,7 +25,7 @@ const Main = () => {
 
 	return (
 		<div className='main'>
-			<nav><Navbar/></nav>
+			<nav className='mainnav'><Navbar/></nav>
 			<div className='mainContent'>
 				<div className='mainHome'>
 					<div className='mainHomeBody'>

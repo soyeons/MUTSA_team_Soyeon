@@ -87,25 +87,26 @@ function ShowPost({apiUrl}){
     const replInput = useRef();
 ///${params.postID}
     useEffect(()=>{
+        console.log(params);
         axios.get(`${apiUrl}${params.postID}`)
         .then(response => {
             setPost(response.data);
-            // replInput.current.focus();
-            // setRepls(response.data.repls);
+            replInput.current.focus();
+            setRepls(response.data.repls);
             console.log(response.data);
         });
     },[]);
 
     const [repl, setRepl] = useState("");
 
-    // const onSubmitRepl = () =>{
-    //     axios.post(`${apiUrl}repl/`,{
-    //         contents: repl,
-    //         post: params.postID,
-    //     }).then(()=>{
-    //         window.location.reload(); //등록버튼 누르고 바로 페이지 새로고침
-    //     })
-    // } 
+    const onSubmitRepl = () =>{
+        axios.post(`${apiUrl}repl/`,{
+            contents: repl,
+            post: params.postID,
+        }).then(()=>{
+            window.location.reload(); //등록버튼 누르고 바로 페이지 새로고침
+        })
+    } 
 
 
     const modifyUrl = '/writepost/modify/'+params.postID;
@@ -160,7 +161,7 @@ function ShowPost({apiUrl}){
                                 {post.body}
                             </div>
                             <div className="repl">
-                                {/* {post && post.repls.map((commentArr, i)=>{
+                                {post && post.repls.map((commentArr, i)=>{
                                     return(
                                         <CommentList
                                             userName={userName}
@@ -169,12 +170,12 @@ function ShowPost({apiUrl}){
                                             key={i}
                                         /> 
                                     );
-                                })}    */}
+                                })}   
                                 <div className='replPlus'>  
                                     <button 
                                         type="button"
                                         className="registBtn"
-                                        // onClick={onSubmitRepl}
+                                        onClick={onSubmitRepl}
                                     >댓글 작성</button>
                                     <div className='txtSpace'>
                                         <div className='userid'>
