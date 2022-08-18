@@ -1,13 +1,14 @@
 from os import access
+from urllib.request import HTTPRedirectHandler
 from django.core import serializers
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 import requests
 import json
 
 from festivalapp.models import User, Post, Comment
-from tokens import *
+from .tokens import *
 from my_secrets import CLIENT_ID, REDIRECT_URI, SECRET_KEY
 
 from django.contrib import auth
@@ -52,6 +53,7 @@ class KakaoSignInCallBackView(View):
         nickname = profile_json.get("properties")["nickname"]
         email = profile_json.get("kakao_account")["email"]
         
+        """
         # --- JWT 토큰 발급하기 --- #
         payload_value = kakao_id             # kakao_id를 payload로
         payload = {"sub": payload_value}
@@ -64,7 +66,7 @@ class KakaoSignInCallBackView(View):
                 "refresh_token": jwt_refresh_token,
             }
         }
-
+        """
         # DB에 사용자 정보가 있는경우
         if User.objects.filter(kakao_id=kakao_id).exists():
             u = User.objects.get(kakao_id=kakao_id)
@@ -83,18 +85,19 @@ class KakaoSignInCallBackView(View):
             ).save()
 
 
-        return JsonResponse(data)
+        return JsonResponse({"kakao_id":kakao_id})
 
 # 로그아웃
 @method_decorator(csrf_exempt, name='dispatch')
 class KakaoLogoutView(View):
     def post(self, request, kakao_id):
+        """
         data = json.loads(request.body)
         jwt_access_token = data.get('jwt_token')['access_token']
 
         jwt_decode = decode_token(jwt_access_token)
         kakao_id = jwt_decode['sub']
-
+        """
         token_queryset = User.objects.filter(kakao_id=kakao_id).values('access_token')
         access_token = token_queryset[0]['access_token']
         
@@ -111,12 +114,13 @@ class KakaoLogoutView(View):
 @method_decorator(csrf_exempt, name='dispatch')
 class KakaoUnlinkView(View):
     def post(self, request, kakao_id):
+        """
         data = json.loads(request.body)
         jwt_access_token = data.get('jwt_token')['access_token']
 
         jwt_decode = decode_token(jwt_access_token)
         kakao_id = jwt_decode['sub']
-
+        """
         token_queryset = User.objects.filter(kakao_id=kakao_id).values('access_token')
         access_token = token_queryset[0]['access_token']
         
@@ -128,16 +132,17 @@ class KakaoUnlinkView(View):
         return JsonResponse({"id" : unlink_response , "status": 'unlink'})
 
 
-
 # --- 마이페이지 --- #       
 @method_decorator(csrf_exempt, name='dispatch')
 class KakaoUserProfileView(View):
     def get(self, request, kakao_id):
+        """
         data = json.loads(request.body)
         jwt_access_token = data.get('jwt_token')['access_token']
 
         jwt_decode = decode_token(jwt_access_token)
         kakao_id = jwt_decode['sub']
+        """
 
         # 유저의 모든 정보 #
         user_queryset = User.objects.filter(kakao_id=kakao_id)
@@ -145,19 +150,33 @@ class KakaoUserProfileView(View):
 
         # user_queryset에서 username 뽑아오기
         username = user_queryset.values('username')[0]['username']
+        print(username)
 
         # Post중 User의 username으로 작성된 post 가져오기
         user_post_queryset = Post.objects.filter(author__username=username)
         user_post_json = json.loads(serializers.serialize('json', user_post_queryset))
         
-        title = user_post_json.get("kakao_account")["email"]
-        
         # Comment중 User의 username으로 작성된 comment 가져오기
         user_comment_queryset = Comment.objects.filter(author__username=username)
         user_comment_json = json.loads(serializers.serialize('json', user_comment_queryset))
 
-
         return JsonResponse({"user_profile" : user_json, 'user_post': user_post_json, 'user_comment': user_comment_json })
+    
+    def post(self, request, kakao_id):
+        data = json.loads(request.body)
+        new_name = data.get('name', None)
+
+        u = User.objects.get(kakao_id=kakao_id)
+        u.username = new_name
+        u.save()
+
+        user_queryset = User.objects.filter(kakao_id=kakao_id)
+        user_json = json.loads(serializers.serialize('json', user_queryset))
+
+        username = user_queryset.values('username')[0]['username']
+        print(new_name)
+
+        return JsonResponse({"nickname" : username})
 
 
 # --- access_token 기간 만료시 access/refresh token 갱신 --- #
@@ -178,3 +197,50 @@ class KaKaoTokenUpdateView(View):
 
         return JsonResponse({"access_token" : access_token, 'refresh_token': refresh_token})
 
+
+@method_decorator(csrf_exempt, name='dispatch')
+def PostDelete(request, kakao_id, post_id):
+    if request.method == 'POST':
+        post = Post.objects.filter(pk=post_id)          # queryset = get_object_or_404(Post, pk=post_id)  # get_object_or_404롤 객체 받아오면 serialize가 안되는 이유는?
+        post.delete()
+
+        # 유저의 모든 정보 #
+        user_queryset = User.objects.filter(kakao_id=kakao_id)
+        user_json = json.loads(serializers.serialize('json', user_queryset))
+
+        # user_queryset에서 username 뽑아오기
+        username = user_queryset.values('username')[0]['username']
+
+        # Post중 User의 username으로 작성된 post 가져오기
+        user_post_queryset = Post.objects.filter(author__username=username)
+        user_post_json = json.loads(serializers.serialize('json', user_post_queryset))
+
+        return JsonResponse({"user_post" : user_post_json})
+
+    else:
+        return JsonResponse({"status" : "GET 요청 받았음 / post로 보내"})
+    # return redirect('post_list')
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+def CommentDelete(request, kakao_id, comment_id):
+    if request.method == 'POST':
+        comment = Comment.objects.filter(pk=comment_id)          # queryset = get_object_or_404(Post, pk=post_id)  # get_object_or_404롤 객체 받아오면 serialize가 안되는 이유는?
+        comment.delete()
+
+        # 유저의 모든 정보 #
+        user_queryset = User.objects.filter(kakao_id=kakao_id)
+        user_json = json.loads(serializers.serialize('json', user_queryset))
+
+        # user_queryset에서 username 뽑아오기
+        username = user_queryset.values('username')[0]['username']
+
+        # Post중 User의 username으로 작성된 post 가져오기
+        user_comment_queryset = Comment.objects.filter(author__username=username)
+        user_comment_json = json.loads(serializers.serialize('json', user_comment_queryset))
+
+        return JsonResponse({"user_comment" : user_comment_json})
+
+    else:
+        return JsonResponse({"status" : "GET 요청 받았음 / post로 보내"})
+    # return redirect('post_list')
