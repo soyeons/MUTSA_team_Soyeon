@@ -18,7 +18,7 @@ function FestCheck() {
 	const [checks6, setCheck6] = useState(0);
 
 	const consoleZZik = (x, id) => {
-		console.log(x);
+		console.log('id는 : ',id,",x는 : ",x);
 		if (id === 1) {
 			setCheck1(x);
 			// console.log(checks1);
@@ -114,43 +114,49 @@ function FestCheck() {
 									className={`checkBtns ${tab2 === 3 ? 'active' : ''}`}
 									onClick={(event) => {
 										setTab2(3);
-										consoleZZik(event.target.value, 3);
+										consoleZZik(event.target.value, 2);
 									}}
 								>
-									워터밤 ....?
+									앞의 장르들 짬뽕
 								</button>
 							</div>
 						</div>
 						<div className='placeQ'>
-							<Chomoji>🎫</Chomoji>
-							<Qlist>티켓팅은 어때요?</Qlist>
+							<Chomoji>🥽</Chomoji>
+							<Qlist>물을 맞는 페스티벌인가요?</Qlist>
 							<div className='checkBtn'>
 								<button
+                                    type='hidden'
+                                    value='1'
 									className={`checkBtns ${tab3 === 1 ? 'active' : ''}`}
 									onClick={(event) => {
 										setTab3(1);
-										consoleZZik(event.target.value, 2);
+										consoleZZik(event.target.value, 3);
 									}}
 								>
-									티켓팅 치열해요
+									안 맞아요
 								</button>
 								<button
+                                    type="hidden"
+                                    value="2"
 									className={`checkBtns ${tab3 === 2 ? 'active' : ''}`}
 									onClick={(event) => {
 										setTab3(2);
-										consoleZZik(event.target.value, 2);
+										consoleZZik(event.target.value, 3);
 									}}
 								>
-									그냥 그래요
+									잘 모르겠어요
 								</button>
 								<button
+                                    type="hidden"
+                                    value="3"
 									className={`checkBtns ${tab3 === 3 ? 'active' : ''}`}
 									onClick={(event) => {
 										setTab3(3);
-										consoleZZik(event.target.value, 2);
+										consoleZZik(event.target.value, 3);
 									}}
 								>
-									티켓팅 식은 죽 먹기
+									워터밤
 								</button>
 							</div>
 						</div>
@@ -158,13 +164,16 @@ function FestCheck() {
 							<Chomoji>🍔</Chomoji>
 							<Qlist>푸드 섹션이 있나요?</Qlist>
 							<div className='checkBtn'>
-								<button className={`checkBtns ${tab4 === 0 ? 'active' : ''}`} onClick={() => setTab4(0)}>
+								<button type="hidden" value="1" className={`checkBtns ${tab4 === 1 ? 'active' : ''}`} 
+                                    onClick={(event) => {setTab4(1); consoleZZik(event.target.value,4);}}>
 									푸드 섹션은 없어요
 								</button>
-								<button className={`checkBtns ${tab4 === 1 ? 'active' : ''}`} onClick={() => setTab4(1)}>
+								<button type="hidden" value="2" className={`checkBtns ${tab4 === 2 ? 'active' : ''}`} 
+                                    onClick={(event) => {setTab4(2); consoleZZik(event.target.value,4);}}>
 									잘 모르겠어요
 								</button>
-								<button className={`checkBtns ${tab4 === 2 ? 'active' : ''}`} onClick={() => setTab4(2)}>
+								<button type="hidden" value="3" className={`checkBtns ${tab4 === 3 ? 'active' : ''}`} 
+                                    onClick={(event) => {setTab4(3); consoleZZik(event.target.value,4);}}>
 									푸드 섹션이 있어요
 								</button>
 							</div>
@@ -173,13 +182,16 @@ function FestCheck() {
 							<Chomoji>📸</Chomoji>
 							<Qlist>포토존으로 여겨질만한 공간이 있나요?</Qlist>
 							<div className='checkBtn'>
-								<button className={`checkBtns ${tab5 === 0 ? 'active' : ''}`} onClick={() => setTab5(0)}>
+								<button type="hidden" value="1" className={`checkBtns ${tab5 === 1 ? 'active' : ''}`} 
+                                    onClick={(event) => {setTab5(1); consoleZZik(event.target.value,5);}}>
 									우리 사진 말고, 공연만 즐기는걸로 해요
 								</button>
-								<button className={`checkBtns ${tab5 === 1 ? 'active' : ''}`} onClick={() => setTab5(1)}>
+								<button type="hidden" value="2" className={`checkBtns ${tab5 === 2 ? 'active' : ''}`} 
+                                    onClick={(event) => {setTab5(2); consoleZZik(event.target.value,5);}}>
 									잘 모르겠어요
 								</button>
-								<button className={`checkBtns ${tab5 === 2 ? 'active' : ''}`} onClick={() => setTab5(2)}>
+								<button type="hidden" value="3" className={`checkBtns ${tab5 === 3 ? 'active' : ''}`} 
+                                    onClick={(event) => {setTab5(3); consoleZZik(event.target.value,5);}}>
 									인생샷 건짐
 								</button>
 							</div>
@@ -189,22 +201,6 @@ function FestCheck() {
             </div>
         </div>
     );
-
-						<div className='placeQ'>
-							<Chomoji>🚘</Chomoji>
-							<Qlist>주차공간이나 교통 정보 관련 팁이 있다면?</Qlist>
-							<div className='checkBtn'>
-								<textarea className='checkTxt'></textarea>
-							</div>
-						</div>
-						<div className='registBtnCheck'>
-							<button className='BtnCheck'>작성 완료</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
 }
 
 export default FestCheck;
