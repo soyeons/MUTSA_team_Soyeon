@@ -43,29 +43,29 @@ const SelectBox = (props) => {
 function WritePost({apiUrl}){
 
 
-    const ToDoItem = ({todoItem, todoList, setTodoList }) => {
-        const [edited, setEdited] = useState(false); //수정 모드인지 확인
-        const [newText, setNewText] = useState(todoItem.text);
+    // const ToDoItem = ({todoItem, todoList, setTodoList }) => {
+    //     const [edited, setEdited] = useState(false); //수정 모드인지 확인
+    //     const [newText, setNewText] = useState(todoItem.text);
     
-        const onClickEditButton = () =>{
-            //클릭시 edited 값을 true로 바꿈
-            setEdited(true);
-        };
+    //     const onClickEditButton = () =>{
+    //         //클릭시 edited 값을 true로 바꿈
+    //         setEdited(true);
+    //     };
     
-        const onChangeEditInput = (e) => {
-            setNewText(e.target.value);
-        };
+    //     const onChangeEditInput = (e) => {
+    //         setNewText(e.target.value);
+    //     };
     
-        const onClickSubmitButton = ()=>{
-            const nextTodoList = todoList.map((item)=>({
-                ...item,
-                text: item.id === todoItem.id ? newText: item.text, //새로운 아이템 내용을 넣어줌
-            }));
-            setTodoList(nextTodoList); //새로운 리스트를 넣어줌
-            setEdited(false); //수정모드를 다시 읽기모드로 변경
-        };
+    //     const onClickSubmitButton = ()=>{
+    //         const nextTodoList = todoList.map((item)=>({
+    //             ...item,
+    //             text: item.id === todoItem.id ? newText: item.text, //새로운 아이템 내용을 넣어줌
+    //         }));
+    //         setTodoList(nextTodoList); //새로운 리스트를 넣어줌
+    //         setEdited(false); //수정모드를 다시 읽기모드로 변경
+    //     };
         
-    }
+    // }
 
     const [inputs,setInputs] = useState({
         title : '',
@@ -96,11 +96,11 @@ function WritePost({apiUrl}){
             body: inputs.contents,
             author: "익명",
             
-            }).then(response => {
-                console.log(response.data);
-            })
-            // repls: [],}).then(response => {
-                // console.log(response);
+            // }).then(response => {
+            //     console.log(response.data);
+            // })
+            repls: [],}).then(response => {
+                console.log(response);})
             // navigate('../review');
         }
 
