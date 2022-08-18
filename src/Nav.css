@@ -1,20 +1,21 @@
 .navbar {
 	text-align: center;
 	position: fixed;
+	height: 100vh;
+	width: 15rem;
+	background-color: white;
+	/* box-shadow: 0.1rem 0.1rem 0.7rem rgb(200, 200, 200); */
+	min-width: 15rem;
 }
 
 .title {
-	margin-top: 7.5rem;
 	/* font-size: 2rem; */
 	position: relative;
 }
 
 .logoimg {
 	width: 9rem;
-	position: absolute;
-	left: 2.8rem;
-	bottom: 0;
-	display: block;
+	margin: 0 auto;
 }
 
 .search {
