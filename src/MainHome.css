@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+* {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.mainHome {
+	display: flex;
+	height: 100%;
+}
+
+.mainHomeBody {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	position: relative;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+}
+
+.mainHomeBody .mainHomeContent {
+	z-index: 2;
+	text-align: center;
+	color: white;
+	font-weight: 600;
+	margin-bottom: 18rem;
+	text-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+}
+
+.mainHomeBody .mainHomeText {
+	font-size: 2rem;
+}
+
+.mainHomeBody .mainHomeText span {
+	color: #ffc600;
+}
+
+.mainHomeBody img {
+	position: absolute;
+}
+
+.mainHomeContent .scrollBtn {
+	cursor: pointer;
+	border: none;
+	background: none;
+}
+
+.mainHomeBody .fireCraker1 {
+	top: 1rem;
+	left: 7rem;
+	z-index: 1;
+}
+
+.mainHomeBody .fireCraker2 {
+	top: 1.56rem;
+	left: 15rem;
+	z-index: 0;
+}
+
+.mainHomeBody .fireCraker3 {
+	top: 5rem;
+	right: 3rem;
+}
+
+.mainHomeBody .fireCraker4 {
+	top: 2rem;
+	right: 16rem;
+}
+
+.mainHomeBody .fireCraker5 {
+	right: 15rem;
+}
+
+.mainHomeBody .fireCraker6 {
+	left: 2rem;
+	top: 17rem;
+}
+
+.mainHomeBody .fireCraker7 {
+	right: 18rem;
+	z-index: 2;
+	top: 17rem;
+}

@@ -1,115 +1,112 @@
-.arrange{
-    padding-top: 40px;
-    padding-right: 70px;
-    padding-bottom: 40px;
-    margin-left: 1350px;
+.arrange {
+  padding-top: 40px;
+  padding-right: 70px;
+  padding-bottom: 40px;
+  margin-left: 1350px;
 }
 
-.write{
-    border: 2px solid black;
-    border-radius: 20px;
-    padding: 5px;
-    padding-top: 5px;
-    width: 60px;
-    background-color: white;
-    box-shadow: 2px 2px 3px rgba(125, 125, 125, 0.96);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight:bold;
-    cursor: pointer;
+.write {
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 5px;
+  padding-top: 5px;
+  width: 60px;
+  background-color: white;
+  box-shadow: 2px 2px 3px rgba(125, 125, 125, 0.96);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.write:hover{
-    background-color: #5D0EC0;
-    border: 2px solid transparent;
-    color: white; 
-    font-family: "Noto Sans KR", sans-serif;
+.write:hover {
+  background-color: #5d0ec0;
+  border: 2px solid transparent;
+  color: white;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
-.upper{
-    position: relative;
+.upper {
+  position: relative;
 }
 
-.forPD{
-    padding-right:30px;
+.forPD {
+  padding-right: 30px;
 }
 
-.Writetitle{
-    text-align: center;
-    padding-top: 85px;
-    padding-bottom: 20px;
+.Writetitle {
+  text-align: center;
+  padding-top: 85px;
+  padding-bottom: 20px;
 }
 
-
-.txtTitle{
-    width:91%;
-    border: 1px solid #C2BEBE;
-    height: 35px;
-    padding-left: 10px;
-    padding-right: 10px;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight:300;
-
+.txtTitle {
+  width: 91%;
+  border: 1px solid #c2bebe;
+  height: 35px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 300;
 }
 
-.txtTitle:focus{
-    outline: none;
+.txtTitle:focus {
+  outline: none;
 }
 
-.Writecontent{
-    text-align: center;
+.Writecontent {
+  text-align: center;
 }
 
-.txtContent{
-    width: 91%;
-    resize: none;
-    border:1px solid #C2BEBE;
-    height: 310px;
-    padding: 10px;
-    padding-top: 15px;
-    font-family: 'Noto Sans KR', sans-serif;
-    word-break: break-all;
-    font-weight:300;
-    overflow: auto;
+.txtContent {
+  width: 91%;
+  resize: none;
+  border: 1px solid #c2bebe;
+  height: 310px;
+  padding: 10px;
+  padding-top: 15px;
+  font-family: 'Noto Sans KR', sans-serif;
+  word-break: break-all;
+  font-weight: 300;
+  overflow: auto;
 }
 
-.txtContent:focus{
-    outline:none;
+.txtContent:focus {
+  outline: none;
 }
 
-.files{
-    position: absolute;
-    right: 80px;
-    margin-top: 30px;
-    margin-left: 55px;
+.files {
+  position: absolute;
+  right: 80px;
+  margin-top: 30px;
+  margin-left: 55px;
 }
 
 /* input[type="file"]{
     display: none;
 } */
 
-select{
-    position: absolute;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    width: 250px;
-    height: 35px;
-    padding-left: 20px;
-    margin-left:55px;
-    margin-top: 30px;
-    border: 1px solid #C2BEBE;
-    color:#808080;
-    font-family: "Noto Sans KR", sans-serif;
-    font-weight: 400;
-    background: url(select-arrow.svg) no-repeat right 50%; 
-    background-size: 30px;
+.writeSelect {
+  position: absolute;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 250px;
+  height: 35px;
+  padding-left: 20px;
+  margin-left: 55px;
+  margin-top: 30px;
+  border: 1px solid #c2bebe;
+  color: #808080;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 400;
+  background: url(select-arrow.svg) no-repeat right 50%;
+  background-size: 30px;
 }
 
-select.background{
-    opacity: 0.5;
+.writeSelect.background {
+  opacity: 0.5;
 }
 
-
-select:focus{
-    outline:none;
+.writeSelect:focus {
+  outline: none;
 }
