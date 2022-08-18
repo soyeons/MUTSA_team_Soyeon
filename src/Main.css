@@ -16,14 +16,14 @@
 	background-color: white;
 	color: #5d0ec0;
 	height: 100vh;
-	width: 15rem;
+	width: 18.2rem;
 	background-repeat: repeat;
 }
 
 .main .mainImg {
 	position: fixed;
 	bottom: 0rem;
-	width: 72.6rem;
+	width: 70.33rem;
 	z-index: 1;
 	right: 0;
 }

@@ -40,6 +40,12 @@
 	position: absolute;
 }
 
+.mainHomeContent .scrollBtn {
+	cursor: pointer;
+	border: none;
+	background: none;
+}
+
 .mainHomeBody .fireCraker1 {
 	top: 1rem;
 	left: 7rem;
