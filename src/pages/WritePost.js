@@ -100,7 +100,7 @@ function WritePost({apiUrl}){
                 console.log(response.data);
             })
             // repls: [],}).then(response => {
-            //     console.log(response);
+                // console.log(response);
             // navigate('../review');
         }
 
