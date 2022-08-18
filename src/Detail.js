@@ -79,7 +79,9 @@ const Detail = () => {
 
 	return (
 		<div className='detail'>
-			<nav><Navbar/></nav>
+			<nav>
+				<Navbar />
+			</nav>
 			<div className='detailBody'>
 				<div className='detailBackContainer'>
 					<div className='detailContainer'>
