@@ -1,71 +1,71 @@
-.navbar{
-    text-align: center;
-    
+.navbar {
+	text-align: center;
+	position: fixed;
 }
 
-.title{
-    margin-top: 7.5rem;
-    /* font-size: 2rem; */
-    position: relative;
+.title {
+	margin-top: 7.5rem;
+	/* font-size: 2rem; */
+	position: relative;
 }
 
-.logoimg{
-    width: 9rem;
-    position:absolute;
-    left: 2.8rem;
-    bottom:0;
-    display: block;
+.logoimg {
+	width: 9rem;
+	position: absolute;
+	left: 2.8rem;
+	bottom: 0;
+	display: block;
 }
 
-.search{
-    padding-top: 0rem;
-    float:left;
-    padding-left: 1.2rem;
-    font-size: 1.5rem;
-    padding-bottom: 1.5rem;
+.search {
+	padding-top: 0rem;
+	float: left;
+	padding-left: 1.2rem;
+	font-size: 1.5rem;
+	padding-bottom: 1.5rem;
 }
 
-.searchArea{
-    margin-left: 0.8rem;
-    width: 9rem;
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    border-width: 3px;
-    border-color: black;
+.searchArea {
+	margin-left: 0.8rem;
+	width: 9rem;
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	border-width: 3px;
+	border-color: black;
 }
 
-.searchArea:focus{
-    outline: none;
+.searchArea:focus {
+	outline: none;
 }
 
-.navBtn{
-    width: 90%;
-    height: 4.1rem;
-    border-radius: 4rem;
-    border-color: transparent;
-    color:#5d0ec0;
-    font-weight: 600;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 1.1rem;
-    cursor: pointer;
-    margin-bottom: 1rem;
-    background-color: white;
+.navBtn {
+	width: 90%;
+	height: 4.1rem;
+	border-radius: 4rem;
+	border-color: transparent;
+	color: #5d0ec0;
+	font-weight: 600;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 1.1rem;
+	cursor: pointer;
+	margin-bottom: 1rem;
+	background-color: white;
 }
 
-.navBtn:hover{
-    color:white;
-    background-color: #5d0ec0;
-    font-weight: 400;
-    box-shadow: 2px 2px 8px rgba(125, 125, 125, 0.96);
+.navBtn:hover {
+	color: white;
+	background-color: #5d0ec0;
+	font-weight: 400;
+	box-shadow: 2px 2px 8px rgba(125, 125, 125, 0.96);
 }
 
-.line{
-    background-color: black;
-    border-radius: 3rem;
-    width: 6rem;
-    height: 2px;
-    margin: auto;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
+.line {
+	background-color: black;
+	border-radius: 3rem;
+	width: 6rem;
+	height: 2px;
+	margin: auto;
+	margin-bottom: 1rem;
+	margin-top: 1rem;
 }

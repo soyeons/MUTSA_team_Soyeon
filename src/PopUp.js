@@ -12,6 +12,7 @@ initialPostList.sort((a, b) => {
 
 const PopUp = (props) => {
 	const idx = props.idx;
+	const x = props.x;
 	const y = props.y;
 	const [postList] = useState(initialPostList);
 	const dayArr = ['일', '월', '화', '수', '목', '금', '토'];
@@ -39,7 +40,7 @@ const PopUp = (props) => {
 
 	return (
 		<div>
-			<div className={cx({ popup: true }, { popupHigh: y < 710 }, { popupLow: y >= 710 })}>
+			<div className={cx({ popup: true }, { popupRight: x >= 800 }, { popupHigh: y >= 710 })}>
 				<img id='popupPoster' src={initialPostList[idx].Poster} alt='' />
 				<div className='popupDesc'>
 					<div className='popupTitleContainer'>
