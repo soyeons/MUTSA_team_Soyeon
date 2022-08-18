@@ -26,8 +26,6 @@ const Login = () => {
                 <SubHeader>당신의 페스티벌 취향을 찾아, 페스티발람</SubHeader>
                 <KakaoBtn onClick = {handleLogin}>카카오로 로그인</KakaoBtn>
                 
-             
-
             </LoginWrapper>
         </MediaDiv>
     );
