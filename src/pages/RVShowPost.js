@@ -161,7 +161,7 @@ function ShowPost({apiUrl}){
                                 {post.body}
                             </div>
                             <div className="repl">
-                                {post && post.repls.map((commentArr, i)=>{
+                                {/* {post && post.repls.map((commentArr, i)=>{
                                     return(
                                         <CommentList
                                             userName={userName}
@@ -170,7 +170,7 @@ function ShowPost({apiUrl}){
                                             key={i}
                                         /> 
                                     );
-                                })}   
+                                })}    */}
                                 <div className='replPlus'>  
                                     <button 
                                         type="button"

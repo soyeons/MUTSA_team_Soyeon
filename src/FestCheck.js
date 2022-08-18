@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{ useState } from "react";
 import Navbar from "./Nav";
 import './FestCheck.css';
 import { Chomoji, Qlist } from "./styledComponent";
@@ -21,6 +21,25 @@ function FestCheck(){
 
     const consoleZZik = (x, id) => {
         console.log(x);
+        if (id===1){
+            setCheck1(x);
+            // console.log(checks1);
+        }
+        else if (id===2){
+            setCheck2(x);
+        }
+        else if (id===3){
+            setCheck3(x);
+        }
+        else if (id===4){
+            setCheck4(x);
+        }
+        else if (id===5){
+            setCheck5(x);
+        }
+        else if (id===6){
+            setCheck6(x);
+        }
     }
 
     return(
@@ -37,10 +56,10 @@ function FestCheck(){
                             <div className="checkBtn">
                                 <button type="hidden" value="1" className={`checkBtns ${tab1 === 1 ? 'active' : ''}`}
                                     onClick={(event)=>{setTab1(1); consoleZZik(event.target.value,1);}}>스트레스를 날려버리는 / 신나는</button>
-                                <button className={`checkBtns ${tab1 === 2 ? 'active' : ''}`}
-                                    onClick={()=>setTab1(2)}>감성적인 / 힐링이 되는</button>
-                                <button className={`checkBtns ${tab1 === 3 ? 'active' : ''}`}
-                                    onClick={()=>setTab1(3)}>스트레스를 날려버리는 / 신나는 / 감성적인 / 힐링이 되는</button>
+                                <button type="hidden" value="2" className={`checkBtns ${tab1 === 2 ? 'active' : ''}`}
+                                    onClick={(event)=>{setTab1(2); consoleZZik(event.target.value,1);}}>감성적인 / 힐링이 되는</button>
+                                <button type="hidden" value="3" className={`checkBtns ${tab1 === 3 ? 'active' : ''}`}
+                                    onClick={(event)=>{setTab1(3); consoleZZik(event.target.value,1);}}>스트레스를 날려버리는 / 신나는 / 감성적인 / 힐링이 되는</button>
                             </div>                       
                         </div>
                         <div className="placeQ">

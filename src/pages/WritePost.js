@@ -94,7 +94,7 @@ function WritePost({apiUrl}){
         axios.post(`${apiUrl}`, {
             title: inputs.title,
             body: inputs.contents,
-            userId: "익명",
+            author: "익명",
             
             }).then(response => {
                 console.log(response.data);
