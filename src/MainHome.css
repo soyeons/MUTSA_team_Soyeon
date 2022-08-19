@@ -10,13 +10,13 @@
 }
 
 .mainHomeBody {
-	display: flex;
 	flex-direction: column;
 	width: 100%;
 	position: relative;
 	justify-content: center;
 	align-items: center;
 	overflow: hidden;
+	z-index: 2;
 }
 
 .mainHomeBody .mainHomeContent {
@@ -24,16 +24,20 @@
 	text-align: center;
 	color: white;
 	font-weight: 600;
-	margin-bottom: 18rem;
 	text-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+	margin-top: 10rem;
 }
 
-.mainHomeBody .mainHomeText {
-	font-size: 2rem;
+.mainHomeBody h1 {
+	font-size: 2.5rem;
 }
 
-.mainHomeBody .mainHomeText span {
+.mainHomeText span {
 	color: #ffc600;
+}
+
+.mainHomeContent p {
+	font-size: 1.5rem;
 }
 
 .mainHomeBody img {
@@ -44,6 +48,17 @@
 	cursor: pointer;
 	border: none;
 	background: none;
+	animation: motion 0.5s linear 0s infinite alternate;
+	margin-top: 0;
+}
+
+@keyframes motion {
+	0% {
+		padding-top: 0;
+	}
+	100% {
+		padding-top: 0.5rem;
+	}
 }
 
 .mainHomeBody .fireCraker1 {
@@ -69,7 +84,8 @@
 }
 
 .mainHomeBody .fireCraker5 {
-	right: 15rem;
+	right: 13rem;
+	bottom: 20rem;
 }
 
 .mainHomeBody .fireCraker6 {
@@ -78,7 +94,7 @@
 }
 
 .mainHomeBody .fireCraker7 {
-	right: 18rem;
-	z-index: 2;
-	top: 17rem;
+	right: 15.5rem;
+	z-index: 1;
+	top: 20rem;
 }
