@@ -6,7 +6,7 @@ import { faArrowLeft, faArrowRight, faPenToSquare } from "@fortawesome/free-soli
 import axios from 'axios';
 import Navbar from './../Nav';
 
-function Cmreview({apiUrl}) {
+function Cmreview() {
 
     const [postList, setPostList] = useState([]);
     const [page, setPage] = useState(1);
@@ -14,21 +14,33 @@ function Cmreview({apiUrl}) {
 
     //list?page=${page}&page_size=7
     //response.data.count => //Math.ceil에 넣기
-    const getPostList = useCallback(()=>{
-        axios.get(`http://172.17.195.227:8000/festivalapp/post/`).then(response => {
+    // const getPostList = useCallback(()=>{
+    //     axios.get(`http://172.17.195.227:8000/festivalapp/category/review/`).then(response => {
+    //         const lastPage = Math.ceil(response.data.count / 7);
+    //         const tempPages = [];
+    //         for (let i=1; i<=lastPage; i++){
+    //             tempPages.push(i);
+    //         }
+    //         setPages(tempPages);
+    //         setPostList(response.data); //이거 하면 서버에 있는 데이터값이 리스트로 들어감
+    //         console.log(response.data);
+    //         console.log(postList);
+    //     })
+    // },[page]);
+
+    useEffect(() => {
+        axios.get(`http://172.17.195.227:8000/festivalapp/category/review/`).then(response => {
             const lastPage = Math.ceil(response.data.count / 7);
             const tempPages = [];
             for (let i=1; i<=lastPage; i++){
                 tempPages.push(i);
             }
             setPages(tempPages);
-            setPostList(response.data); //이거 하면 서버에 있는 데이터값이 리스트로 들어감
-            console.log(response.data);
+            setPostList(response.data.post); //이거 하면 서버에 있는 데이터값이 리스트로 들어감
+            console.log(response.data.post);
+            console.log(postList);
         })
-    },[page]);
-
-    useEffect(getPostList, [page]);
-
+    }, []);
 
     return (
         <div id="center">
@@ -69,8 +81,8 @@ function Cmreview({apiUrl}) {
                                         <td>조회</td>
                                     </tr>
                                 </thead>
-                                    {postList.map((element)=>(
-                                        <EachPost postID={element.id} title={element.title} writer={element.author} writeday={element.date} counts={element.counts}/>
+                                    {postList.map((element,i)=>(
+                                        <EachPost key={i} postID={element.pk} title={element.fields.title} writer={element.fields.author} writeday={element.fields.date} counts={element.counts}/>
                                     ))}                                        
                             </table>
                             <div className='pageNum'>

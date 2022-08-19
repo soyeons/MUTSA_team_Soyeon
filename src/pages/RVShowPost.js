@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, useMemo} from 'react';
+import React, {useState, useEffect, useRef, useMemo } from 'react';
 import { Link, Navigate, useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
@@ -6,7 +6,6 @@ import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import './ShowPost.css';
 import Navbar from '../Nav';
-
 
 function ShowPost(){
 
@@ -39,7 +38,7 @@ function ShowPost(){
     const replInput = useRef();
 
     useEffect(()=>{
-        axios.get(`http://172.17.195.227:8000/festivalapp/post/${params.postID}`)
+        axios.get(`http://172.17.195.227:8000/festivalapp/post/${params.postID}/`)
         .then(response => {
             console.log(response);
             setPost(response.data.post);
