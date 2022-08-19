@@ -6,6 +6,40 @@ import festivallist from './list.json';
 const initialPostList = festivallist['festivallist'];
 
 const Search = () => {
+	const dayArr = ['일', '월', '화', '수', '목', '금', '토'];
+	const filteredFest = () => {
+		let filterList = [];
+		for (let i = 0; i < initialPostList.length; i++) {
+			const startDate = new Date(
+				Number(initialPostList[i].time_start.substring(0, 4)),
+				Number(initialPostList[i].time_start.substring(5, 7)) - 1,
+				Number(initialPostList[i].time_start.substring(8, 10))
+			);
+			const endDate = new Date(Number(initialPostList[i].time_end.substring(0, 4)), Number(initialPostList[i].time_end.substring(5, 7)) - 1, Number(initialPostList[i].time_end.substring(8, 10)));
+
+			let dateString = `<span>${startDate.getFullYear()}</span>년 <span>${startDate.getMonth() + 1}</span>월 <span>${startDate.getDate()}</span>일(${
+				dayArr[startDate.getDay()]
+			}) ~ <span>${endDate.getFullYear()}</span>년 <span>${endDate.getMonth() + 1}</span>월 <span>${endDate.getDate()}</span>일(${dayArr[endDate.getDay()]})`;
+			const subDate = endDate.getDate() - startDate.getDate();
+			if (subDate === 0) {
+				dateString = `<span>${startDate.getFullYear()}</span>년 <span>${startDate.getMonth() + 1}</span>월 <span>${startDate.getDate()}</span>일(${dayArr[startDate.getDay()]})`;
+			}
+
+			filterList.push(
+				<div className='searchFestEach'>
+					<img className='seacrhFestPoster' src={initialPostList[i].Poster} alt='포스터'></img>
+					<div className='searchFestDesc'>
+						<p className='searchFestTitle'>{initialPostList[i].title}</p>
+						<div className='searchFestInfo'>
+							<p className='searchFestDate' dangerouslySetInnerHTML={{ __html: dateString }}></p>
+							<p className='searchFestLoca'>{initialPostList[i].place}</p>
+						</div>
+					</div>
+				</div>
+			);
+		}
+		return filterList;
+	};
 	return (
 		<div className='search'>
 			<nav>
@@ -18,32 +52,7 @@ const Search = () => {
 							<div className='searchText'>
 								<p>페스티벌 정보</p>
 							</div>
-							<div className='searchFestList'>
-								<div className='searchFestEach'>
-									<img className='seacrhFestPoster' src='img/festival128.jpg' alt='포스터'></img>
-									<div className='searchFestDesc'>
-										<p className='searchFestTitle'>
-											<span>워터밤</span> 수원 2022
-										</p>
-										<div className='searchFestInfo'>
-											<p className='searchFestDate'>날짜 들어가는 본문 자리</p>
-											<p className='searchFestLoca'>장소 들어가는 본문 자리</p>
-										</div>
-									</div>
-								</div>
-								<div className='searchFestEach'>
-									<img className='seacrhFestPoster' src='img/festival128.jpg' alt='포스터'></img>
-									<div className='searchFestDesc'>
-										<p className='searchFestTitle'>
-											<span>워터밤</span> 수원 2022
-										</p>
-										<div className='searchFestInfo'>
-											<p className='searchFestDate'>날짜 들어가는 본문 자리</p>
-											<p className='searchFestLoca'>장소 들어가는 본문 자리</p>
-										</div>
-									</div>
-								</div>
-							</div>
+							<div className='searchFestList'>{filteredFest()}</div>
 						</div>
 						<hr />
 						<div className='searchComm'>
