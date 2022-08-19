@@ -20,9 +20,11 @@ const Calendar = () => {
 	const [isHover, setIsHover] = useState(-1);
 	const [isClick, setIsClick] = useState(-1);
 
+	const [x, setX] = useState();
 	const [y, setY] = useState();
 
 	const update = (e) => {
+		setX(e.screenX);
 		setY(e.screenY);
 	};
 
@@ -67,7 +69,7 @@ const Calendar = () => {
 				festArr.push(
 					<div className='calendarOnFest' style={styles} onClick={() => setIsClick(j)} onMouseOver={() => setIsHover(j)} onMouseOut={() => setIsHover(-1)}>
 						<p style={forP}>{initialPostList[j].title}</p>
-						{isHover === j ? <PopUp y={y} idx={j}></PopUp> : ''}
+						{isHover === j ? <PopUp x={x} y={y} idx={j}></PopUp> : ''}
 						{isClick === j ? goDetail(j) : ''}
 					</div>
 				);
@@ -100,7 +102,9 @@ const Calendar = () => {
 	};
 	return (
 		<div className='calendar'>
-			<nav><Navbar/></nav>
+			<nav>
+				<Navbar />
+			</nav>
 			<div className='calendarBody'>
 				<div className='calendarWeatherInfo'>
 					<p>

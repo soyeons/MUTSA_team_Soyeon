@@ -11,16 +11,14 @@
 	padding: 2rem;
 	z-index: 5;
 	gap: 1rem;
-	right: 5rem;
 	color: black;
 }
 
-.popupHigh {
-	top: 0rem;
+.popupRight {
+	right: 0rem;
 }
-
-.popupLow {
-	bottom: -10rem;
+.popupHigh {
+	bottom: 0rem;
 }
 
 #popupPoster {

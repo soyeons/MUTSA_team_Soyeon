@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import './WritePost.css';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import $ from 'jquery';
-import Navbar from './../Nav';
+import Navbar from '../Nav';
+import userContext from "../context/index";
 
 const OPTIONS = [
   { value: 'review', name: '후기 게시판' },
@@ -41,31 +42,32 @@ const SelectBox = (props) => {
 
 
 function WritePost({apiUrl}){
+    const context = useContext(userContext);
+    const [name,setName] = useState(context.user.name)
 
-
-    const ToDoItem = ({todoItem, todoList, setTodoList }) => {
-        const [edited, setEdited] = useState(false); //수정 모드인지 확인
-        const [newText, setNewText] = useState(todoItem.text);
+    // const ToDoItem = ({todoItem, todoList, setTodoList }) => {
+    //     const [edited, setEdited] = useState(false); //수정 모드인지 확인
+    //     const [newText, setNewText] = useState(todoItem.text);
     
-        const onClickEditButton = () =>{
-            //클릭시 edited 값을 true로 바꿈
-            setEdited(true);
-        };
+    //     const onClickEditButton = () =>{
+    //         //클릭시 edited 값을 true로 바꿈
+    //         setEdited(true);
+    //     };
     
-        const onChangeEditInput = (e) => {
-            setNewText(e.target.value);
-        };
+    //     const onChangeEditInput = (e) => {
+    //         setNewText(e.target.value);
+    //     };
     
-        const onClickSubmitButton = ()=>{
-            const nextTodoList = todoList.map((item)=>({
-                ...item,
-                text: item.id === todoItem.id ? newText: item.text, //새로운 아이템 내용을 넣어줌
-            }));
-            setTodoList(nextTodoList); //새로운 리스트를 넣어줌
-            setEdited(false); //수정모드를 다시 읽기모드로 변경
-        };
+    //     const onClickSubmitButton = ()=>{
+    //         const nextTodoList = todoList.map((item)=>({
+    //             ...item,
+    //             text: item.id === todoItem.id ? newText: item.text, //새로운 아이템 내용을 넣어줌
+    //         }));
+    //         setTodoList(nextTodoList); //새로운 리스트를 넣어줌
+    //         setEdited(false); //수정모드를 다시 읽기모드로 변경
+    //     };
         
-    }
+    // }
 
     const [inputs,setInputs] = useState({
         title : '',
@@ -91,10 +93,11 @@ function WritePost({apiUrl}){
     // 방법을 모르겟음.
 
     const onSubmit = () => {
-        axios.post(`${apiUrl}`, {
+        axios.post('http://172.17.195.227:8000/festivalapp/post/create/', {
             title: inputs.title,
             body: inputs.contents,
-            userId: "익명",
+<<<<<<< HEAD
+            username: name,
             
             }).then(response => {
                 console.log(response.data);
@@ -102,6 +105,17 @@ function WritePost({apiUrl}){
             // repls: [],}).then(response => {
                 // console.log(response);
             // navigate('../review');
+=======
+            author: "익명",
+            repls: [],
+        }).then((response)=>{
+            window.location.reload(); //등록버튼 누르고 바로 페이지 새로고침
+            console.log(response);
+        })
+           // repls: [],}).then(response => {
+            //     console.log('댓글',response);})
+            navigate('../review');
+>>>>>>> main
         }
 
     const SubmitComponent = React.memo(({onSubmit})=>(

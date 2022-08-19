@@ -17,7 +17,7 @@ const Redirect = () => {
 
     const sendAccessCode = () => { /*인가코드*/
         /*axios.post(`http://127.0.0.1:8000/api/kakaocode`,*/
-        axios.post(`http://172.20.10.4:8000/accounts/kakao/callback/`,
+        axios.post(`http://172.17.195.227:8000/accounts/kakao/callback/`,
         {
             code : KAKAO_CODE,}).then(response => {  
               const kakao_id = response.data.kakao_id; //카카오 아이디 세팅
@@ -46,13 +46,14 @@ const Redirect = () => {
     const getProfile = (kakao_id) => {
         kakao_id = Number(kakao_id)
         console.log(kakao_id)
-        axios.get(`http://172.20.10.4:8000/accounts/kakao/user/${kakao_id}/profile/`,)
+        axios.get(`http://172.17.195.227:8000/accounts/kakao/user/${kakao_id}/profile/`,)
         .then(response => {
             localStorage.setItem('kakaoId',response.data.user_profile[0].fields.kakao_id);
             localStorage.setItem('name',response.data.user_profile[0].fields.username);
             localStorage.setItem('email',response.data.user_profile[0].fields.email);
-            localStorage.setItem('post',response.data.user_post);
-            localStorage.setItem('reply',response.data.user_comment);
+            localStorage.setItem('post',JSON.stringify(response.data.user_post));
+            localStorage.setItem('reply',JSON.stringify(response.data.user_comment));
+            localStorage.setItem('logined',true);
 
             context.setUser({
                 kakaoId : response.data.user_profile[0].fields.kakao_id,
@@ -60,6 +61,7 @@ const Redirect = () => {
                 email : response.data.user_profile[0].fields.email,
                 post : response.data.user_post,
                 reply : response.data.user_comment,
+                logined : true
               })
             console.log(JSON.stringify(context.user.reply))
             navigate('/mypage')
