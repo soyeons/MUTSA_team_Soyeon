@@ -43,9 +43,11 @@ function Navbar() {
 				</Link>
 			</div>
 			<div className='buttons'>
-				<button className={`navBtn ${tab === 'fourth' ? 'active' : ''}`} onClick={() => setTab('fourth')}>
-					추천 페스티벌 테마
-				</button>
+				<Link to='/theme'>
+					<button className={`navBtn ${tab === 'fourth' ? 'active' : ''}`} onClick={() => setTab('fourth')}>
+						추천 페스티벌 테마
+					</button>
+				</Link>
 			</div>
 			<div className='buttons'>
 				<Link to='/review'>
