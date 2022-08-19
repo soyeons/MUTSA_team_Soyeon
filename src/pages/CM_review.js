@@ -1,16 +1,27 @@
-import React , { useState,useEffect, useCallback } from 'react';
-import {Link} from "react-router-dom";
+import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import EachPost from '../EachPost';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faArrowRight, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Navbar from './../Nav';
 
 function Cmreview() {
 
-    const [postList, setPostList] = useState([]);
-    const [page, setPage] = useState(1);
-    const [pages, setPages] = useState([]);
+	//list?page=${page}&page_size=7
+	//response.data.count => //Math.ceil에 넣기
+	const getPostList = useCallback(() => {
+		axios.get(`http://172.17.195.227:8000/festivalapp/post/review/`).then((response) => {
+			const lastPage = Math.ceil(response.data.count / 7);
+			const tempPages = [];
+			for (let i = 1; i <= lastPage; i++) {
+				tempPages.push(i);
+			}
+			setPages(tempPages);
+			setPostList(response.data); //이거 하면 서버에 있는 데이터값이 리스트로 들어감
+			console.log(response.data);
+		});
+	}, [page]);
 
     //list?page=${page}&page_size=7
     //response.data.count => //Math.ceil에 넣기

@@ -22,6 +22,7 @@ import TKShowPost from './pages/TKShowPost';
 import InfShowPost from './pages/InfShowPost';
 import EditPost from './pages/EditPost';
 import Search from './Search';
+import Theme from './Theme';
 
 function App() {
 	const [user, setUser] = useState({ name: '', email: '', like: '', post: '', reply: '' });
@@ -67,6 +68,7 @@ function App() {
 					<Route path='/inf/post/:postID' element={<InfShowPost/>} />
 					<Route path='/writepost' element={<WritePost/>} />
 					<Route path='/search' element={<Search></Search>} />
+					<Route path='/theme' element={<Theme></Theme>} />
 				</Routes>
 			</userContext.Provider>
 		</>

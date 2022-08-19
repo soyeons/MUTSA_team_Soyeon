@@ -4,12 +4,31 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-.mainTheme {
+.theme {
 	display: flex;
-	height: 100%;
+	background: linear-gradient(rgba(189, 106, 184, 0.8), rgba(67, 0, 131, 0.8));
+	background-repeat: no-repeat;
+	margin: 0;
+	text-align: center;
+	overflow-y: hidden;
 }
 
-.mainThemeBody {
+.theme nav {
+	color: #5d0ec0;
+	height: 100vh;
+	width: 20%;
+	box-shadow: none;
+}
+
+.theme .mainImg {
+	position: absolute;
+	bottom: 0rem;
+	width: 83.4%;
+	z-index: 1;
+	margin-left: 15rem;
+}
+
+.themeBody {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
@@ -17,9 +36,10 @@
 	justify-content: center;
 	align-items: center;
 	z-index: 2;
+	height: 100vh;
 }
 
-.mainThemeBody .mainThemeContent {
+.themeBody .themeContent {
 	text-align: center;
 	color: white;
 	font-weight: 600;
@@ -28,7 +48,7 @@
 	text-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
 }
 
-.mainThemeContent h1 {
+.themeContent h1 {
 	margin: 0;
 	margin-top: 1rem;
 	margin-bottom: 1.8rem;
