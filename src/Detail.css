@@ -183,7 +183,7 @@
 }
 
 /* review */
-.detailReview a {
+.detailReview button {
 	background-color: #5d0ec0;
 	width: 60%;
 	text-decoration: none;
