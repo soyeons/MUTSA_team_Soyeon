@@ -48,11 +48,12 @@
 }
 
 .checkBtns.active {
-	border-color: #5d0ec0;
-	color: #5d0ec0;
+	background-color: #5d0ec0;
+	color: white;
 	font-weight: bold;
 	border-width: 2px;
 	font-size: 0.8rem;
+	border: none;
 }
 
 .checkTxt {
