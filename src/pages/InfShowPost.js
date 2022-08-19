@@ -24,6 +24,7 @@ function ShowPost(){
     let [isValid, setIsValid] = useState(false);
     const [repl, setRepl] = useState("");
 
+
     return (
         <div id="center">
             <nav><Navbar/></nav>

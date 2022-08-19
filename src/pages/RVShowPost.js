@@ -27,6 +27,7 @@ let time = {
 function ShowPost({apiUrl}){
 
     const params = useParams();
+    console.log('파람스',params);
     
     // fetch(`${apiUrl}/${params.postID}`)
     // .then((response) => response.json())
@@ -87,7 +88,7 @@ function ShowPost({apiUrl}){
     const replInput = useRef();
 ///${params.postID}
     useEffect(()=>{
-        console.log(params);
+        console.log("파람",params);
         axios.get(`${apiUrl}${params.postID}`)
         .then(response => {
             setPost(response.data);
@@ -149,7 +150,7 @@ function ShowPost({apiUrl}){
                                 {post.title}
                             </div>
                             <div className='detailw'>
-                                userId : {post.userId}
+                                userId : {post.author}
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 {timestring}
                                 <button className="sp">삭제</button>

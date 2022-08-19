@@ -91,17 +91,19 @@ function WritePost({apiUrl}){
     // 방법을 모르겟음.
 
     const onSubmit = () => {
-        axios.post(`${apiUrl}`, {
+        axios.post(`${apiUrl}create/`, {
             title: inputs.title,
             body: inputs.contents,
             author: "익명",
-            
+        }).then(()=>{
+            window.location.reload(); //등록버튼 누르고 바로 페이지 새로고침
+        })
             // }).then(response => {
             //     console.log(response.data);
             // })
-            repls: [],}).then(response => {
-                console.log(response);})
-            // navigate('../review');
+            // repls: [],}).then(response => {
+            //     console.log('댓글',response);})
+            navigate('../review');
         }
 
     const SubmitComponent = React.memo(({onSubmit})=>(
