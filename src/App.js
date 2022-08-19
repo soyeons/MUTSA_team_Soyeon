@@ -21,6 +21,7 @@ import FRShowPost from './pages/FRShowPost';
 import TKShowPost from './pages/TKShowPost';
 import InfShowPost from './pages/InfShowPost';
 import EditPost from './pages/EditPost';
+import Search from './Search';
 
 const API_URL = 'http://172.20.10.4:8000/festivalapp/post/';
 
@@ -48,6 +49,7 @@ function App() {
 					<Route path='/ticket/post/:postID' element={<TKShowPost apiUrl={API_URL} />} />
 					<Route path='/inf/post/:postID' element={<InfShowPost apiUrl={API_URL} />} />
 					<Route path='/writepost' element={<WritePost apiUrl={API_URL} />} />
+					<Route path='/search' element={<Search></Search>} />
 				</Routes>
 			</userContext.Provider>
 		</>

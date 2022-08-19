@@ -14,8 +14,10 @@
 }
 
 .logoimg {
-	width: 9rem;
+	width: 10rem;
 	margin: 0 auto;
+	margin-top: 1rem;
+	margin-bottom: 2rem;
 }
 
 .search {
