@@ -8,7 +8,7 @@ import './ShowPost.css';
 import Navbar from '../Nav';
 
 
-function ShowPost({apiUrl}){
+function ShowPost(){
 
     const navigate = useNavigate();
     const params = useParams();
@@ -16,7 +16,7 @@ function ShowPost({apiUrl}){
         console.log('파람스',params);
     },[]);
     
-    let [userName] = useState('user_id');
+    // let [userName] = useState('user_id');
     let [isValid, setIsValid] = useState(false);
 
     const CommentList = (props)=> {
@@ -39,7 +39,7 @@ function ShowPost({apiUrl}){
     const replInput = useRef();
 
     useEffect(()=>{
-        axios.get(`${apiUrl}post/${params.postID}`)
+        axios.get(`http://172.17.195.227:8000/festivalapp/post/${params.postID}`)
         .then(response => {
             console.log(response);
             setPost(response.data.post);

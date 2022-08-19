@@ -6,14 +6,6 @@ import { faArrowLeft, faArrowRight, faPenToSquare } from "@fortawesome/free-soli
 import axios from 'axios';
 import Navbar from './../Nav';
 
-const initialPostList = [
-    {id: 2, title: '스우파 콘서트 후기~', writer:"choyeons", writeday:"2022.7.13", counts:14,
-    contents: "스우파 콘서트 후기남깁니다." },
-    {id: 1, title: '싸이 흠뻑쇼 후기 남겨요!', writer: "choyeon2e", writeday: "2022.6.24", counts: 17,
-    contents: "싸이 흠뻑쇼 다녀왔어요 재미있었습니다."},
-];
-
-
 function Cmreview({apiUrl}) {
 
     const [postList, setPostList] = useState([]);
