@@ -103,7 +103,7 @@ function Cmreview() {
                 tempPages.push(i);
             }
             setPages(tempPages);
-            setPostList(response.data); //이거 하면 서버에 있는 데이터값이 리스트로 들어감
+            setPostList(response.data); //이거 하면 서버에 있는 데이터값이 리스트로 들어감요
             console.log(response.data);
         })
     },[page]);
