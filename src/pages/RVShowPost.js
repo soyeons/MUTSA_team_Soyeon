@@ -14,20 +14,22 @@ import Navbar from '../Nav';
 //     contents: "싸이 흠뻑쇼 다녀왔어요 재미있었습니다."},
 // ];
 
-let today = new Date();
-let time = {
-    year: today.getFullYear(),
-    month: today.getMonth()+1,
-    date: today.getDate(),
-    hours: today.getHours(),
-    minutes: today.getMinutes(),
-};
+// let today = new Date();
+// let time = {
+//     year: today.getFullYear(),
+//     month: today.getMonth()+1,
+//     date: today.getDate(),
+//     hours: today.getHours(),
+//     minutes: today.getMinutes(),
+// };
 
 
 function ShowPost({apiUrl}){
 
     const params = useParams();
-    console.log('파람스',params);
+    useEffect(()=>{
+        console.log('파람스',params);
+    },[]);
     
     // fetch(`${apiUrl}/${params.postID}`)
     // .then((response) => response.json())
@@ -46,35 +48,27 @@ function ShowPost({apiUrl}){
     // let [feedComments, setFeedComments] = useState([]);
     let [isValid, setIsValid] = useState(false);
 
-    // let posting = e => {
-    //     const copyFeedComments = [...feedComments];
-    //     copyFeedComments.push(comment);
-    //     setFeedComments(copyFeedComments);
-    //     setComment('');
-    // };
+
+    // // const DataList = props => {
+    //     let timestring = `${time.year}.${time.month}.${time.date}. ${time.hours}:${time.minutes}`;
+    // //     return(
+    // //         <div className="userCommentBox"> 
+    // //             <div>{props.title}</div>
+    // //             <div>{props.userId}</div>
+    // //             <div>{timestring}</div>
+    // //             <div>{props.body}</div>
+    // //         </div>
+    // //     )
+    // // }
 
 
-
-    // const DataList = props => {
-        let timestring = `${time.year}.${time.month}.${time.date}. ${time.hours}:${time.minutes}`;
-    //     return(
-    //         <div className="userCommentBox"> 
-    //             <div>{props.title}</div>
-    //             <div>{props.userId}</div>
-    //             <div>{timestring}</div>
-    //             <div>{props.body}</div>
-    //         </div>
-    //     )
-    // }
-
-
-    const CommentList = props => {
-        let timestring = `${time.year}.${time.month}.${time.date}. ${time.hours}:${time.minutes}`;
+    const CommentList = () => {
+        // let timestring = `${time.year}.${time.month}.${time.date}. ${time.hours}:${time.minutes}`;
         return(
             <div className="userCommentBox"> 
-                <div className='userName'>{props.userName}</div>
-                <div className="userComment">{props.userComment}</div>
-                <div className='replTime'>{timestring}</div>
+                <div className='userName'>{repls.author}</div>
+                <div className="userComment">{repls.comment}</div>
+                <div className='replTime'>{repls.date}</div>
                 &nbsp;&nbsp;
                 <button className='plusBtn'>
                     <FontAwesomeIcon icon={faEllipsisVertical}/>
@@ -86,33 +80,46 @@ function ShowPost({apiUrl}){
     const [post, setPost] = useState([]);
     const [repls, setRepls] = useState([]);
     const replInput = useRef();
-///${params.postID}
+
     useEffect(()=>{
-        console.log("파람",params);
-        axios.get(`${apiUrl}${params.postID}`)
+        axios.get(`${apiUrl}post/${params.postID}`)
         .then(response => {
             setPost(response.data);
-            replInput.current.focus();
-            setRepls(response.data.repls);
             console.log(response.data);
+            // replInput.current.focus();
+            setRepls(response.data.comment);
+            console.log(response.data.comment);
         });
     },[]);
 
     const [repl, setRepl] = useState("");
 
-    const onSubmitRepl = () =>{
-        axios.post(`${apiUrl}repl/`,{
-            contents: repl,
+    // useEffect(()=>{
+    //     axios.get(`${apiUrl}comment/`)
+    //     .then(response=>{
+    //         // replInput.current.focus();
+    //         setRepls(response.data);
+    //         console.log(response.data);
+    //     })
+    // },[]);
+
+    const onSubmitRepl =() =>{
+        axios.post(`${apiUrl}comment/create/`,{
+            comment: repl,
             post: params.postID,
         }).then(()=>{
             window.location.reload(); //등록버튼 누르고 바로 페이지 새로고침
         })
     } 
 
-
     const modifyUrl = '/writepost/modify/'+params.postID;
-    console.log(modifyUrl);
+    // console.log(modifyUrl);
 
+    const SubmitComponentRepl = React.memo(({onSubmitRepl})=>(
+        <button onClick={onSubmitRepl} className="registBtn">
+            댓글 등록
+        </button>
+    ));
 
     return (
         <div id="center">
@@ -152,7 +159,6 @@ function ShowPost({apiUrl}){
                             <div className='detailw'>
                                 userId : {post.author}
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                {timestring}
                                 <button className="sp">삭제</button>
                                 <Link to={modifyUrl}>
                                     <button className="sp">수정</button>
@@ -162,22 +168,17 @@ function ShowPost({apiUrl}){
                                 {post.body}
                             </div>
                             <div className="repl">
-                                {/* {post && post.repls.map((commentArr, i)=>{
+                                {repls && repls.map((commentArr, i)=>{
                                     return(
-                                        <CommentList
+                                        <CommentList key = {i}
                                             userName={userName}
                                             userComment={commentArr}
                                             // date = {commentDate}
-                                            key={i}
                                         /> 
                                     );
-                                })}    */}
+                                })}   
                                 <div className='replPlus'>  
-                                    <button 
-                                        type="button"
-                                        className="registBtn"
-                                        onClick={onSubmitRepl}
-                                    >댓글 작성</button>
+                                    <SubmitComponentRepl onSubmitRepl={onSubmitRepl}/>
                                     <div className='txtSpace'>
                                         <div className='userid'>
                                             user_id
