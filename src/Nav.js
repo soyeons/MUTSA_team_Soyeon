@@ -1,84 +1,67 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import './Nav.css';
 import logo from './img/logo.png';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
-function Navbar(){
-    const [tab, setTab] = useState('');
-    const [isLogined, setLogined] = useState(localStorage.getItem('logined')); 
-    const loginCheck = async () => {
-        var logincheck = localStorage.getItem("logined")
-        setLogined(logincheck)
-        console.log(isLogined)
-    }
+function Navbar() {
+	const [tab, setTab] = useState('');
 
-    useEffect(() => {
-        loginCheck();
-        console.log("새로고침했쪄! ")
-  },)
-    return( 
-        <div className="navbar">
-            <div>
-                <Link to="/" style={{ textDecoration: 'none' }}>
-                    <div className="title">
-                        <img src={logo} alt="logo" className="logoimg"></img>
-                    </div>               
-                </Link>
-                <div className="search">
-                    <FontAwesomeIcon icon={faMagnifyingGlass}/>
-                    <textarea className="searchArea"/>
-                </div>                
-            </div>
-            <div className="buttons">
-                <Link to="/">
-                    <button className={`navBtn ${tab === 'first' ? 'active' : ''}`}
-                        onClick={()=>setTab('first')}>홈</button>                    
-                </Link>
-            </div>
-            <div className="buttons">
-                <Link to="/calendar">
-                    <button className={`navBtn ${tab === 'second' ? 'active' : ''}`}
-                        onClick={()=>setTab('second')}>페스티벌 캘린더</button>
-                </Link>
-            </div>
-            <div className="buttons">
-                <Link to="/festlist">
-                    <button className={`navBtn ${tab === 'third' ? 'active' : ''}`}
-                        onClick={()=>setTab('third')}>페스티벌 정보</button>
-                </Link>
-            </div>
-            <div className="buttons">
-                <button className={`navBtn ${tab === 'fourth' ? 'active' : ''}`}
-                        onClick={()=>setTab('fourth')}>추천 페스티벌 테마</button>                
-            </div>
-            <div className="buttons">
-                <Link to='/review'>
-                    <button className={`navBtn ${tab === 'fifth' ? 'active' : ''}`}
-                        onClick={()=>setTab('fifth')}>커뮤니티</button>
-                </Link>
-            </div>
-            <div className="line"></div>
-            <div className="buttons">
-                {
-                    (isLogined === "true")
-                        ? (<>
-                            <Link to ="/mypage">
-                                <button className = "navBtn">마이페이지</button>
-                            </Link>
-                        </>)
-                        :
-                        <>
-                            <Link to ="/login">
-                                <button className = "navBtn">로그인</button>
-                            </Link>
-                        </>
-                }
-            </div>           
-        </div>
-
-    )
+	return (
+		<div className='navbar'>
+			<div>
+				<Link to='/' style={{ textDecoration: 'none' }}>
+					<div className='title'>
+						<img src={logo} alt='logo' className='logoimg' />
+					</div>
+				</Link>
+				<div className='navSearch'>
+					<FontAwesomeIcon icon={faMagnifyingGlass} />
+					<input className='searchArea' />
+				</div>
+			</div>
+			<div className='buttons'>
+				<Link to='/'>
+					<button className={`navBtn ${tab === 'first' ? 'active' : ''}`} onClick={() => setTab('first')}>
+						홈
+					</button>
+				</Link>
+			</div>
+			<div className='buttons'>
+				<Link to='/calendar'>
+					<button className={`navBtn ${tab === 'second' ? 'active' : ''}`} onClick={() => setTab('second')}>
+						페스티벌 캘린더
+					</button>
+				</Link>
+			</div>
+			<div className='buttons'>
+				<Link to='/festlist'>
+					<button className={`navBtn ${tab === 'third' ? 'active' : ''}`} onClick={() => setTab('third')}>
+						페스티벌 정보
+					</button>
+				</Link>
+			</div>
+			<div className='buttons'>
+				<button className={`navBtn ${tab === 'fourth' ? 'active' : ''}`} onClick={() => setTab('fourth')}>
+					추천 페스티벌 테마
+				</button>
+			</div>
+			<div className='buttons'>
+				<Link to='/review'>
+					<button className={`navBtn ${tab === 'fifth' ? 'active' : ''}`} onClick={() => setTab('fifth')}>
+						커뮤니티
+					</button>
+				</Link>
+			</div>
+			<div className='line'></div>
+			<div className='buttons'>
+				<Link to='/login'>
+					<button className='navBtn'>로그인</button>
+				</Link>
+			</div>
+		</div>
+	);
 }
 
 export default Navbar;
