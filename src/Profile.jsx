@@ -1,25 +1,26 @@
-import React, {useContext,useState,useEffect,useRef} from 'react';
+import React, {useContext,useState,useEffect,useRef,useMemo} from 'react';
 import "./Profile.css";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import userContext from "./context/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock, faHeartCircleCheck, faPenToSquare, faComment} from "@fortawesome/free-solid-svg-icons";
+import Navbar from './Nav';
 
 const Profile = ( ) => {
     const context = useContext(userContext);
     const [isEdit, setIsEdit] = useState(false); //수정버튼 일단은 false 
-    const [localContent, setLocalContent] = useState(context.user.name); //수정하기 textarea값 저장 위함
+    const [localContent, setLocalContent] = useState(localStorage.getItem('name')); //수정하기 textarea값 저장 위함
     const localInput = useRef();
     const [checkList, setCheckList] = useState([]);
     const [checkListReply, setCheckListReply] = useState([])
     const [selectedBread, setSelectedBread] = useState([]);
-    const [kakaoId, setKakaoId] = useState(context.user.kakaoId)
-    const [post, setPost] = useState(context.user.post)
-    const [name,setName] = useState(context.user.name)
-    const [email,setEmail] = useState(context.user.email)
-    const [like, setLike] = useState(context.user.like)
-    const [reply, setReply] = useState(context.user.reply)
+    const [kakaoId, setKakaoId] = useState(localStorage.getItem('kakaoId'))
+    const [post, setPost] = useState(JSON.parse(localStorage.getItem('post')))
+    const [name,setName] = useState(localStorage.getItem('name'))
+    const [email,setEmail] = useState(localStorage.getItem('email'))
+    const [like, setLike] = useState(localStorage.getItem('like'))
+    const [reply, setReply] = useState(JSON.parse(localStorage.getItem('reply')))
     const navigate = useNavigate();
     const [isPostShown, setIsPostShown] = useState(false); //체크박스 보이기 안보이기
     const [isReplyShown, setIsReplyShown] = useState(false); //체크박스 보이기 안보이기
@@ -27,8 +28,18 @@ const Profile = ( ) => {
     const [deleteButtonReply, setDeleteReply] = useState("관리하기")
 
     
-  
-
+    const loginCheck = async () => {
+        console.log("로그인 체크 수행!")
+        var logincheck = Boolean(localStorage.getItem("logined"))
+        if(logincheck === true){
+          setKakaoId(Number(localStorage.getItem("kakaoId")))
+          setName(localStorage.getItem("name"))
+          setEmail(localStorage.getItem("email"))
+          setReply(JSON.parse(localStorage.getItem('reply')))
+          setPost(JSON.parse(localStorage.getItem('post')))}
+          console.log("포스트 형식은 이렇게 생겼다요" + JSON.stringify(post))
+    }
+    
 
     const changeSingleBox = (checked, id) => {
       if(checked){
@@ -60,18 +71,21 @@ const Profile = ( ) => {
               context.setUser({
                 post : response.data.user_post
               })
+              localStorage.setItem('post',JSON.stringify(response.data.user_post))
             })
       setCheckList([]);
     }}}}
 
 
 
-    const logOut = (kakaoId) => {
+    const logOut = () => {
+        axios.post(`http://172.17.195.227:8000/accounts/kakao/user/${kakaoId}/unlink/`).then(response => {
         context.setUser({ kakaoId : "", name: "", email: "", like: "", post: "", reply: "", logined:false });
-        navigate('/')
-        localStorage.clear();
-        axios.post(`http://172.20.10.4:8000/accounts/kakao/user/${kakaoId}/unlink/`).then(response => {
+        window.localStorage.clear();
+        localStorage.setItem('logined',false)
             navigate('/')})}
+  
+
 
     const controlPost = (e) => {
         setIsPostShown(current => !current);
@@ -92,14 +106,18 @@ const Profile = ( ) => {
           if(window.confirm('댓글을 삭제 하시겠습니까?')){
             for(let i=0; i<checkListReply.length; i++){
               setReply(reply.filter(reply => reply.pk !== parseInt(checkListReply[i])))
+<<<<<<< HEAD
+=======
               context.setUser({
                 reply : reply
               })
+>>>>>>> main
               axios.post(`http://172.17.195.227:8000/accounts/kakao/user/${kakaoId}/comment/delete/${checkListReply[i]}/`,{
               }).then(response => {
                 context.setUser({
                   reply : response.data.user_comment
                 })
+                localStorage.setItem('reply',JSON.stringify(response.data.user_comment))
               })
         setCheckListReply([]);
       }}}}
@@ -118,21 +136,30 @@ const Profile = ( ) => {
       if(window.confirm("닉네임을 수정하시겠습니까?")){
         onEdit(localContent);
         toggleIsEdit();
-        axios.post(`http://172.20.10.4:8000/accounts/kakao/user/${kakaoId}/profile/`,{
+        axios.post(`http://172.17.195.227:8000/accounts/kakao/user/${kakaoId}/profile/`,{
           name : localContent}).then(response => {
               context.setUser({
                 name: response.data.nickname
               })
             })
+
     }}
 
     const onEdit = (newContent) => {
       setName(newContent)
+      localStorage.setItem('name',newContent)
       //axios 쏴주는곳
     }
+
+    
+    useEffect(() => {
+      loginCheck();
+},[name])
+    
     
     return (
         <>
+        <nav className='mainnav'><Navbar/></nav>
         <div className= "yellowBox"></div>
         <div className="mainBox">
             <div className= 'nameMain'>
