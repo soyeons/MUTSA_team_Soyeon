@@ -22,13 +22,6 @@ function Navbar() {
 				</div>
 			</div>
 			<div className='buttons'>
-				<Link to='/'>
-					<button className={`navBtn ${tab === 'first' ? 'active' : ''}`} onClick={() => setTab('first')}>
-						홈
-					</button>
-				</Link>
-			</div>
-			<div className='buttons'>
 				<Link to='/calendar'>
 					<button className={`navBtn ${tab === 'second' ? 'active' : ''}`} onClick={() => setTab('second')}>
 						페스티벌 캘린더
