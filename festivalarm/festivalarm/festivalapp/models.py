@@ -1,3 +1,6 @@
+from tkinter import CASCADE
+from django.conf import settings
+
 from email.policy import default
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -17,41 +20,16 @@ class User(AbstractUser):
     
     def __str__(self):
         return self.username
-        
-"""
-class User(models.Model):
-    name = models.CharField(max_length=20)
 
-    def __str__(self):
-        return self.name
-"""
+# 작성자 이름으로 띄우기
+# 페스티벌 좋아요
 class Profile(models.Model):
-    user= models.OneToOneField(User, on_delete=models.CASCADE,primary_key=True)
-    nickname = models.CharField(max_length=20)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    like_festival = models.ManyToManyField('Festival', blank=True, related_name='like_user')
 
     def __str__(self):
-        return self.nickname
+        return self.user
     
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-              Profile.objects.create(user=instance)
-
-# 페스티벌 장르 >>안하기로 결정
-# class Genre(models.Model):
-#     name = models.CharField(max_length=20)
-
-#     def __str__(self):
-#         return self.name
-
-
-# 게시글 카테고리 >> 게시글 모델 여러개로 하자
-# class Category(models.Model):
-#     name = models.CharField(max_length=20)
-
-#     def __str__(self):
-#         return self.name
-
 
 # 페스티벌
 class Festival(models.Model):
@@ -64,14 +42,12 @@ class Festival(models.Model):
     ticket_open = models.DateField(blank=True)
     lineup = models.CharField(blank=True,max_length=1000)
     hits = models.IntegerField(blank=True,null=True)
-    likes = models.ManyToManyField(User,related_name='like',blank=True)
-    # genre_id = models.ForeignKey(
-    #     Genre,
-    #     on_delete = models.SET_NULL,
-    #     null = True,
-    #     related_name='festival_genre'
-    # )
-
+    likes = models.ManyToManyField(
+        User,
+        related_name='like',
+        blank=True
+    )
+ 
     def __str__(self):
         return self.title    
 
@@ -84,49 +60,21 @@ class Place(models.Model):
         on_delete=models.CASCADE, 
         related_name='place_festsival'
     )
-    # catetory = models.ForeignKey(
-    #     Category,
-    #     on_delete = models.SET_NULL,
-    #     null = True,
-    #     related_name='like_festsival'
-    # )
     name = models.CharField(blank=True, max_length=20)
     name_address = models.CharField(blank=True, max_length=20) # 도로명주소
     land_address = models.CharField(blank=True, max_length=20) # 지번주소
     # parking = 이거 어떻게 지정해야되지?
 
-# user:like = 1:N     
-# class Like(models.Model):
-#     # pK를 어떻게 지정하지? 얘 고유의 id값이 의미가 있어?
-#     # user의 id를 fk로
-#     user_id = models.ForeignKey(
-#         User, 
-#         on_delete=models.CASCADE, 
-#         #related_name='like_author'
-#     )
-#     # fesstival의 id를 fk로
-#     festival_id = models.ForeignKey(
-#         Festival, 
-#         on_delete=models.CASCADE, 
-#         related_name='like_festsival'
-#     )
+    def __str__(self):
+        return self.name
+
 
 class Post(models.Model):
-    # user의 id를 fk로
     author = models.ForeignKey(
-        User, 
+        User,
         on_delete=models.CASCADE, 
         related_name='post_user'
     )
-    """
-    profile = models.ForeignKey(
-        Profile, 
-        on_delete=models.CASCADE, 
-        related_name='post_profile'
-    )
-    """
-     # 공연과 관련없는 게시글일수도 있잖아 --> 모델을 따로 만들어줘야하나?
-    # fesstival의 id를 fk로
     festival = models.ForeignKey(
         Festival, 
         on_delete=models.CASCADE, 
@@ -150,13 +98,6 @@ class Comment(models.Model):
         on_delete=models.CASCADE, 
         related_name='comment_user',
     )
-    """
-    profile = models.ForeignKey(
-        Profile, 
-        on_delete=models.CASCADE, 
-        related_name='comment_profile'
-    )
-    """
     post = models.ForeignKey(
         Post, 
         null=True, 
@@ -170,7 +111,6 @@ class Comment(models.Model):
         return self.comment
 
 class Option(models.Model):
-    # fesstival의 id를 fk로
     festival= models.ForeignKey(
         Festival, 
         on_delete=models.CASCADE, 
@@ -204,3 +144,5 @@ class OptionCount(models.Model):
     def create_festival_optioncount(sender, instance, created, **kwargs):
         if created:
               OptionCount.objects.create(festival=instance)
+
+

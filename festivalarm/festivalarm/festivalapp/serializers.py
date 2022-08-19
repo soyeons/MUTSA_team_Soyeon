@@ -27,22 +27,31 @@ class PlaceSerializer(serializers.ModelSerializer):
         fields=['id','festival','name','name_adress','land_adress']
         
 class PostSerializer(serializers.ModelSerializer):
-    profile=ProfileSerializer(read_only=True)
+    # profile=ProfileSerializer(read_only=True)
     class Meta:
         model= Post
-        fields=['id','author','profile','festival','title','body','image','date','hits','category']
+        fields=['id','author','festival','title','body','image','date','hits','category']
+       
 
 class PostCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model= Post
         fields=['title','body','image','category']
-        
+
+
 class CommentSerializer(serializers.ModelSerializer):
-    profile=ProfileSerializer(read_only=True)
+    # profile=ProfileSerializer(read_only=True)
     class Meta:
         model= Comment
-        fields=['id','user','post','comment','date']
-        
+        fields=['id', 'author', 'post', 'comment', 'date']        
+
+
+class CommentCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Comment
+        # fields=['post','comment','date']
+        fields=['post','comment']
+
 class OptionSerializer(serializers.ModelSerializer):
     class Meta:
         model= Option

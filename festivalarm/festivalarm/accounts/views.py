@@ -7,7 +7,7 @@ from django.views import View
 import requests
 import json
 
-from festivalapp.models import User, Post, Comment
+from festivalapp.models import User, Post, Comment, Festival
 from .tokens import *
 from my_secrets import CLIENT_ID, REDIRECT_URI, SECRET_KEY
 
@@ -147,7 +147,7 @@ class KakaoUserProfileView(View):
         # 유저의 모든 정보 #
         user_queryset = User.objects.filter(kakao_id=kakao_id)
         user_json = json.loads(serializers.serialize('json', user_queryset))
-
+        
         # user_queryset에서 username 뽑아오기
         username = user_queryset.values('username')[0]['username']
         print(username)
@@ -160,7 +160,12 @@ class KakaoUserProfileView(View):
         user_comment_queryset = Comment.objects.filter(author__username=username)
         user_comment_json = json.loads(serializers.serialize('json', user_comment_queryset))
 
-        return JsonResponse({"user_profile" : user_json, 'user_post': user_post_json, 'user_comment': user_comment_json })
+        # Festival 중 User의 username으로 찜함 festival 가져오기
+        user_festival_queryset = Festival.objects.filter(likes__username=username)
+        user_festival_json = json.loads(serializers.serialize('json', user_festival_queryset))
+
+
+        return JsonResponse({"user_profile" : user_json, 'user_post': user_post_json, 'user_comment': user_comment_json, 'user_like': user_festival_json })
     
     def post(self, request, kakao_id):
         data = json.loads(request.body)
