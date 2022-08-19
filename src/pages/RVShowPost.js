@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef, useMemo} from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
@@ -7,78 +7,29 @@ import axios from 'axios';
 import './ShowPost.css';
 import Navbar from '../Nav';
 
-// const initialPostList = [
-//     {num: 2, title: '스우파 콘서트 후기~', writer:"choyeons", writeday:"2022.7.13", counts:14,
-//     contents: "스우파 콘서트 후기남깁니다." },
-//     {num: 1, title: '싸이 흠뻑쇼 후기 남겨요!', writer: "choyeon2e", writeday: "2022.6.24", counts: 17,
-//     contents: "싸이 흠뻑쇼 다녀왔어요 재미있었습니다."},
-// ];
-
-let today = new Date();
-let time = {
-    year: today.getFullYear(),
-    month: today.getMonth()+1,
-    date: today.getDate(),
-    hours: today.getHours(),
-    minutes: today.getMinutes(),
-};
-
 
 function ShowPost({apiUrl}){
 
+    const navigate = useNavigate();
     const params = useParams();
-    console.log('파람스',params);
+    useEffect(()=>{
+        console.log('파람스',params);
+    },[]);
     
-    // fetch(`${apiUrl}/${params.postID}`)
-    // .then((response) => response.json())
-    // .then((json) => console.log(json));
-
-
-
-    // const postNum = initialPostList.length-params.postID;
-
-    // const title = initialPostList[postNum].title;
-    // const writer = initialPostList[postNum].writer;
-    // const writeday = initialPostList[postNum].writeday;
-    // const contents = initialPostList[postNum].contents;
-
     let [userName] = useState('user_id');
-    // let [feedComments, setFeedComments] = useState([]);
     let [isValid, setIsValid] = useState(false);
 
-    // let posting = e => {
-    //     const copyFeedComments = [...feedComments];
-    //     copyFeedComments.push(comment);
-    //     setFeedComments(copyFeedComments);
-    //     setComment('');
-    // };
-
-
-
-    // const DataList = props => {
-        let timestring = `${time.year}.${time.month}.${time.date}. ${time.hours}:${time.minutes}`;
-    //     return(
-    //         <div className="userCommentBox"> 
-    //             <div>{props.title}</div>
-    //             <div>{props.userId}</div>
-    //             <div>{timestring}</div>
-    //             <div>{props.body}</div>
-    //         </div>
-    //     )
-    // }
-
-
-    const CommentList = props => {
-        let timestring = `${time.year}.${time.month}.${time.date}. ${time.hours}:${time.minutes}`;
+    const CommentList = (props)=> {
         return(
             <div className="userCommentBox"> 
-                <div className='userName'>{props.userName}</div>
-                <div className="userComment">{props.userComment}</div>
-                <div className='replTime'>{timestring}</div>
+                <div className='userName'>{props.author}</div>
+                <div className="userComment">{props.comment}</div>
+                <div className='replTime'>{props.date}</div>
                 &nbsp;&nbsp;
-                <button className='plusBtn'>
+                <button className='plusBtn' value={props.replNum} onClick={e=>{onDeleteRepl(e.target.value)}}>
                     <FontAwesomeIcon icon={faEllipsisVertical}/>
                 </button>
+                
             </div>
         )
     }
@@ -86,33 +37,54 @@ function ShowPost({apiUrl}){
     const [post, setPost] = useState([]);
     const [repls, setRepls] = useState([]);
     const replInput = useRef();
-///${params.postID}
+
     useEffect(()=>{
-        console.log("파람",params);
-        axios.get(`${apiUrl}${params.postID}`)
+        axios.get(`${apiUrl}post/${params.postID}`)
         .then(response => {
-            setPost(response.data);
-            replInput.current.focus();
-            setRepls(response.data.repls);
-            console.log(response.data);
+            console.log(response);
+            setPost(response.data.post);
+            console.log(response.data.post);
+            // replInput.current.focus();
+            setRepls(response.data.comment);
+            console.log(response.data.comment);
+            console.log("레플스 피케이",repls[0].pk);
         });
     },[]);
 
     const [repl, setRepl] = useState("");
 
     const onSubmitRepl = () =>{
-        axios.post(`${apiUrl}repl/`,{
-            contents: repl,
+        axios.post('http://172.17.195.227:8000/festivalapp/comment/create/',{
+            comment: repl,
             post: params.postID,
         }).then(()=>{
             window.location.reload(); //등록버튼 누르고 바로 페이지 새로고침
         })
     } 
-
-
     const modifyUrl = '/writepost/modify/'+params.postID;
-    console.log(modifyUrl);
 
+    const SubmitComponentRepl = React.memo(({onSubmitRepl})=>( //댓글등록 컴포넌트
+        <button onClick={onSubmitRepl} className="registBtn">
+            댓글 등록
+        </button>
+    ));
+
+    const onDelete = () =>{ //삭제 기능
+        axios.post(`http://172.17.195.227:8000/festivalapp/post/${params.postID}/delete/`,{
+            postID: params,
+        }).then(()=>{
+            window.location.reload();
+        })
+        navigate('../review');
+    };
+
+    const onDeleteRepl = (e) =>{ //삭제 기능
+        axios.post(`http://172.17.195.227:8000/festivalapp/comment/${repls[e].pk}/delete/`,{
+            postID: repls[e].pk,
+        }).then(()=>{
+            window.location.reload();
+        })
+    };
 
     return (
         <div id="center">
@@ -152,8 +124,7 @@ function ShowPost({apiUrl}){
                             <div className='detailw'>
                                 userId : {post.author}
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                {timestring}
-                                <button className="sp">삭제</button>
+                                <button className="sp" onClick={onDelete}>삭제</button>
                                 <Link to={modifyUrl}>
                                     <button className="sp">수정</button>
                                 </Link>
@@ -162,22 +133,19 @@ function ShowPost({apiUrl}){
                                 {post.body}
                             </div>
                             <div className="repl">
-                                {/* {post && post.repls.map((commentArr, i)=>{
+                                {repls && repls.map((repls,i)=>{
                                     return(
-                                        <CommentList
-                                            userName={userName}
-                                            userComment={commentArr}
-                                            // date = {commentDate}
-                                            key={i}
-                                        /> 
+                                        <CommentList 
+                                            key = {i}
+                                            author={repls.fields.author}
+                                            comment={repls.fields.comment}
+                                            date={repls.fields.date}
+                                            replNum={i}
+                                        />
                                     );
-                                })}    */}
+                                })}   
                                 <div className='replPlus'>  
-                                    <button 
-                                        type="button"
-                                        className="registBtn"
-                                        onClick={onSubmitRepl}
-                                    >댓글 작성</button>
+                                    <SubmitComponentRepl onSubmitRepl={onSubmitRepl}/>
                                     <div className='txtSpace'>
                                         <div className='userid'>
                                             user_id
@@ -206,7 +174,6 @@ function ShowPost({apiUrl}){
                     </div>
                 </div>                
             </div>
-
         </div>
     );
 }

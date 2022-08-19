@@ -55,7 +55,7 @@ const Profile = ( ) => {
             context.setUser({
               post : post
             })
-            axios.post(`http://172.20.10.4:8000/accounts/kakao/user/${kakaoId}/post/delete/${checkList[i]}/`,{
+            axios.post(`http://172.17.195.227:8000/accounts/kakao/user/${kakaoId}/post/delete/${checkList[i]}/`,{
             }).then(response => {
               context.setUser({
                 post : response.data.user_post
@@ -95,7 +95,7 @@ const Profile = ( ) => {
               context.setUser({
                 reply : reply
               })
-              axios.post(`http://172.20.10.4:8000/accounts/kakao/user/${kakaoId}/comment/delete/${checkListReply[i]}/`,{
+              axios.post(`http://172.17.195.227:8000/accounts/kakao/user/${kakaoId}/comment/delete/${checkListReply[i]}/`,{
               }).then(response => {
                 context.setUser({
                   reply : response.data.user_comment

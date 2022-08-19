@@ -23,7 +23,7 @@ function Cmreview({apiUrl}) {
 //list?page=${page}&page_size=7
     //response.data.count => //Math.ceil에 넣기
     const getPostList = useCallback(()=>{
-        axios.get(`${apiUrl}`).then(response => {
+        axios.get(`${apiUrl}post/`).then(response => {
             const lastPage = Math.ceil( response.data.count / 7);
             const tempPages = [];
             // console.log(response);

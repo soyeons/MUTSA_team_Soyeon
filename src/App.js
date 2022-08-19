@@ -23,7 +23,7 @@ import InfShowPost from './pages/InfShowPost';
 import EditPost from './pages/EditPost';
 import FestCheck from './FestCheck';
 
-const API_URL = 'http://172.20.10.4:8000/festivalapp/post/'
+const API_URL = 'http://172.17.195.227:8000/festivalapp/'
 
 function App() {
   const [user, setUser] = useState({name: "", email: "", like: "", post: "", reply: ""})

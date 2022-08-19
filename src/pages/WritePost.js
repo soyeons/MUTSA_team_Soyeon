@@ -91,17 +91,16 @@ function WritePost({apiUrl}){
     // 방법을 모르겟음.
 
     const onSubmit = () => {
-        axios.post(`${apiUrl}create/`, {
+        axios.post('http://172.17.195.227:8000/festivalapp/post/create/', {
             title: inputs.title,
             body: inputs.contents,
             author: "익명",
-        }).then(()=>{
+            repls: [],
+        }).then((response)=>{
             window.location.reload(); //등록버튼 누르고 바로 페이지 새로고침
+            console.log(response);
         })
-            // }).then(response => {
-            //     console.log(response.data);
-            // })
-            // repls: [],}).then(response => {
+           // repls: [],}).then(response => {
             //     console.log('댓글',response);})
             navigate('../review');
         }

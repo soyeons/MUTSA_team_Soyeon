@@ -51,6 +51,7 @@
     font-family: SUIT-Medium;
     border-top: 1px solid rgba(177,176,176,0.518);
     position: relative;
+    /* margin-top: 10rem; */
 }
 
 .replPlus{
@@ -97,8 +98,9 @@
 }
 
 .userCommentBox{
-    padding: 12px;
-    padding-bottom: 40px;
+    /* padding: 12px; */
+    margin: 1.4rem;
+    padding-bottom: 1.4rem;
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 15px;
 }
@@ -119,8 +121,8 @@
 }
 
 .replTime{
-    float: left;
-    margin-left: 170px;
+    position: absolute;
+    margin-left: 45rem;
     font-family: 'Noto Sans KR', sans-serif;
     font-weight: 300;
 }
@@ -137,6 +139,7 @@
 .plusBtn{
     background-color: transparent;
     border: none;
+    position: absolute;
     cursor: pointer;
-    margin-left: 50px;
+    margin-left: 5.5rem;
 }

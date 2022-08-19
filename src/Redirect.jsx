@@ -17,7 +17,7 @@ const Redirect = () => {
 
     const sendAccessCode = () => { /*인가코드*/
         /*axios.post(`http://127.0.0.1:8000/api/kakaocode`,*/
-        axios.post(`http://172.20.10.4:8000/accounts/kakao/callback/`,
+        axios.post(`http://172.17.195.227:8000/accounts/kakao/callback/`,
         {
             code : KAKAO_CODE,}).then(response => {  
               const kakao_id = response.data.kakao_id; //카카오 아이디 세팅
