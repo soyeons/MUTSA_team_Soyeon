@@ -1,15 +1,3 @@
-.festCheck {
-	display: flex;
-}
-
-.festCheck nav {
-	background-color: white;
-	color: #5d0ec0;
-	height: 100vh;
-	width: 15rem;
-	box-shadow: 0.1rem 0.1rem 0.7rem rgb(200, 200, 200);
-}
-
 .festCheckBody {
 	position: relative;
 	background-size: cover;
@@ -23,30 +11,7 @@
 	padding-left: 2%;
 }
 
-.YellowSquareCheck {
-	background-color: #ffc600;
-	width: 65vw;
-	height: 46.5rem;
-	box-shadow: 0px 0.25rem 1.25rem rgba(0, 0, 0, 0.25);
-	border-radius: 1.25rem;
-	position: relative;
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
-	margin-bottom: 2.7rem;
-}
-
-.PostListCheck {
-	height: 45rem;
-	position: absolute;
-	right: 1.5rem;
-	top: 0;
-	flex-direction: column;
-	width: 100%;
-	background-color: white;
-	box-shadow: 0px 0.25rem 1.25rem rgba(0, 0, 0, 0.25);
-	border-radius: 1.25rem;
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
+.detailCheck {
 	display: flex;
 	flex-direction: column;
 	gap: 2rem;

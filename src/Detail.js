@@ -122,246 +122,246 @@ const Detail = () => {
 			<div className='detailBody'>
 				<div className='detailBackContainer'>
 					<div className='detailContainer'>
-						<div className='detailHeader'>
-							<button onClick={openModal} type='button' className='detailZzimBtn' onMouseOver={() => setIsHovering(1)} onMouseOut={() => setIsHovering(0)}>
-								<FontAwesomeIcon icon={isHovering ? sHeart : rHeart} />
-								<p>좋아요</p>
-							</button>
-							<Modal open={modalOpen} close={closeModal} header='찜한 페스티벌에 추가되었습니다.'>
-								찜한 페스티벌의 경우 카카오톡으로 티켓팅 알림을 받게 됩니다. <br />
-								‘마이페이지 > 찜한 페스티벌 목록’ 에서 관리할 수 있습니다.
-							</Modal>
-						</div>
-						<div className='detailMain'>
-							<img id='detailPoster' src={'/' + perform.Poster} alt={perform.title} />
-							<div className='detailContent'>
-								<div className='detailDesc'>
-									<div className='detailTitle'>{perform.title}</div>
-									<div className='detailPerformanceDate' dangerouslySetInnerHTML={{ __html: dateString }}></div>
-									<div className='detailPlace'>{perform.place}</div>
-									<div className='detailOpendDateate'>
-										티켓오픈 : <span>{reserveDate.getFullYear()}</span>년 <span>{reserveDate.getMonth() + 1}</span>월 <span>{reserveDate.getDate()}</span>일({dayArr[reserveDate.getDay()]})
+						<div className='detailDesc'>
+							<div className='detailHeader'>
+								<button onClick={openModal} type='button' className='detailZzimBtn' onMouseOver={() => setIsHovering(1)} onMouseOut={() => setIsHovering(0)}>
+									<FontAwesomeIcon icon={isHovering ? sHeart : rHeart} />
+									<p>좋아요</p>
+								</button>
+								<Modal open={modalOpen} close={closeModal} header='찜한 페스티벌에 추가되었습니다.'>
+									찜한 페스티벌의 경우 카카오톡으로 티켓팅 알림을 받게 됩니다. <br />
+									‘마이페이지 > 찜한 페스티벌 목록’ 에서 관리할 수 있습니다.
+								</Modal>
+							</div>
+							<div className='detailMain'>
+								<img id='detailPoster' src={'/' + perform.Poster} alt={perform.title} />
+								<div className='detailContent'>
+									<div className='detailDesc'>
+										<div className='detailTitle'>{perform.title}</div>
+										<div className='detailPerformanceDate' dangerouslySetInnerHTML={{ __html: dateString }}></div>
+										<div className='detailPlace'>{perform.place}</div>
+										<div className='detailOpendDateate'>
+											티켓오픈 : <span>{reserveDate.getFullYear()}</span>년 <span>{reserveDate.getMonth() + 1}</span>월 <span>{reserveDate.getDate()}</span>일({dayArr[reserveDate.getDay()]})
+										</div>
 									</div>
+									<div className='detailMoreInfo'>
+										<p>더 자세한 정보는 아래의 링크를 통해 확인하세요!</p>
+										<p>(티켓 가격, 티켓 할인 정보, 예매/관람 가이드, 반입금지물품, 교통 안내 등)</p>
+										<a href={perform.ticket_link}>예매 사이트 바로가기</a>
+									</div>
+									<div className='detailTagContainer'>{addTags(tags)}</div>
 								</div>
-								<div className='detailMoreInfo'>
-									<p>더 자세한 정보는 아래의 링크를 통해 확인하세요!</p>
-									<p>(티켓 가격, 티켓 할인 정보, 예매/관람 가이드, 반입금지물품, 교통 안내 등)</p>
-									<a href={perform.ticket_link}>예매 사이트 바로가기</a>
+							</div>
+							<div className='detailReview'>
+								<button onClick={scrollToElement} className='detailReviewBtn'>
+									<p>
+										이전에 해당 페스티벌을 즐긴 경험이 있다면 ?<br />
+										후기 작성하러가기!
+										<br />
+									</p>
+									<p>(다른 사람들을 위해 소중한 후기를 공유해주세요!)</p>
+								</button>
+							</div>
+						</div>
+						<div ref={checkRef} className='detailCheck'>
+							<div className='placeQ'>
+								<Chomoji>🎪</Chomoji>
+								<Qlist>해당 페스티벌의 분위기는 어떤가요?</Qlist>
+								<div className='checkBtn'>
+									<button
+										type='button'
+										value='1'
+										className={`checkBtns ${tab1 === 1 ? 'active' : ''}`}
+										onClick={(event) => {
+											setTab1(1);
+											consoleZZik(event.target.value, 1);
+										}}
+									>
+										스트레스를 날려버리는 / 신나는
+									</button>
+									<button
+										type='button'
+										value='2'
+										className={`checkBtns ${tab1 === 2 ? 'active' : ''}`}
+										onClick={(event) => {
+											setTab1(2);
+											consoleZZik(event.target.value, 1);
+										}}
+									>
+										감성적인 / 힐링이 되는
+									</button>
+									<button
+										type='button'
+										value='3'
+										className={`checkBtns ${tab1 === 3 ? 'active' : ''}`}
+										onClick={(event) => {
+											setTab1(3);
+											consoleZZik(event.target.value, 1);
+										}}
+									>
+										스트레스를 날려버리는 / 신나는 / 감성적인 / 힐링이 되는
+									</button>
 								</div>
-								<div className='detailTagContainer'>{addTags(tags)}</div>
 							</div>
-						</div>
-						<div className='detailReview'>
-							<button onClick={scrollToElement} className='detailReviewBtn'>
-								<p>
-									이전에 해당 페스티벌을 즐긴 경험이 있다면 ?<br />
-									후기 작성하러가기!
-									<br />
-								</p>
-								<p>(다른 사람들을 위해 소중한 후기를 공유해주세요!)</p>
-							</button>
-						</div>
-					</div>
-				</div>
-				<div ref={checkRef} className='YellowSquareCheck'>
-					<div className='PostListCheck'>
-						<div className='placeQ'>
-							<Chomoji>🎪</Chomoji>
-							<Qlist>해당 페스티벌의 분위기는 어떤가요?</Qlist>
-							<div className='checkBtn'>
-								<button
-									type='hidden'
-									value='1'
-									className={`checkBtns ${tab1 === 1 ? 'active' : ''}`}
-									onClick={(event) => {
-										setTab1(1);
-										consoleZZik(event.target.value, 1);
-									}}
-								>
-									스트레스를 날려버리는 / 신나는
-								</button>
-								<button
-									type='hidden'
-									value='2'
-									className={`checkBtns ${tab1 === 2 ? 'active' : ''}`}
-									onClick={(event) => {
-										setTab1(2);
-										consoleZZik(event.target.value, 1);
-									}}
-								>
-									감성적인 / 힐링이 되는
-								</button>
-								<button
-									type='hidden'
-									value='3'
-									className={`checkBtns ${tab1 === 3 ? 'active' : ''}`}
-									onClick={(event) => {
-										setTab1(3);
-										consoleZZik(event.target.value, 1);
-									}}
-								>
-									스트레스를 날려버리는 / 신나는 / 감성적인 / 힐링이 되는
-								</button>
+							<div className='placeQ'>
+								<Chomoji>🎸</Chomoji>
+								<Qlist>해당 페스티벌의 뮤직 스타일은 어떤가요?</Qlist>
+								<div className='checkBtn'>
+									<button
+										type='button'
+										value='1'
+										className={`checkBtns ${tab2 === 1 ? 'active' : ''}`}
+										onClick={(event) => {
+											setTab2(1);
+											consoleZZik(event.target.value, 2);
+										}}
+									>
+										힙합 / 알앤비 / 락
+									</button>
+									<button
+										type='button'
+										value='2'
+										className={`checkBtns ${tab2 === 2 ? 'active' : ''}`}
+										onClick={(event) => {
+											setTab2(2);
+											consoleZZik(event.target.value, 2);
+										}}
+									>
+										인디 어쿠스틱 / 인디 밴드
+									</button>
+									<button
+										type='button'
+										value='3'
+										className={`checkBtns ${tab2 === 3 ? 'active' : ''}`}
+										onClick={(event) => {
+											setTab2(3);
+											consoleZZik(event.target.value, 2);
+										}}
+									>
+										앞의 장르들 짬뽕
+									</button>
+								</div>
 							</div>
-						</div>
-						<div className='placeQ'>
-							<Chomoji>🎸</Chomoji>
-							<Qlist>해당 페스티벌의 뮤직 스타일은 어떤가요?</Qlist>
-							<div className='checkBtn'>
-								<button
-									type='hidden'
-									value='1'
-									className={`checkBtns ${tab2 === 1 ? 'active' : ''}`}
-									onClick={(event) => {
-										setTab2(1);
-										consoleZZik(event.target.value, 2);
-									}}
-								>
-									힙합 / 알앤비 / 락
-								</button>
-								<button
-									type='hidden'
-									value='2'
-									className={`checkBtns ${tab2 === 2 ? 'active' : ''}`}
-									onClick={(event) => {
-										setTab2(2);
-										consoleZZik(event.target.value, 2);
-									}}
-								>
-									인디 어쿠스틱 / 인디 밴드
-								</button>
-								<button
-									type='hidden'
-									value='3'
-									className={`checkBtns ${tab2 === 3 ? 'active' : ''}`}
-									onClick={(event) => {
-										setTab2(3);
-										consoleZZik(event.target.value, 2);
-									}}
-								>
-									앞의 장르들 짬뽕
-								</button>
+							<div className='placeQ'>
+								<Chomoji>🥽</Chomoji>
+								<Qlist>물을 맞는 페스티벌인가요?</Qlist>
+								<div className='checkBtn'>
+									<button
+										type='button'
+										value='1'
+										className={`checkBtns ${tab3 === 1 ? 'active' : ''}`}
+										onClick={(event) => {
+											setTab3(1);
+											consoleZZik(event.target.value, 3);
+										}}
+									>
+										안 맞아요
+									</button>
+									<button
+										type='button'
+										value='2'
+										className={`checkBtns ${tab3 === 2 ? 'active' : ''}`}
+										onClick={(event) => {
+											setTab3(2);
+											consoleZZik(event.target.value, 3);
+										}}
+									>
+										잘 모르겠어요
+									</button>
+									<button
+										type='button'
+										value='3'
+										className={`checkBtns ${tab3 === 3 ? 'active' : ''}`}
+										onClick={(event) => {
+											setTab3(3);
+											consoleZZik(event.target.value, 3);
+										}}
+									>
+										워터밤
+									</button>
+								</div>
 							</div>
-						</div>
-						<div className='placeQ'>
-							<Chomoji>🥽</Chomoji>
-							<Qlist>물을 맞는 페스티벌인가요?</Qlist>
-							<div className='checkBtn'>
-								<button
-									type='hidden'
-									value='1'
-									className={`checkBtns ${tab3 === 1 ? 'active' : ''}`}
-									onClick={(event) => {
-										setTab3(1);
-										consoleZZik(event.target.value, 3);
-									}}
-								>
-									안 맞아요
-								</button>
-								<button
-									type='hidden'
-									value='2'
-									className={`checkBtns ${tab3 === 2 ? 'active' : ''}`}
-									onClick={(event) => {
-										setTab3(2);
-										consoleZZik(event.target.value, 3);
-									}}
-								>
-									잘 모르겠어요
-								</button>
-								<button
-									type='hidden'
-									value='3'
-									className={`checkBtns ${tab3 === 3 ? 'active' : ''}`}
-									onClick={(event) => {
-										setTab3(3);
-										consoleZZik(event.target.value, 3);
-									}}
-								>
-									워터밤
-								</button>
+							<div className='placeQ'>
+								<Chomoji>🍔</Chomoji>
+								<Qlist>푸드 섹션이 있나요?</Qlist>
+								<div className='checkBtn'>
+									<button
+										type='button'
+										value='1'
+										className={`checkBtns ${tab4 === 1 ? 'active' : ''}`}
+										onClick={(event) => {
+											setTab4(1);
+											consoleZZik(event.target.value, 4);
+										}}
+									>
+										푸드 섹션은 없어요
+									</button>
+									<button
+										type='button'
+										value='2'
+										className={`checkBtns ${tab4 === 2 ? 'active' : ''}`}
+										onClick={(event) => {
+											setTab4(2);
+											consoleZZik(event.target.value, 4);
+										}}
+									>
+										잘 모르겠어요
+									</button>
+									<button
+										type='button'
+										value='3'
+										className={`checkBtns ${tab4 === 3 ? 'active' : ''}`}
+										onClick={(event) => {
+											setTab4(3);
+											consoleZZik(event.target.value, 4);
+										}}
+									>
+										푸드 섹션이 있어요
+									</button>
+								</div>
 							</div>
-						</div>
-						<div className='placeQ'>
-							<Chomoji>🍔</Chomoji>
-							<Qlist>푸드 섹션이 있나요?</Qlist>
-							<div className='checkBtn'>
-								<button
-									type='hidden'
-									value='1'
-									className={`checkBtns ${tab4 === 1 ? 'active' : ''}`}
-									onClick={(event) => {
-										setTab4(1);
-										consoleZZik(event.target.value, 4);
-									}}
-								>
-									푸드 섹션은 없어요
-								</button>
-								<button
-									type='hidden'
-									value='2'
-									className={`checkBtns ${tab4 === 2 ? 'active' : ''}`}
-									onClick={(event) => {
-										setTab4(2);
-										consoleZZik(event.target.value, 4);
-									}}
-								>
-									잘 모르겠어요
-								</button>
-								<button
-									type='hidden'
-									value='3'
-									className={`checkBtns ${tab4 === 3 ? 'active' : ''}`}
-									onClick={(event) => {
-										setTab4(3);
-										consoleZZik(event.target.value, 4);
-									}}
-								>
-									푸드 섹션이 있어요
-								</button>
+							<div className='placeQ'>
+								<Chomoji>📸</Chomoji>
+								<Qlist>포토존으로 여겨질만한 공간이 있나요?</Qlist>
+								<div className='checkBtn'>
+									<button
+										type='button'
+										value='1'
+										className={`checkBtns ${tab5 === 1 ? 'active' : ''}`}
+										onClick={(event) => {
+											setTab5(1);
+											consoleZZik(event.target.value, 5);
+										}}
+									>
+										우리 사진 말고, 공연만 즐기는걸로 해요
+									</button>
+									<button
+										type='button'
+										value='2'
+										className={`checkBtns ${tab5 === 2 ? 'active' : ''}`}
+										onClick={(event) => {
+											setTab5(2);
+											consoleZZik(event.target.value, 5);
+										}}
+									>
+										잘 모르겠어요
+									</button>
+									<button
+										type='button'
+										value='3'
+										className={`checkBtns ${tab5 === 3 ? 'active' : ''}`}
+										onClick={(event) => {
+											setTab5(3);
+											consoleZZik(event.target.value, 5);
+										}}
+									>
+										인생샷 건짐
+									</button>
+								</div>
 							</div>
-						</div>
-						<div className='placeQ'>
-							<Chomoji>📸</Chomoji>
-							<Qlist>포토존으로 여겨질만한 공간이 있나요?</Qlist>
-							<div className='checkBtn'>
-								<button
-									type='hidden'
-									value='1'
-									className={`checkBtns ${tab5 === 1 ? 'active' : ''}`}
-									onClick={(event) => {
-										setTab5(1);
-										consoleZZik(event.target.value, 5);
-									}}
-								>
-									우리 사진 말고, 공연만 즐기는걸로 해요
-								</button>
-								<button
-									type='hidden'
-									value='2'
-									className={`checkBtns ${tab5 === 2 ? 'active' : ''}`}
-									onClick={(event) => {
-										setTab5(2);
-										consoleZZik(event.target.value, 5);
-									}}
-								>
-									잘 모르겠어요
-								</button>
-								<button
-									type='hidden'
-									value='3'
-									className={`checkBtns ${tab5 === 3 ? 'active' : ''}`}
-									onClick={(event) => {
-										setTab5(3);
-										consoleZZik(event.target.value, 5);
-									}}
-								>
-									인생샷 건짐
-								</button>
+							<div className='registBtnCheck'>
+								<button className='BtnCheck'>작성 완료</button>
 							</div>
-						</div>
-						<div className='registBtnCheck'>
-							<button className='BtnCheck'>작성 완료</button>
 						</div>
 					</div>
 				</div>
