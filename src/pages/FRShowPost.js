@@ -1,35 +1,96 @@
-import React, {useState} from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, {useState, useEffect, useRef, useMemo} from 'react';
+import { Link, Navigate, useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 import './ShowPost.css';
 import Navbar from '../Nav';
 
-const initialPostList = [
-    {num:2, title: '워터밤 동행 구합니다아~', writer:"ㅎㅎ", writeday:"2022.7.13", counts:14,
-    contents: "7/16 워터밤 동행 한 분 구해용 댓글 남겨주세요" },
-    {num:1, title: '랩비트 페스티벌 함께 갈 사람!!', writer: "레츠고", writeday: "2022.6.24", counts: 17,
-    contents: "랩비트 페스티벌 같이가실분?"},
-];
 
-function ShowPost(){
+function ShowPost({apiUrl}){
 
+    const navigate = useNavigate();
     const params = useParams();
-    const postNum = initialPostList.length-params.postID;
-
-    const title = initialPostList[postNum].title;
-    const writer = initialPostList[postNum].writer;
-    const writeday = initialPostList[postNum].writeday;
-    const contents = initialPostList[postNum].contents;
-
+    useEffect(()=>{
+        console.log('파람스',params);
+    },[]);
+    
     let [userName] = useState('user_id');
-    // let [feedComments, setFeedComments] = useState([]);
     let [isValid, setIsValid] = useState(false);
+
+    const CommentList = (props)=> {
+        return(
+            <div className="userCommentBox"> 
+                <div className='userName'>{props.author}</div>
+                <div className="userComment">{props.comment}</div>
+                <div className='replTime'>{props.date}</div>
+                &nbsp;&nbsp;
+                <button className='plusBtn' value={props.replNum} onClick={e=>{onDeleteRepl(e.target.value)}}>
+                    <FontAwesomeIcon icon={faEllipsisVertical}/>
+                </button>
+                
+            </div>
+        )
+    }
+
+    const [post, setPost] = useState([]);
+    const [repls, setRepls] = useState([]);
+    const replInput = useRef();
+
+    useEffect(()=>{
+        axios.get(`${apiUrl}post/${params.postID}`)
+        .then(response => {
+            console.log(response);
+            setPost(response.data.post);
+            console.log(response.data.post);
+            // replInput.current.focus();
+            setRepls(response.data.comment);
+            console.log(response.data.comment);
+            console.log("레플스 피케이",repls[0].pk);
+        });
+    },[]);
+
     const [repl, setRepl] = useState("");
+
+    const onSubmitRepl = () =>{
+        axios.post('http://172.17.195.227:8000/festivalapp/comment/create/',{
+            comment: repl,
+            post: params.postID,
+        }).then(()=>{
+            window.location.reload(); //등록버튼 누르고 바로 페이지 새로고침
+        })
+    } 
+    const modifyUrl = '/writepost/modify/'+params.postID;
+
+    const SubmitComponentRepl = React.memo(({onSubmitRepl})=>( //댓글등록 컴포넌트
+        <button onClick={onSubmitRepl} className="registBtn">
+            댓글 등록
+        </button>
+    ));
+
+    const onDelete = () =>{ //삭제 기능
+        axios.post(`http://172.17.195.227:8000/festivalapp/post/${params.postID}/delete/`,{
+            postID: params,
+        }).then(()=>{
+            window.location.reload();
+        })
+        navigate('../review');
+    };
+
+    const onDeleteRepl = (e) =>{ //삭제 기능
+        axios.post(`http://172.17.195.227:8000/festivalapp/comment/${repls[e].pk}/delete/`,{
+            postID: repls[e].pk,
+        }).then(()=>{
+            window.location.reload();
+        })
+    };
 
     return (
         <div id="center">
-            <nav><Navbar/></nav>
+            <nav>
+               <Navbar/> 
+            </nav>
             <div>
                 <div id="select">
                     <Link to="/review">
@@ -51,37 +112,40 @@ function ShowPost(){
                             <Link to = "/writepost">
                                 <button className="writeBtn">
                                     <FontAwesomeIcon icon={faPenToSquare}/>
-                                    &nbsp;작성하기 
+                                    &nbsp;작성하기
                                 </button>                          
                             </Link>
                         </div>
                         <div className="tc">
                             <div className='blank'></div>
-                            <div className="detailtitle">{title}</div>
+                            <div className="detailtitle">
+                                {post.title}
+                            </div>
                             <div className='detailw'>
-                                {writer}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{writeday}
-                                <button className="sp">삭제</button><button className="sp">수정</button>
+                                userId : {post.author}
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button className="sp" onClick={onDelete}>삭제</button>
+                                <Link to={modifyUrl}>
+                                    <button className="sp">수정</button>
+                                </Link>
                             </div>
                             <div className="detailcontents">
-                                {contents}
+                                {post.body}
                             </div>
                             <div className="repl">
-                                {/* {post && post.repls.map((commentArr, i)=>{
+                                {repls && repls.map((repls,i)=>{
                                     return(
-                                        <CommentList
-                                            userName={userName}
-                                            userComment={commentArr}
-                                            // date = {commentDate}
-                                            key={i}
-                                        /> 
+                                        <CommentList 
+                                            key = {i}
+                                            author={repls.fields.author}
+                                            comment={repls.fields.comment}
+                                            date={repls.fields.date}
+                                            replNum={i}
+                                        />
                                     );
-                                })}    */}
+                                })}   
                                 <div className='replPlus'>  
-                                    <button 
-                                        type="button"
-                                        className="registBtn"
-                                        // onClick={onSubmitRepl}
-                                    >댓글 작성</button>
+                                    <SubmitComponentRepl onSubmitRepl={onSubmitRepl}/>
                                     <div className='txtSpace'>
                                         <div className='userid'>
                                             user_id
@@ -110,9 +174,9 @@ function ShowPost(){
                     </div>
                 </div>                
             </div>
-
         </div>
     );
 }
+
 
 export default ShowPost;

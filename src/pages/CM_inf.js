@@ -1,18 +1,55 @@
-import React , { useState } from 'react';
+import React , { useState,useEffect, useCallback } from 'react';
 import {Link} from "react-router-dom";
 import EachPost from '../EachPost';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import Navbar from '../Nav';
+import { faArrowLeft, faArrowRight, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import axios from 'axios';
+import Navbar from './../Nav';
 
 const initialPostList = [
-    {id:1, title: '새로 뜬 내한공연 정보 zip', writer: "정보관리자", writeday: "2022.7.13", counts: 54,
-    contents:"3개의 내한공연 정보가 이번주 업로드되었습니다."},
+    {id: 2, title: '스우파 콘서트 후기~', writer:"choyeons", writeday:"2022.7.13", counts:14,
+    contents: "스우파 콘서트 후기남깁니다." },
+    {id: 1, title: '싸이 흠뻑쇼 후기 남겨요!', writer: "choyeon2e", writeday: "2022.6.24", counts: 17,
+    contents: "싸이 흠뻑쇼 다녀왔어요 재미있었습니다."},
 ];
 
-function Cminf(props) {
 
-    const [postList] = useState(initialPostList);
+function Cmreview({apiUrl}) {
+
+    const [postList, setPostList] = useState([]);
+    const [page, setPage] = useState(1);
+    const [pages, setPages] = useState([]);
+
+//list?page=${page}&page_size=7
+    //response.data.count => //Math.ceil에 넣기
+    const getPostList = useCallback(()=>{
+        axios.get(`${apiUrl}post/`).then(response => {
+            const lastPage = Math.ceil(response.data.count / 7);
+            const tempPages = [];
+            // console.log(response);
+            for (let i=1; i<=lastPage; i++){
+                tempPages.push(i);
+            }
+            setPages(tempPages);
+            setPostList(response.data); //이거 하면 서버에 있는 데이터값이 리스트로 들어감
+            console.log(response.data);
+            // setPostList(initialPostList);
+        })
+    },[page]);
+
+    useEffect(getPostList, [page]);
+
+    // useEffect(()=>{
+    //     axios.get(`${apiUrl}list/?page=1&page_size=7`).then(response=>{
+    //         const lastPage = Math.ceil(response.data.count/7);
+    //         const tempPages=[];
+    //         for (let i=1; i<=lastPage; i++){
+    //             tempPages.push(i);
+    //         }
+    //         setPages(tempPages);
+    //         setPostList(response.data);
+    //     })
+    // });
 
     return (
         <div id="center">
@@ -24,7 +61,7 @@ function Cminf(props) {
                     </Link>
                     <Link to="/friends">
                         <input type="button" value="친구 구하기 게시판"/>                      
-                    </Link>
+                    </Link>                  
                     <Link to="/ticket">
                         <input type="button" value="티켓 양도 게시판"/>
                     </Link>
@@ -32,7 +69,7 @@ function Cminf(props) {
                         <input type="buttonClick" value="정보 공유 게시판"/>                    
                     </Link>
                 </div>
-                <div className="select">
+                <div>
                     <div className="YellowSquare">
                         <div className="PostList">
                             <div className="Blank">
@@ -40,7 +77,7 @@ function Cminf(props) {
                                     <button className="writeBtn">
                                         <FontAwesomeIcon icon={faPenToSquare}/>
                                         &nbsp;작성하기 
-                                    </button>                              
+                                    </button>                          
                                 </Link>
                             </div>
                             <table>
@@ -54,16 +91,35 @@ function Cminf(props) {
                                     </tr>
                                 </thead>
                                     {postList.map((element)=>(
-                                        <EachPost postID={element.id} title={element.title} writer={element.writer} writeday={element.writeday} counts={element.counts}/>
+                                        <EachPost postID={element.id} title={element.title} writer={element.author} writeday={element.date} counts={element.counts}/>
                                     ))}                                        
                             </table>
+                            <div className='pageNum'>
+                                <button onClick={()=>{
+                                    if (page>1){
+                                    setPage(page - 1)                                    
+                                    }
+                                    }}>
+                                    <FontAwesomeIcon icon={faArrowLeft}/>
+                                </button>
+                                {pages.map(pageNum => (
+                                <button key={pageNum} onClick={()=>setPage(pageNum)} className="pageNumBtn">{pageNum}</button>                       
+                            ))}
+                                <button onClick={()=>{
+                                    if (pages.length>page){
+                                    setPage(page+1)                                    
+                                    }
+                                    }}>
+                                    <FontAwesomeIcon icon={faArrowRight}/>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>                
+                </div>
             </div>
 
         </div>
     );
 }
 
-export default Cminf;
+export default Cmreview;

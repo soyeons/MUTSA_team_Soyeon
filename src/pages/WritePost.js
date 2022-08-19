@@ -12,60 +12,31 @@ const OPTIONS = [
   { value: 'inf', name: '정보 공유 게시판' }
 ];
 
-var selectBoxChange = function(value){
-    console.log("value값은? : " + value);
-    $("#writeSelect").val(value);
-} //이거 보완해야함
+function WritePost(){
 
-// const selectBoxOpt = $('#writeSelect').val(selectBoxChange.value);
+    let finalValue = null;
 
-const SelectBox = (props) => {
-    const handleChange = (e) => {
-        console.log(e.target.value);
+    const SelectBox = (props) => {
+        const handleChange = (e) => {
+            console.log(e.target.value);
+            finalValue = e.target.value;
+            console.log(finalValue);
+        };
+    
+        return(
+            <select className="writeSelect" id="writeSelect" onChange={handleChange}>
+                <option>게시판을 선택하세요--</option>
+                {props.options.map((option)=>{
+                    return <option
+                        key={option.value}
+                        value={option.value}
+                    >
+                        {option.name}
+                    </option>
+                })}
+            </select>
+        );
     };
-
-    return(
-        <select className="writeSelect" id="writeSelect" onChange={handleChange}>
-            {props.options.map((option)=>{
-                return <option
-                    key={option.value}
-                    value={option.value}
-                    defaultValue={props.defaultValue === option.value}
-                >
-                    {option.name}
-                </option>
-            })}
-        </select>
-    );
-};
-
-
-function WritePost({apiUrl}){
-
-
-    // const ToDoItem = ({todoItem, todoList, setTodoList }) => {
-    //     const [edited, setEdited] = useState(false); //수정 모드인지 확인
-    //     const [newText, setNewText] = useState(todoItem.text);
-    
-    //     const onClickEditButton = () =>{
-    //         //클릭시 edited 값을 true로 바꿈
-    //         setEdited(true);
-    //     };
-    
-    //     const onChangeEditInput = (e) => {
-    //         setNewText(e.target.value);
-    //     };
-    
-    //     const onClickSubmitButton = ()=>{
-    //         const nextTodoList = todoList.map((item)=>({
-    //             ...item,
-    //             text: item.id === todoItem.id ? newText: item.text, //새로운 아이템 내용을 넣어줌
-    //         }));
-    //         setTodoList(nextTodoList); //새로운 리스트를 넣어줌
-    //         setEdited(false); //수정모드를 다시 읽기모드로 변경
-    //     };
-        
-    // }
 
     const [inputs,setInputs] = useState({
         title : '',
@@ -85,23 +56,17 @@ function WritePost({apiUrl}){
 
     const navigate = useNavigate();
 
-    // const selectUrl = document.getElementsByClassName('writeSelect');
-    
-    // 셀렉트박스 value를 가져와서 등록 눌렀을 때 navigate로 해당 게시판 연결되게 하고싶은데
-    // 방법을 모르겟음.
-
     const onSubmit = () => {
-        axios.post('http://172.17.195.227:8000/festivalapp/post/create/', {
+        axios.post(`http://172.17.195.227:8000/festivalapp/post/create/`, {
             title: inputs.title,
             body: inputs.contents,
             author: "익명",
+            category: finalValue,
             repls: [],
         }).then((response)=>{
             window.location.reload(); //등록버튼 누르고 바로 페이지 새로고침
             console.log(response);
         })
-           // repls: [],}).then(response => {
-            //     console.log('댓글',response);})
             navigate('../review');
         }
 
@@ -131,7 +96,6 @@ function WritePost({apiUrl}){
                                 </div>
                             </div>
                             <div className="Writetitle" testw={testw}>
-                                {/* <div className='InputPost'></div> */}
                                 <input type="text" onChange={onChange} value={title} className="txtTitle" name="title" placeholder='제목을 입력해 주세요.'/>
                             </div>
                             <div className="Writecontent">

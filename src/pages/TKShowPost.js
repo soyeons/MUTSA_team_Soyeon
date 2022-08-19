@@ -1,37 +1,96 @@
-import React,{useState} from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, {useState, useEffect, useRef, useMemo} from 'react';
+import { Link, Navigate, useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 import './ShowPost.css';
-import Navbar from './../Nav';
+import Navbar from '../Nav';
 
-const initialPostList = [
-    {num:3, title: '청춘페스티벌 연석 양도', writer:"ticketsss", writeday:"2022.7.12", counts:1,
-    contents: "청춘페스티벌 연석 양도해요~ 자리는 S석 337,338번입니당 "},
-    {num:2, title: '흠뻑쇼 R석 양도해요', writer:"lllls", writeday:"2022.7.11", counts:5, 
-    contents: "흠뻑쇼 R석 한자리 양도합니다. 관심있으신분 댓글남겨주세욥. "},
-    {num:1, title: '빌리아일리시 내한공연 티켓 양도합니다.', writer: "티켓쟁이", writeday: "2022.7.10", counts: 7,
-    contents: "빌리아일리시 내한공연 티켓 양도해요. 사정이 생겨서 못가게되었습니다ㅜ"},
-];
 
-function ShowPost(){
+function ShowPost({apiUrl}){
 
+    const navigate = useNavigate();
     const params = useParams();
-    const postNum = initialPostList.length-params.postID;
-
-    const title = initialPostList[postNum].title;
-    const writer = initialPostList[postNum].writer;
-    const writeday = initialPostList[postNum].writeday;
-    const contents = initialPostList[postNum].contents;
-
-    let [userName] = useState('user_id');
-    // let [feedComments, setFeedComments] = useState([]);
-    let [isValid, setIsValid] = useState(false);
-    const [repl, setRepl] = useState("");
+    useEffect(()=>{
+        console.log('파람스',params);
+    },[]);
     
+    let [userName] = useState('user_id');
+    let [isValid, setIsValid] = useState(false);
+
+    const CommentList = (props)=> {
+        return(
+            <div className="userCommentBox"> 
+                <div className='userName'>{props.author}</div>
+                <div className="userComment">{props.comment}</div>
+                <div className='replTime'>{props.date}</div>
+                &nbsp;&nbsp;
+                <button className='plusBtn' value={props.replNum} onClick={e=>{onDeleteRepl(e.target.value)}}>
+                    <FontAwesomeIcon icon={faEllipsisVertical}/>
+                </button>
+                
+            </div>
+        )
+    }
+
+    const [post, setPost] = useState([]);
+    const [repls, setRepls] = useState([]);
+    const replInput = useRef();
+
+    useEffect(()=>{
+        axios.get(`${apiUrl}post/${params.postID}`)
+        .then(response => {
+            console.log(response);
+            setPost(response.data.post);
+            console.log(response.data.post);
+            // replInput.current.focus();
+            setRepls(response.data.comment);
+            console.log(response.data.comment);
+            console.log("레플스 피케이",repls[0].pk);
+        });
+    },[]);
+
+    const [repl, setRepl] = useState("");
+
+    const onSubmitRepl = () =>{
+        axios.post('http://172.17.195.227:8000/festivalapp/comment/create/',{
+            comment: repl,
+            post: params.postID,
+        }).then(()=>{
+            window.location.reload(); //등록버튼 누르고 바로 페이지 새로고침
+        })
+    } 
+    const modifyUrl = '/writepost/modify/'+params.postID;
+
+    const SubmitComponentRepl = React.memo(({onSubmitRepl})=>( //댓글등록 컴포넌트
+        <button onClick={onSubmitRepl} className="registBtn">
+            댓글 등록
+        </button>
+    ));
+
+    const onDelete = () =>{ //삭제 기능
+        axios.post(`http://172.17.195.227:8000/festivalapp/post/${params.postID}/delete/`,{
+            postID: params,
+        }).then(()=>{
+            window.location.reload();
+        })
+        navigate('../review');
+    };
+
+    const onDeleteRepl = (e) =>{ //삭제 기능
+        axios.post(`http://172.17.195.227:8000/festivalapp/comment/${repls[e].pk}/delete/`,{
+            postID: repls[e].pk,
+        }).then(()=>{
+            window.location.reload();
+        })
+    };
+
     return (
         <div id="center">
-            <nav><Navbar/></nav>
+            <nav>
+               <Navbar/> 
+            </nav>
             <div>
                 <div id="select">
                     <Link to="/review">
@@ -49,56 +108,68 @@ function ShowPost(){
                 </div>
                 <div className="YellowSquare">
                     <div className="PostList">
-                        <div>
+                        <div className="Blank">
                             <Link to = "/writepost">
                                 <button className="writeBtn">
                                     <FontAwesomeIcon icon={faPenToSquare}/>
-                                    &nbsp;작성하기 
+                                    &nbsp;작성하기
                                 </button>                          
                             </Link>
                         </div>
                         <div className="tc">
                             <div className='blank'></div>
-                            <div className="detailtitle">{title}</div>
+                            <div className="detailtitle">
+                                {post.title}
+                            </div>
                             <div className='detailw'>
-                                {writer}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{writeday}
-                                <button className="sp">삭제</button><button className="sp">수정</button>
+                                userId : {post.author}
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button className="sp" onClick={onDelete}>삭제</button>
+                                <Link to={modifyUrl}>
+                                    <button className="sp">수정</button>
+                                </Link>
                             </div>
                             <div className="detailcontents">
-                                {contents}
+                                {post.body}
                             </div>
-                            <div className='repl'>
+                            <div className="repl">
+                                {repls && repls.map((repls,i)=>{
+                                    return(
+                                        <CommentList 
+                                            key = {i}
+                                            author={repls.fields.author}
+                                            comment={repls.fields.comment}
+                                            date={repls.fields.date}
+                                            replNum={i}
+                                        />
+                                    );
+                                })}   
                                 <div className='replPlus'>  
-                                        <button 
-                                            type="button"
-                                            className="registBtn"
-                                            // onClick={onSubmitRepl}
-                                        >댓글 작성</button>
-                                        <div className='txtSpace'>
-                                            <div className='userid'>
-                                                user_id
-                                            </div>
-                                            <textarea
-                                                onChange={e => {
-                                                    setRepl(e.target.value);
-                                                }}
-                                                onKeyUp={e => {
-                                                    e.target.value.length >= 1
-                                                        ? setIsValid(true)
-                                                        : setIsValid(false);
-                                                }}
-                                                onKeyDown={e => {
-                                                    e.target.value.length <= 0
-                                                        ? setIsValid(false)
-                                                        : setIsValid(true);
-                                                }}
-                                                value={repl} 
-                                                spellcheck="false" className="replSpace" placeholder="댓글을 입력하세요..." cols="180" rows="3">
-                                            </textarea>
+                                    <SubmitComponentRepl onSubmitRepl={onSubmitRepl}/>
+                                    <div className='txtSpace'>
+                                        <div className='userid'>
+                                            user_id
                                         </div>
-                                    </div>                                
+                                        <textarea
+                                            onChange={e => {
+                                                setRepl(e.target.value);
+                                            }}
+                                            onKeyUp={e => {
+                                                e.target.value.length >= 1
+                                                    ? setIsValid(true)
+                                                    : setIsValid(false);
+                                            }}
+                                            onKeyDown={e => {
+                                                e.target.value.length <= 0
+                                                    ? setIsValid(false)
+                                                    : setIsValid(true);
+                                            }}
+                                            value={repl} 
+                                            spellcheck="false" className="replSpace" placeholder="댓글을 입력하세요..." cols="180" rows="3">
+                                        </textarea>
+                                    </div>
+                                </div>
                             </div>
-
                         </div>
                     </div>
                 </div>                
@@ -106,5 +177,6 @@ function ShowPost(){
         </div>
     );
 }
+
 
 export default ShowPost;

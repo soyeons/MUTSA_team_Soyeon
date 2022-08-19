@@ -24,14 +24,13 @@ function Cmreview({apiUrl}) {
     //response.data.count => //Math.ceil에 넣기
     const getPostList = useCallback(()=>{
         axios.get(`${apiUrl}post/`).then(response => {
-            const lastPage = Math.ceil( response.data.count / 7);
+            const lastPage = Math.ceil(response.data.count / 7);
             const tempPages = [];
             // console.log(response);
             for (let i=1; i<=lastPage; i++){
                 tempPages.push(i);
             }
             setPages(tempPages);
-//.results (response.data 뒤에 넣기)
             setPostList(response.data); //이거 하면 서버에 있는 데이터값이 리스트로 들어감
             console.log(response.data);
             // setPostList(initialPostList);
