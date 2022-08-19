@@ -6,50 +6,41 @@ import { faArrowLeft, faArrowRight, faPenToSquare } from "@fortawesome/free-soli
 import axios from 'axios';
 import Navbar from './../Nav';
 
-const initialPostList = [
-    {id: 2, title: '스우파 콘서트 후기~', writer:"choyeons", writeday:"2022.7.13", counts:14,
-    contents: "스우파 콘서트 후기남깁니다." },
-    {id: 1, title: '싸이 흠뻑쇼 후기 남겨요!', writer: "choyeon2e", writeday: "2022.6.24", counts: 17,
-    contents: "싸이 흠뻑쇼 다녀왔어요 재미있었습니다."},
-];
-
-
-function Cmreview({apiUrl}) {
+function Cmreview() {
 
     const [postList, setPostList] = useState([]);
     const [page, setPage] = useState(1);
     const [pages, setPages] = useState([]);
 
-//list?page=${page}&page_size=7
+    //list?page=${page}&page_size=7
     //response.data.count => //Math.ceil에 넣기
-    const getPostList = useCallback(()=>{
-        axios.get(`${apiUrl}post/`).then(response => {
-            const lastPage = Math.ceil(response.data.count / 7);
-            const tempPages = [];
-            // console.log(response);
-            for (let i=1; i<=lastPage; i++){
-                tempPages.push(i);
-            }
-            setPages(tempPages);
-            setPostList(response.data); //이거 하면 서버에 있는 데이터값이 리스트로 들어감
-            console.log(response.data);
-            // setPostList(initialPostList);
-        })
-    },[page]);
-
-    useEffect(getPostList, [page]);
-
-    // useEffect(()=>{
-    //     axios.get(`${apiUrl}list/?page=1&page_size=7`).then(response=>{
-    //         const lastPage = Math.ceil(response.data.count/7);
-    //         const tempPages=[];
+    // const getPostList = useCallback(()=>{
+    //     axios.get(`http://172.17.195.227:8000/festivalapp/category/review/`).then(response => {
+    //         const lastPage = Math.ceil(response.data.count / 7);
+    //         const tempPages = [];
     //         for (let i=1; i<=lastPage; i++){
     //             tempPages.push(i);
     //         }
     //         setPages(tempPages);
-    //         setPostList(response.data);
+    //         setPostList(response.data); //이거 하면 서버에 있는 데이터값이 리스트로 들어감
+    //         console.log(response.data);
+    //         console.log(postList);
     //     })
-    // });
+    // },[page]);
+
+    useEffect(() => {
+        axios.get(`http://172.17.195.227:8000/festivalapp/category/review/`).then(response => {
+            const lastPage = Math.ceil(response.data.count / 7);
+            const tempPages = [];
+            for (let i=1; i<=lastPage; i++){
+                tempPages.push(i);
+            }
+            setPages(tempPages);
+            setPostList(response.data.post); //이거 하면 서버에 있는 데이터값이 리스트로 들어감
+            console.log(response.data.post);
+            console.log(postList);
+        })
+    }, []);
 
     return (
         <div id="center">
@@ -90,8 +81,8 @@ function Cmreview({apiUrl}) {
                                         <td>조회</td>
                                     </tr>
                                 </thead>
-                                    {postList.map((element)=>(
-                                        <EachPost postID={element.id} title={element.title} writer={element.author} writeday={element.date} counts={element.counts}/>
+                                    {postList.map((element,i)=>(
+                                        <EachPost key={i} postID={element.pk} title={element.fields.title} writer={element.fields.author} writeday={element.fields.date} counts={element.counts}/>
                                     ))}                                        
                             </table>
                             <div className='pageNum'>

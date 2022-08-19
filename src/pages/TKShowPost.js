@@ -15,9 +15,6 @@ function ShowPost({apiUrl}){
     useEffect(()=>{
         console.log('파람스',params);
     },[]);
-    
-    let [userName] = useState('user_id');
-    let [isValid, setIsValid] = useState(false);
 
     const CommentList = (props)=> {
         return(
@@ -34,9 +31,10 @@ function ShowPost({apiUrl}){
         )
     }
 
+    const [isValid, setIsValid] = useState(false);
     const [post, setPost] = useState([]);
     const [repls, setRepls] = useState([]);
-    const replInput = useRef();
+    // const replInput = useRef();
 
     useEffect(()=>{
         axios.get(`${apiUrl}post/${params.postID}`)
