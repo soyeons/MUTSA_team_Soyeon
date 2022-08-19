@@ -33,10 +33,6 @@
 	margin-top: 1rem;
 	margin-bottom: 1.8rem;
 }
-.active {
-	background-color: #5d0ec0;
-	color: white;
-}
 
 .tagSearchForm .submitBtn {
 	border-radius: 3.1rem;
@@ -50,6 +46,11 @@
 	font-size: 1.8rem;
 	cursor: pointer;
 	margin-bottom: 2rem;
+}
+
+.submitBtn:hover {
+	background-color: #5d0ec0;
+	color: white;
 }
 
 .tagSearchForm .tagDesc {
@@ -102,4 +103,9 @@
 	padding-left: 2rem;
 	font-size: 1.3rem;
 	padding-top: 0.4rem;
+}
+
+.active {
+	background-color: #5d0ec0;
+	color: white;
 }

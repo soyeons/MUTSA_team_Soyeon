@@ -15,7 +15,10 @@ import Navbar from './Nav';
 const Main = () => {
 	const [checks1, setCheck1] = useState(0);
 	const [checks2, setCheck2] = useState(0);
-	const [checks3, setCheck3] = useState(0);
+	const [checks31, setCheck31] = useState(0);
+	const [checks32, setCheck32] = useState(0);
+	const [checks33, setCheck33] = useState(0);
+	let dupCheckList = [];
 
 	const btnActivate = (idx, id) => {
 		if (id === 1) {
@@ -26,6 +29,43 @@ const Main = () => {
 		}
 	};
 
+	const btnToggle = (idx, id) => {
+		if (id === 1) {
+			if (checks31 !== 0) {
+				setCheck31(0);
+			} else {
+				setCheck31(idx);
+			}
+		} else if (id === 2) {
+			if (checks32 !== 0) {
+				setCheck32(0);
+			} else {
+				setCheck32(idx);
+			}
+		} else if (id === 3) {
+			if (checks33 !== 0) {
+				setCheck33(0);
+			} else {
+				setCheck33(idx);
+			}
+		}
+	};
+
+	const toAPI = () => {
+		dupCheckList.push(checks1);
+		dupCheckList.push(checks2);
+		if (checks31) {
+			dupCheckList.push(checks31);
+		}
+		if (checks32) {
+			dupCheckList.push(checks32);
+		}
+		if (checks33) {
+			dupCheckList.push(checks33);
+		}
+
+		console.log(dupCheckList);
+	};
 	const mainThemeRef = useRef(null);
 
 	const scrollToElement = () => mainThemeRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -80,7 +120,7 @@ const Main = () => {
 						<div className='mainThemeContent'>
 							<h1 className='mainThemeText'>궁금한 테마를 선택한 후 검색 버튼을 눌러보세요!</h1>
 							<form className='tagSearchForm'>
-								<button className={'submitBtn'} type='submit'>
+								<button className='submitBtn' type='button' onClick={toAPI}>
 									검색
 								</button>
 								<div className='tagContainer'>
@@ -173,9 +213,9 @@ const Main = () => {
 											</h1>
 										</div>
 									</button>
-									<button type='button' onClick={() => btnActivate(1, 3)}>
+									<button type='button' onClick={() => btnToggle(4, 1)}>
 										<p className='emogi'>💙 🫧 🥽</p>
-										<div className={'mainThemetext' + (checks3 === 6 ? ' active' : '')}>
+										<div className={'mainThemetext' + (checks31 !== 0 ? ' active' : '')}>
 											<h1>
 												음악에 흠뻑
 												<br />
@@ -183,9 +223,9 @@ const Main = () => {
 											</h1>
 										</div>
 									</button>
-									<button type='button' onClick={() => btnActivate(2, 3)}>
+									<button type='button' onClick={() => btnToggle(5, 2)}>
 										<p className='emogi'>🍔 🍕 🍺</p>
-										<div className={'mainThemetext' + (checks3 === 8 ? ' active' : '')}>
+										<div className={'mainThemetext' + (checks32 !== 0 ? ' active' : '')}>
 											<h1>
 												페스티벌도
 												<br />
@@ -193,9 +233,9 @@ const Main = () => {
 											</h1>
 										</div>
 									</button>
-									<button type='button' onClick={() => btnActivate(3, 3)}>
+									<button type='button' onClick={() => btnToggle(6, 3)}>
 										<p className='emogi'>🤳 📸 👍</p>
-										<div className={'mainThemetext' + (checks3 === 9 ? ' active' : '')}>
+										<div className={'mainThemetext' + (checks33 !== 0 ? ' active' : '')}>
 											<h1>
 												난 노래도 좋지만
 												<br />
