@@ -75,18 +75,19 @@
 
 .tagSearchForm .tagDesc {
 	position: absolute;
-	right: 11%;
+	right: 0%;
 	top: -6.7rem;
 }
 
 .tagSearchForm .tagContainer {
-	display: flex;
+	display: grid;
 	justify-content: center;
 	align-items: center;
 	flex-wrap: wrap;
-	gap: 2rem;
 	position: relative;
 	margin: 0 auto;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 2rem;
 }
 
 .tagContainer button {
