@@ -97,7 +97,6 @@ const Detail = () => {
 	const [checks6, setCheck6] = useState(0);
 
 	const consoleZZik = (x, id) => {
-		console.log('id는 : ', id, ',x는 : ', x);
 		if (id === 1) {
 			setCheck1(x);
 			// console.log(checks1);
