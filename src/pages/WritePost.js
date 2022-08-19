@@ -13,46 +13,19 @@ const OPTIONS = [
   { value: 'inf', name: '정보 공유 게시판' }
 ];
 
-function WritePost(){
-
-    let finalValue = null;
-
-    const SelectBox = (props) => {
-        const handleChange = (e) => {
-            console.log(e.target.value);
-            finalValue = e.target.value;
-            console.log(finalValue);
-        };
-    
-        return(
-            <select className="writeSelect" id="writeSelect" onChange={handleChange}>
-                <option>게시판을 선택하세요--</option>
-                {props.options.map((option)=>{
-                    return <option
-                        key={option.value}
-                        value={option.value}
-                    >
-                        {option.name}
-                    </option>
-                })}
-            </select>
-        );
-    };
-
-    return(
-        <select className="writeSelect" id="writeSelect" onChange={handleChange}>
-            {props.options.map((option)=>{
-                return <option
-                    key={option.value}
-                    value={option.value}
-                    defaultValue={props.defaultValue === option.value}
-                >
-                    {option.name}
-                </option>
-            })}
-        </select>
-    );
-};
+    // return(
+    //     <select className="writeSelect" id="writeSelect" onChange={handleChange}>
+    //         {props.options.map((option)=>{
+    //             return <option
+    //                 key={option.value}
+    //                 value={option.value}
+    //                 defaultValue={props.defaultValue === option.value}
+    //             >
+    //                 {option.name}
+    //             </option>
+    //         })}
+    //     </select>
+    // );
 
 
 function WritePost({apiUrl}){
@@ -83,6 +56,30 @@ function WritePost({apiUrl}){
         
     // }
 
+    let finalValue = null;
+
+    const SelectBox = (props) => {
+        const handleChange = (e) => {
+            console.log(e.target.value);
+            finalValue = e.target.value;
+            console.log(finalValue);
+        };
+    
+        return(
+            <select className="writeSelect" id="writeSelect" onChange={handleChange}>
+                <option>게시판을 선택하세요--</option>
+                {props.options.map((option)=>{
+                    return <option
+                        key={option.value}
+                        value={option.value}
+                    >
+                        {option.name}
+                    </option>
+                })}
+            </select>
+        );
+    };
+
     const [inputs,setInputs] = useState({
         title : '',
         body : '',
@@ -105,16 +102,7 @@ function WritePost({apiUrl}){
         axios.post(`http://172.17.195.227:8000/festivalapp/post/create/`, {
             title: inputs.title,
             body: inputs.contents,
-<<<<<<< HEAD
             username: name,
-            
-            }).then(response => {
-                console.log(response.data);
-            })
-            // repls: [],}).then(response => {
-                // console.log(response);
-            // navigate('../review');
-=======
             author: "익명",
             category: finalValue,
             repls: [],
@@ -123,7 +111,7 @@ function WritePost({apiUrl}){
             console.log(response);
         })
             navigate('../review');
->>>>>>> main
+
         }
 
     const SubmitComponent = React.memo(({onSubmit})=>(

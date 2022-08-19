@@ -106,12 +106,9 @@ const Profile = ( ) => {
           if(window.confirm('댓글을 삭제 하시겠습니까?')){
             for(let i=0; i<checkListReply.length; i++){
               setReply(reply.filter(reply => reply.pk !== parseInt(checkListReply[i])))
-<<<<<<< HEAD
-=======
               context.setUser({
                 reply : reply
               })
->>>>>>> main
               axios.post(`http://172.17.195.227:8000/accounts/kakao/user/${kakaoId}/comment/delete/${checkListReply[i]}/`,{
               }).then(response => {
                 context.setUser({
