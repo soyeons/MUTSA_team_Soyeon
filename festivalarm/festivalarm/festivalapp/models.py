@@ -6,32 +6,37 @@ from django.forms import CharField, DateField, ImageField, IntegerField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-"""
 class User(AbstractUser):
-    name = models.CharField(max_length=20)
-    email = models.CharField(blank=True, max_length=20)
-    phone_number = models.CharField(blank=True, max_length=20)
-    # like = 찜하기 
+    kakao_id = models.CharField(blank=True, max_length=100)
+    email = models.EmailField(blank=True)    
+    username = models.CharField(unique='True', null=True, max_length=100)
+    access_token = models.CharField(null=True, max_length=255)
+    refresh_token = models.CharField(null=True, max_length=255)
+    password = models.CharField(null=True, max_length=100)
+    
+    def __str__(self):
+        return self.username
+        
 """
 class User(models.Model):
     name = models.CharField(max_length=20)
 
     def __str__(self):
         return self.name
+"""
+# class Profile(models.Model):
+#     user= models.OneToOneField(User, on_delete=models.CASCADE,primary_key=True)
+#     nickname = models.CharField(max_length=20)
 
-class Profile(models.Model):
-    user= models.OneToOneField(User, on_delete=models.CASCADE,primary_key=True)
-    nickname = models.CharField(max_length=20)
-
-    def __str__(self):
-        return self.nickname
+#     def __str__(self):
+#         return self.nickname
     
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-              Profile.objects.create(user=instance)
+#     @receiver(post_save, sender=User)
+#     def create_user_profile(sender, instance, created, **kwargs):
+#         if created:
+#               Profile.objects.create(user=instance)
 
-# 페스티벌 장르 >>안하기로 결정
+# # 페스티벌 장르 >>안하기로 결정
 # class Genre(models.Model):
 #     name = models.CharField(max_length=20)
 
@@ -51,13 +56,13 @@ class Profile(models.Model):
 class Festival(models.Model):
     title = models.CharField(blank=True, max_length=1000)
     ticket_link = models.URLField(blank=True)
-    Poster = models.ImageField(blank=True,null=True)
+    Poster = models.ImageField(blank=True,null=True,upload_to="festival")
     time_start = models.DateField(blank=True)
     time_end = models.DateField(blank=True)
     place = models.CharField(blank=True,max_length=1000)
     ticket_open = models.DateField(blank=True)
     lineup = models.CharField(blank=True,max_length=1000)
-    hits = models.IntegerField(blank=True,null=True)
+    hits = models.IntegerField(blank=True,null=True,default=0)
     likes = models.ManyToManyField(User,related_name='like',blank=True)
     # genre_id = models.ForeignKey(
     #     Genre,
@@ -112,18 +117,19 @@ class Post(models.Model):
         on_delete=models.CASCADE, 
         related_name='post_user'
     )
-    profile = models.ForeignKey(
-        Profile, 
-        on_delete=models.CASCADE, 
-        related_name='post_profile'
-    )
+    # profile = models.ForeignKey(
+    #     Profile, 
+    #     on_delete=models.CASCADE, 
+    #     related_name='post_profile'
+    # )
      # 공연과 관련없는 게시글일수도 있잖아 --> 모델을 따로 만들어줘야하나?
     # fesstival의 id를 fk로
     festival = models.ForeignKey(
         Festival, 
         on_delete=models.CASCADE, 
-        related_name='post_festsival'
-    )
+        related_name='post_festsival',
+        null=True
+    ) #null= true 로 페스티벌 정보 없이도 만들수있게
     title = models.TextField(blank=True)
     body = models.TextField(blank=True)
     image = models.ImageField(blank=True) 
@@ -142,11 +148,11 @@ class Comment(models.Model):
         on_delete=models.CASCADE, 
         related_name='comment_user',
     )
-    profile = models.ForeignKey(
-        Profile, 
-        on_delete=models.CASCADE, 
-        related_name='comment_profile'
-    )
+    # profile = models.ForeignKey(
+    #     Profile, 
+    #     on_delete=models.CASCADE, 
+    #     related_name='comment_profile'
+    # )
     post = models.ForeignKey(
         Post, 
         null=True, 

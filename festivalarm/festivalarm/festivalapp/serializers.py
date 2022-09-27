@@ -1,24 +1,26 @@
 from rest_framework import serializers
-from .models import OptionCount, User, Festival, Place, Post, Comment, Option ,Profile,OptionCount
+from .models import OptionCount, User, Festival, Place, Post, Comment, Option,OptionCount
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model= User
-        fields=['id','name']
+        fields=['id','kakao_id','email','username','access_token','refresh_token','password']
 
-class ProfileSerializer(serializers.ModelSerializer):
-    user=UserSerializer(read_only=True)
+# class ProfileSerializer(serializers.ModelSerializer):
+#     user=UserSerializer(read_only=True)
     
-    class Meta:
-        model= Profile
-        fields=['id','user','nickname']
+#     class Meta:
+#         model= Profile
+#         fields=['user','nickname']
 
 
 class FestivalSerializer(serializers.ModelSerializer):
+    Poster = serializers.ImageField()
+    # Poster = serializers.ImageField(use_url=True)
     class Meta:
         model= Festival
-        fields=['id','title','place', 'time_start', 'time_end','ticket_open','ticket_link','Poster','hits','lineup','likes']
+        fields=['id','title','place', 'time_start', 'time_end','ticket_open','ticket_link','Poster','lineup','hits']
         
 
 class PlaceSerializer(serializers.ModelSerializer):
@@ -27,10 +29,10 @@ class PlaceSerializer(serializers.ModelSerializer):
         fields=['id','festival','name','name_adress','land_adress']
         
 class PostSerializer(serializers.ModelSerializer):
-    profile=ProfileSerializer(read_only=True)
+    author=UserSerializer(read_only=True)
     class Meta:
         model= Post
-        fields=['id','author','profile','festival','title','body','image','date','hits','category']
+        fields=['id','author','festival','title','body','image','date','hits','category']
 
 # class PostCreateSerializer(serializers.ModelSerializer):
 #     class Meta:
@@ -38,12 +40,13 @@ class PostSerializer(serializers.ModelSerializer):
 #         fields=['title','body','image','category']
         
 class CommentSerializer(serializers.ModelSerializer):
-    profile=ProfileSerializer(read_only=True)
+    author=UserSerializer(read_only=True)
     class Meta:
         model= Comment
-        fields=['id','user','post','comment','date']
+        fields=['id','author','post','comment','date']
         
 class OptionSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model= Option
         fields=['id','festival','option1','option2','option3','option4','option5','option6']
