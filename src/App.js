@@ -4,9 +4,8 @@ import './App.css';
 import userContext from './context';
 import Main from './Main';
 import Detail from './Detail';
-import PopUp from './PopUp';
 import Calendar from './Calendar';
-import FestList from './FestList';
+import FestList from './routes/FestList';
 import Login from './Login';
 import Redirect from './Redirect';
 import Profile from './Profile';
@@ -56,17 +55,17 @@ function App() {
 					<Route path='/mypage' element={<Profile></Profile>}></Route>
 					<Route path='/festlist' element={<FestList />} />
 					<Route path='/detail/:id' element={<Detail />} />
-					<Route path='/review' element={<CMreview/>} />
-					<Route path='/friends' element={<CMfriends/>} />
-					<Route path='/ticket' element={<CMticket/>} />
-					<Route path='/inf' element={<CMinf/>} />
-					<Route path='/writepost' element={<WritePost/>} exact />
-					<Route path='/writepost/modify/:postID' element={<WritePost/>} exact />
-					<Route path='/review/post/:postID' element={<RVShowPost/>} />
-					<Route path='/friends/post/:postID' element={<FRShowPost/>} />
-					<Route path='/ticket/post/:postID' element={<TKShowPost/>} />
-					<Route path='/inf/post/:postID' element={<InfShowPost/>} />
-					<Route path='/writepost' element={<WritePost/>} />
+					<Route path='/review' element={<CMreview />} />
+					<Route path='/friends' element={<CMfriends />} />
+					<Route path='/ticket' element={<CMticket />} />
+					<Route path='/inf' element={<CMinf />} />
+					<Route path='/writepost' element={<WritePost />} exact />
+					<Route path='/writepost/modify/:postID' element={<WritePost />} exact />
+					<Route path='/review/post/:postID' element={<RVShowPost />} />
+					<Route path='/friends/post/:postID' element={<FRShowPost />} />
+					<Route path='/ticket/post/:postID' element={<TKShowPost />} />
+					<Route path='/inf/post/:postID' element={<InfShowPost />} />
+					<Route path='/writepost' element={<WritePost />} />
 					<Route path='/search' element={<Search></Search>} />
 					<Route path='/theme' element={<Theme></Theme>} />
 				</Routes>

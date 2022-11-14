@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import style from './Calendar.css';
 import classNames from 'classnames/bind';
-import PopUp from './PopUp';
+import PopUp from './components/PopUp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faCloud, faUmbrella } from '@fortawesome/free-solid-svg-icons';
-import festivallist from './list.json';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Nav';
+import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { festivals } from './atom';
+
+const WeekDay = styled.div``;
 
 const cx = classNames.bind(style);
 
-const initialPostList = festivallist['festivallist'];
-
 const Calendar = () => {
+	const festivallist = useRecoilValue(festivals);
 	const [date, setDate] = useState(new Date());
 	const [selectedYear, setSelectedYear] = useState(date.getFullYear());
 	const [selectedMonth, setSelectedMonth] = useState(date.getMonth());
 	const monthName = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 	const [isHover, setIsHover] = useState(-1);
 	const [isClick, setIsClick] = useState(-1);
+	const dayName = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
 	const [x, setX] = useState();
 	const [y, setY] = useState();
@@ -29,9 +33,8 @@ const Calendar = () => {
 	};
 
 	const navigate = useNavigate();
-	const goDetail = (idx) => {
-		console.log('this is', idx);
-		navigate(`${'/detail/' + idx}`);
+	const goDetail = (id) => {
+		navigate(`${'/detail/' + id}`);
 	};
 
 	useEffect(() => {
@@ -58,9 +61,9 @@ const Calendar = () => {
 
 	const isFest = (i) => {
 		let festArr = [];
-		for (let j = 0; j < initialPostList.length; j++) {
-			let start = new Date(Number(initialPostList[j].time_start.substring(0, 4)), Number(initialPostList[j].time_start.substring(5, 7)) - 1, Number(initialPostList[j].time_start.substring(8, 10)));
-			let end = new Date(Number(initialPostList[j].time_end.substring(0, 4)), Number(initialPostList[j].time_end.substring(5, 7)) - 1, Number(initialPostList[j].time_end.substring(8, 10)));
+		for (let j = 0; j < festivallist.length; j++) {
+			let start = new Date(Number(festivallist[j].time_start.substring(0, 4)), Number(festivallist[j].time_start.substring(5, 7)) - 1, Number(festivallist[j].time_start.substring(8, 10)));
+			let end = new Date(Number(festivallist[j].time_end.substring(0, 4)), Number(festivallist[j].time_end.substring(5, 7)) - 1, Number(festivallist[j].time_end.substring(8, 10)));
 			if (start.getFullYear() === selectedYear && start.getMonth() === selectedMonth && start.getDate() === i + 1) {
 				let sub = end.getDate() - start.getDate();
 				const styles = { width: `${(sub + 1) * 6.8}rem`, cursor: 'pointer' };
@@ -68,9 +71,9 @@ const Calendar = () => {
 
 				festArr.push(
 					<div className='calendarOnFest' style={styles} onClick={() => setIsClick(j)} onMouseOver={() => setIsHover(j)} onMouseOut={() => setIsHover(-1)}>
-						<p style={forP}>{initialPostList[j].title}</p>
-						{isHover === j ? <PopUp x={x} y={y} idx={j}></PopUp> : ''}
-						{isClick === j ? goDetail(j) : ''}
+						<p style={forP}>{festivallist[j].title}</p>
+						{isHover === j ? <PopUp x={x} y={y} id={festivallist[j].id}></PopUp> : ''}
+						{isClick === j ? goDetail(festivallist[j].id) : ''}
 					</div>
 				);
 			}
