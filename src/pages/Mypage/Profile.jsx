@@ -1,11 +1,11 @@
 import React, {useContext,useState,useEffect,useRef,useMemo} from 'react';
-import "./Profile.css";
+import "../../styles/Profile.css";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import userContext from "./context/index";
+import userContext from "../../context/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock, faHeartCircleCheck, faPenToSquare, faComment} from "@fortawesome/free-solid-svg-icons";
-import Navbar from './Nav';
+import Navbar from '../../Nav';
 
 const Profile = ( ) => {
     const context = useContext(userContext);

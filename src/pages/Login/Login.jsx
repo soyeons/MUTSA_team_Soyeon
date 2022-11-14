@@ -5,9 +5,11 @@ import {
     Emoji,
     Header,
     SubHeader,
-    KakaoBtn } from './styledComponent';
+    KakaoBtn } from '../../styles/styledComponent';
 
-import { KAKAO_CLIENT_ID, REDIRECT_URL } from './KakaoLoginData';
+
+const REDIRECT_URL =  "http://localhost:3000/redirect";
+const KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
 
 export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=code`;
 

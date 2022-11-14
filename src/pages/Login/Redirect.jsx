@@ -2,8 +2,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import userContext from "./context/index";
-import Profile from './Profile';
+import userContext from "../../context/index";
+import Profile from '../Mypage/Profile';
 
 const Redirect = () => {
     const [signup, setSignup] = useState(false);
