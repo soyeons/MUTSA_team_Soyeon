@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import './WritePost.css';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
-import $ from 'jquery';
+import { useNavigate } from 'react-router-dom';
 import Navbar from './../Nav';
 import userContext from './../context/index';
+import { useRecoilState } from 'recoil';
+import { finalValueAtom } from './atoms';
 
 const OPTIONS = [
   { value: 'review', name: '후기 게시판' },
@@ -14,18 +15,20 @@ const OPTIONS = [
 ];
 
 function WritePost(){
-
+    const [finalValue, setfinalValue] = useRecoilState(finalValueAtom);
     const context= useContext(userContext);
-    const [name, setName] = useState(context.user.name);
+    const [name] = useState(context.user.name);
 
-    let finalValue = null;
+    // let finalValue = null;
 
     const SelectBox = (props) => {
-        const handleChange = (e) => {
-            console.log(e.target.value);
-            finalValue = e.target.value;
-            console.log(finalValue);
-        };
+        // const handleChange = (e) => {
+        //     finalValue = e.target.value;
+        // };
+
+        const handleChange = (e) =>{
+            setfinalValue(e.target.value);
+        }
     
         return(
             <select className="writeSelect" id="writeSelect" onChange={handleChange}>
@@ -46,6 +49,7 @@ function WritePost(){
         title : '',
         body : '',
     });
+
     const {title, contents} = inputs;
 
     const testw = 1;
@@ -68,9 +72,8 @@ function WritePost(){
             author: "익명",
             category: finalValue,
             repls: [],
-            }).then((response)=>{
+            }).then(()=>{
             window.location.reload(); //등록버튼 누르고 바로 페이지 새로고침
-            console.log(response);
             })
             navigate('../review');
         }

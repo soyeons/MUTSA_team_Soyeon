@@ -6,6 +6,8 @@ import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import './ShowPost.css';
 import Navbar from '../Nav';
+import { useSetRecoilState } from 'recoil';
+import { isValidAtom } from './atoms';
 
 function ShowPost(){
 
@@ -32,21 +34,16 @@ function ShowPost(){
         )
     }
 
-    let [isValid, setIsValid] = useState(false);
+    const setIsValidRecoilState = useSetRecoilState(isValidAtom);
+    
     const [post, setPost] = useState([]);
     const [repls, setRepls] = useState([]);
-    const replInput = useRef();
 
     useEffect(()=>{
         axios.get(`http://172.17.195.227:8000/festivalapp/post/${params.postID}`)
         .then(response => {
-            console.log(response);
             setPost(response.data.post);
-            console.log(response.data.post);
-            // replInput.current.focus();
             setRepls(response.data.comment);
-            console.log(response.data.comment);
-            console.log("레플스 피케이",repls[0].pk);
         });
     },[]);
 
@@ -155,13 +152,13 @@ function ShowPost(){
                                             }}
                                             onKeyUp={e => {
                                                 e.target.value.length >= 1
-                                                    ? setIsValid(true)
-                                                    : setIsValid(false);
+                                                    ? setIsValidRecoilState(true)
+                                                    : setIsValidRecoilState(false);
                                             }}
                                             onKeyDown={e => {
                                                 e.target.value.length <= 0
-                                                    ? setIsValid(false)
-                                                    : setIsValid(true);
+                                                    ? setIsValidRecoilState(true)
+                                                    : setIsValidRecoilState(false);
                                             }}
                                             value={repl} 
                                             spellcheck="false" className="replSpace" placeholder="댓글을 입력하세요..." cols="180" rows="3">

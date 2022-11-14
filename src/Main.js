@@ -11,6 +11,7 @@ import image5 from './img/fireCraker/image5.png';
 import image6 from './img/fireCraker/image6.png';
 import image7 from './img/fireCraker/image7.png';
 import Navbar from './Nav';
+import ScrollToTop from './ScrollToTop';
 
 const Main = () => {
 	const [checks1, setCheck1] = useState(0);

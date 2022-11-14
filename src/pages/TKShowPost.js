@@ -1,20 +1,19 @@
-import React, {useState, useEffect, useRef, useMemo} from 'react';
-import { Link, Navigate, useParams, useNavigate } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import './ShowPost.css';
 import Navbar from '../Nav';
+import { useSetRecoilState } from 'recoil';
+import { isValidAtom } from './atoms';
 
 
-function ShowPost({apiUrl}){
+function ShowPost(){
 
     const navigate = useNavigate();
     const params = useParams();
-    useEffect(()=>{
-        console.log('파람스',params);
-    },[]);
 
     const CommentList = (props)=> {
         return(
@@ -31,21 +30,16 @@ function ShowPost({apiUrl}){
         )
     }
 
-    const [isValid, setIsValid] = useState(false);
+    const setIsValidRecoilState = useSetRecoilState(isValidAtom);
     const [post, setPost] = useState([]);
     const [repls, setRepls] = useState([]);
     // const replInput = useRef();
 
     useEffect(()=>{
-        axios.get(`${apiUrl}post/${params.postID}`)
+        axios.get(`http://172.17.195.227:8000/festivalapp/post/${params.postID}`)
         .then(response => {
-            console.log(response);
             setPost(response.data.post);
-            console.log(response.data.post);
-            // replInput.current.focus();
             setRepls(response.data.comment);
-            console.log(response.data.comment);
-            console.log("레플스 피케이",repls[0].pk);
         });
     },[]);
 
@@ -67,7 +61,7 @@ function ShowPost({apiUrl}){
         </button>
     ));
 
-    const onDelete = () =>{ //삭제 기능
+    const onDelete = () =>{ //글 삭제 기능
         axios.post(`http://172.17.195.227:8000/festivalapp/post/${params.postID}/delete/`,{
             postID: params,
         }).then(()=>{
@@ -76,7 +70,7 @@ function ShowPost({apiUrl}){
         navigate('../review');
     };
 
-    const onDeleteRepl = (e) =>{ //삭제 기능
+    const onDeleteRepl = (e) =>{ //댓글 삭제 기능
         axios.post(`http://172.17.195.227:8000/festivalapp/comment/${repls[e].pk}/delete/`,{
             postID: repls[e].pk,
         }).then(()=>{
@@ -154,13 +148,13 @@ function ShowPost({apiUrl}){
                                             }}
                                             onKeyUp={e => {
                                                 e.target.value.length >= 1
-                                                    ? setIsValid(true)
-                                                    : setIsValid(false);
+                                                    ? setIsValidRecoilState(true)
+                                                    : setIsValidRecoilState(false);
                                             }}
                                             onKeyDown={e => {
                                                 e.target.value.length <= 0
-                                                    ? setIsValid(false)
-                                                    : setIsValid(true);
+                                                    ? setIsValidRecoilState(false)
+                                                    : setIsValidRecoilState(true);
                                             }}
                                             value={repl} 
                                             spellcheck="false" className="replSpace" placeholder="댓글을 입력하세요..." cols="180" rows="3">
